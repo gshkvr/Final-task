@@ -3,7 +3,7 @@ package dao;
 public enum QueryEnum {
 
     SELECT_USER_ALL("SELECT interpol.user.id AS id,\n" +
-            "       interpol.user.user_role_id AS role_id,\n" +
+            "       interpol.user.user_role_id AS user_role_id,\n" +
             "       interpol.user.login AS login,\n" +
             "       interpol.user.password AS password,\n" +
             "       interpol.user.email AS email,\n" +
@@ -12,7 +12,7 @@ public enum QueryEnum {
             "       FROM interpol.user user"),
 
     SELECT_USER_BY_ID("SELECT interpol.user.id AS id,\n" +
-            "       interpol.user.user_role_id AS role_id,\n" +
+            "       interpol.user.user_role_id AS user_role_id,\n" +
             "       interpol.user.login AS login,\n" +
             "       interpol.user.password AS password,\n" +
             "       interpol.user.email AS email,\n" +
@@ -22,7 +22,7 @@ public enum QueryEnum {
             "       WHERE user.id = ?"),
 
     SELECT_USER_BY_LOGIN("SELECT interpol.user.id AS id,\n" +
-            "       interpol.user.user_role_id AS role_id,\n" +
+            "       interpol.user.user_role_id AS user_role_id,\n" +
             "       interpol.user.login AS login,\n" +
             "       interpol.user.password AS password,\n" +
             "       interpol.user.email AS email,\n" +
@@ -30,6 +30,16 @@ public enum QueryEnum {
             "       interpol.user.last_name AS last_name\n" +
             "       FROM interpol.user user\n" +
             "       WHERE user.login = ?"),
+
+    SELECT_USER_BY_EMAIL("SELECT interpol.user.id AS id,\n" +
+            "       interpol.user.user_role_id AS user_role_id,\n" +
+            "       interpol.user.login AS login,\n" +
+            "       interpol.user.password AS password,\n" +
+            "       interpol.user.email AS email,\n" +
+            "       interpol.user.first_name AS first_name,\n" +
+            "       interpol.user.last_name AS last_name\n" +
+            "       FROM interpol.user user\n" +
+            "       WHERE user.email = ?"),
 
     CREATE_USER("insert into interpol.user (user_role_id, login, password, email, first_name, last_name) " +
             "       values (?,?,?,?,?,?)"),

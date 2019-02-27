@@ -1,8 +1,7 @@
 package command;
 
-import command.impl.LoginCommand;
+import command.impl.*;
 import dao.DaoManager;
-import resource.ConfigurationManager;
 import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,26 +19,36 @@ public class CommandFactory {
         private static final CommandFactory INSTANCE = new CommandFactory();
     }
 
-
-    private final DaoManager daoManager = DaoManager.getInstance();
+    //TODO - DaoManager ???
+    //private final DaoManager daoManager = DaoManager.getInstance();
     private static final String COMMAND = "command";
 
-    public Command defineCommand(HttpServletRequest request) {
-//        String action = request.getParameter(COMMAND);
-//        if (action == null || action.isEmpty()) {
-//            return new NewsCommand();
-//        }
-//        CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
-//        if(currentEnum == null){
-//            throw new IllegalArgumentException("No such command in CommandFactory.");
-//        }
-//        return currentEnum.getCommand();
+    private static final String NEWS_COMMAND = "news";
+    private static final String LOGIN_COMMAND = "login";
+    private static final String LOGIN_PAGE_COMMAND = "login_page";
+    private static final String REGISTER_COMMAND = "register";
+    private static final String REGISTER_PAGE_COMMAND = "register_page";
+    private static final String LOGOUT_COMMAND = "logout";
 
-        switch (command) {
-            case LoginCo
-                mand.COMMAND:
-                UserService userService = new UserService(daoManager.getUserDao());
-                return new LoginCommand(userService);
+    public Command defineCommand(HttpServletRequest request) {
+        String action = request.getParameter(COMMAND);
+        action = action == null ? "" : action;
+
+        switch (action) {
+            case NEWS_COMMAND:
+                return new NewsCommand();
+            case LOGIN_COMMAND:
+                return new LoginCommand();
+            case LOGIN_PAGE_COMMAND:
+                return new LoginPageCommand();
+            case REGISTER_COMMAND:
+                return new RegisterCommand();
+            case REGISTER_PAGE_COMMAND:
+                return new RegisterPageCommand();
+            case LOGOUT_COMMAND:
+                return new LogoutCommand();
+            default:
+                return new NewsCommand();
         }
     }
 }

@@ -1,4 +1,5 @@
 <%--@elvariable id="errorLogin" type="String"--%>
+<%--@elvariable id="successRegister" type="String"--%>
 <html>
     <head>
         <title>${login}</title>
@@ -18,6 +19,12 @@
                             <h5 class="card-title text-center">${login}</h5>
                             <form class="form-signin" name="loginForm" method="POST" action="controller">
                                 <input type="hidden" name="command" value="login"/>
+                                <c:if test="${successRegister != null}">
+                                    <div>
+                                        <h6 class="text-center">
+                                        <fmt:message key="${successRegister}" bundle="${mess}"/></h6>
+                                    </div>
+                                </c:if>
                                 <div class="form-label-group">
                                     <input type="text" id="login" name="login" class="form-control" placeholder="${login}">
                                     <label for="login">${login}</label>

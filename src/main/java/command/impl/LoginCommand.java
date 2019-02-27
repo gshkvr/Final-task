@@ -3,14 +3,16 @@ package command.impl;
 import command.Command;
 import controller.Page;
 import controller.SessionRequestContent;
-import logic.LoginLogic;
+import entity.impl.User;
+import exception.ServiceException;
 import resource.ConfigurationManager;
 import service.UserService;
+import util.CryptUtil;
 
 import javax.servlet.http.Cookie;
+import java.util.Optional;
 
 public class LoginCommand implements Command {
-    public static final String COMMAND = "login";
     private static final String USER_ATTRIBUTE = "user";
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
@@ -18,25 +20,26 @@ public class LoginCommand implements Command {
     private static final String LOGIN_PAGE_COMMAND = ConfigurationManager.getProperty("command.login.page");
     private static final String LOGIN_ERROR = ConfigurationManager.getProperty("error.login");
 
-    private final UserService userService;
-
-    public LoginCommand(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService = UserService.getInstance();
+    private final CryptUtil cryptUtil = CryptUtil.getInstance();
 
     @Override
-    public Page execute(SessionRequestContent content) {
+    public Page execute(SessionRequestContent content) throws ServiceException {
         String login = content.getRequestParameter(PARAM_NAME_LOGIN);
-        //String pass = BCrypt.hashpw(content.getRequestParameter(PARAM_NAME_PASSWORD), BCrypt.gensalt());
         String pass = content.getRequestParameter(PARAM_NAME_PASSWORD);
 
-        if (LoginLogic.checkLogin(login, pass)) {
-            content.setSessionAttribute(USER_ATTRIBUTE, login);
-            Cookie cookie = new Cookie(USER_ATTRIBUTE, login);
-            content.setCookie(cookie);
-            return new Page(NEWS_COMMAND, true);
-        } else {
-            return new Page(LOGIN_PAGE_COMMAND + LOGIN_ERROR, true);
+        Optional<User> optionalUser = userService.findUserByLogin(login);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (cryptUtil.checkPassword(pass, user.getPassword())) {
+                content.setSessionAttribute(USER_ATTRIBUTE, login);
+                Cookie cookie = new Cookie(USER_ATTRIBUTE, login);
+                content.setCookie(cookie);
+                return new Page(NEWS_COMMAND, true);
+            }
         }
+        return new Page(LOGIN_PAGE_COMMAND + LOGIN_ERROR, true);
     }
+
 }

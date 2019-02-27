@@ -14,6 +14,10 @@ public class UserDao extends AbstractDao<Integer, User> {
         return QueryEnum.SELECT_USER_BY_LOGIN.getQuery();
     }
 
+    protected String getFindUserByEmailQuery() {
+        return QueryEnum.SELECT_USER_BY_EMAIL.getQuery();
+    }
+
     @Override
     protected String getFindEntityByIdQuery() {
         return QueryEnum.SELECT_USER_BY_ID.getQuery();
@@ -66,5 +70,10 @@ public class UserDao extends AbstractDao<Integer, User> {
     public Optional<User> findUserByLogin(String login) throws DaoException {
         String query = getFindUserByLoginQuery();
         return executeEntityQuery(query, login);
+    }
+
+    public Optional<User> findUserByEmail(String email) throws DaoException {
+        String query = getFindUserByEmailQuery();
+        return executeEntityQuery(query, email);
     }
 }

@@ -2,6 +2,9 @@ package controller;
 
 import command.Command;
 import command.CommandFactory;
+import exception.ServiceException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +16,8 @@ import java.io.IOException;
 
 @WebServlet(name = "Controller", urlPatterns = "/controller")
 public class Controller extends HttpServlet {
-    private static final CommandFactory commandFactory = CommandFactory.INSTANCE;
+    private static final Logger LOGGER = LogManager.getLogger(Controller.class);
+    private static final CommandFactory commandFactory = CommandFactory.getInstance();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,25 +32,25 @@ public class Controller extends HttpServlet {
     private void processRequest(HttpServletRequest request,
                                 HttpServletResponse response)
             throws ServletException, IOException {
-        SessionRequestContent sessionRequestContent = new SessionRequestContent();
-        sessionRequestContent.extractValues(request);
-        Command command = commandFactory.defineCommand(request);
-        Page page = command.execute(sessionRequestContent);
-        sessionRequestContent.insertAttributes(request);
-        if (sessionRequestContent.isCookiesChanged()) {
-            sessionRequestContent.getCookies().forEach(response::addCookie);
-        }
-        if (page != null) {
+        try {
+            SessionRequestContent sessionRequestContent = new SessionRequestContent();
+            sessionRequestContent.extractValues(request);
+            Command command = commandFactory.defineCommand(request);
+            Page page = command.execute(sessionRequestContent);
+            sessionRequestContent.insertAttributes(request);
+            if (sessionRequestContent.isCookiesChanged()) {
+                sessionRequestContent.getCookies().forEach(response::addCookie);
+            }
+
             if (page.isForRedirect()) {
                 response.sendRedirect(request.getContextPath() + page.getUrl());
             } else {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page.getUrl());
                 dispatcher.forward(request, response);
             }
-        } else {
-//            LOGGER.fatal(e.getMessage(), e);
-//            page = new Page(ERROR_PAGE);
-//            forward(page, request, response);
+        } catch (ServiceException e) {
+            LOGGER.fatal(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 }

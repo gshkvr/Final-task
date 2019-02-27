@@ -1,3 +1,4 @@
+<%--@elvariable id="errorRegistration" type="String"--%>
 <html>
     <head>
         <title>${register}</title>
@@ -15,23 +16,32 @@
                     <div class="card card-signin flex-row my-5">
                         <div class="card-body">
                             <h5 class="card-title text-center">${register}</h5>
-                            <form class="form-signin">
+                            <form class="form-signin" name="registerForm" method="POST" action="controller">
+                                <input type="hidden" name="command" value="register"/>
                                 <div class="form-label-group">
-                                    <input type="text" id="input_login" class="form-control" placeholder="${login}" required>
-                                    <label for="input_login">${login}</label>
+                                    <input type="text" id="login" name="login" class="form-control" placeholder="${login}" required>
+                                    <label for="login">${login}</label>
                                 </div>
                                 <div class="form-label-group">
-                                    <input type="email" id="input_email" class="form-control" placeholder="${email}" required>
-                                    <label for="input_email">${email}</label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="${email}" required>
+                                    <label for="email">${email}</label>
+                                </div>
+                                <div class="form-label-group">
+                                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="${first_name}" required>
+                                    <label for="first_name">${first_name}</label>
+                                </div>
+                                <div class="form-label-group">
+                                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="${last_name}" required>
+                                    <label for="last_name">${last_name}</label>
                                 </div>
                                 <hr>
                                 <div class="form-label-group">
-                                    <input type="password" id="input_password" class="form-control" placeholder="${password}" required>
-                                    <label for="input_password">${password}</label>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="${password}" required>
+                                    <label for="password">${password}</label>
                                 </div>
                                 <div class="form-label-group">
-                                    <input type="password" id="input_confirm_password" class="form-control" placeholder="${confirmPassword}" required>
-                                    <label for="input_confirm_password">${confirmPassword}</label>
+                                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="${confirmPassword}" required>
+                                    <label for="confirm_password">${confirmPassword}</label>
                                 </div>
                                 <c:if test="${errorRegistration != null}">
                                     <div>

@@ -7,10 +7,11 @@ import java.util.Objects;
 public class User extends AbstractEntity {
 
     public static final String TABLE_NAME = "user";
-    public static final String ID = "user_id";
+    public static final String ID = "id";
     public static final String USER_ROLE_ID = "user_role_id";
     public static final String LOGIN = "login";
-    public static final String PASS = "password";
+    public static final String PASSWORD = "password";
+    public static final String CONFIRM_PASSWORD = "confirm_password";
     public static final String EMAIL = "email";
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
@@ -25,7 +26,8 @@ public class User extends AbstractEntity {
     public User() {
     }
 
-    public User(UserRole role, String login, String password, String email, String first_name, String last_name) {
+    public User(int id, UserRole role, String login, String password, String email, String first_name, String last_name) {
+        this.id = id;
         this.role = role;
         this.login = login;
         this.password = password;

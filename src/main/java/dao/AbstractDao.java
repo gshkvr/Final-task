@@ -97,12 +97,12 @@ public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K,
     }
 
     private void setParameters(PreparedStatement statement, Object[] parameters) throws SQLException {
-        for (int i = 1; i <= parameters.length; i++) {
+        for (int i = 0; i < parameters.length; i++) {
             Object parameter = parameters[i];
             if (parameter != null) {
-                statement.setString(i, parameter.toString());
+                statement.setString(i + 1, parameter.toString());
             } else {
-                statement.setString(i, null);
+                statement.setString(i + 1, null);
             }
         }
     }
