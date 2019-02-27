@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -21,8 +22,7 @@ public class ProxyConnection implements AutoCloseable {
         try {
             ConnectionPool.INSTANCE.returnConnection(this);
         } catch (ConnectionPoolException e) {
-            LOGGER.info("Couldn't return connection to pool", e);
-            throw new ProxyConnectionException(e);
+            throw new ProxyConnectionException("Couldn't return connection to pool", e);
         }
     }
 
@@ -30,13 +30,12 @@ public class ProxyConnection implements AutoCloseable {
         try {
             connection.close();
         } catch (SQLException e) {
-            LOGGER.info("Couldn't close connection to pool", e);
-            throw new ProxyConnectionException(e);
+            throw new ProxyConnectionException("Couldn't close connection to pool", e);
         }
     }
 
-    public Statement createStatement() throws SQLException {
-        return connection.createStatement();
+    public PreparedStatement prepareStatement(String sql) throws SQLException {
+        return connection.prepareStatement(sql) ;
     }
 
     public void setAutoCommit(boolean autoCommit) throws SQLException {

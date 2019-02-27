@@ -1,0 +1,77 @@
+<%--@elvariable id="localeCommand" type="String"--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${locale}"/>
+
+<fmt:setBundle basename="messages" var="mess"/>
+<fmt:message bundle="${mess}" key="message.header.news" var="news"/>
+<fmt:message bundle="${mess}" key="message.header.signIn" var="signIn"/>
+<fmt:message bundle="${mess}" key="message.header.signOut" var="signOut"/>
+<fmt:message bundle="${mess}" key="message.header.register" var="register"/>
+<fmt:message bundle="${mess}" key="message.header.locale" var="locale_dropdown"/>
+<fmt:message bundle="${mess}" key="message.header.locale_ru" var="locale_ru"/>
+<fmt:message bundle="${mess}" key="message.header.locale_en" var="locale_en"/>
+<fmt:message bundle="${mess}" key="message.login" var="login"/>
+<fmt:message bundle="${mess}" key="message.password" var="password"/>
+<fmt:message bundle="${mess}" key="message.confirm_password" var="confirmPassword"/>
+<fmt:message bundle="${mess}" key="message.email" var="email"/>
+<fmt:message bundle="${mess}" key="message.register" var="bRegister"/>
+
+<fmt:setBundle basename="config" var="config"/>
+<fmt:message bundle="${config}" key="locale.ru" var="localeRu"/>
+<fmt:message bundle="${config}" key="locale.en" var="localeEn"/>
+<fmt:message bundle="${config}" key="command.register" var="registerCommand"/>
+<fmt:message bundle="${config}" key="command.register.page" var="registerPageCommand"/>
+<fmt:message bundle="${config}" key="command.login" var="loginCommand"/>
+<fmt:message bundle="${config}" key="command.login.page" var="loginPageCommand"/>
+<fmt:message bundle="${config}" key="command.logout" var="logoutCommand"/>
+<fmt:message bundle="${config}" key="command.news" var="newsCommand"/>
+<fmt:message bundle="${config}" key="command.change_locale" var="changeLocaleCommand"/>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}${newsCommand}">
+            <img src="${pageContext.request.contextPath}/images/header/logo.png">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="${pageContext.request.contextPath}${newsCommand}">${news}
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+                <c:choose>
+                    <c:when test="${empty sessionScope.user}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}${loginPageCommand}">${signIn}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}${registerPageCommand}">${register}</a>
+                        </li>
+
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}${logoutCommand}">${signOut}</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"  id="dropdown-language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${locale_dropdown}</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-language">
+                        <a class="dropdown-item"
+                           href="${pageContext.request.contextPath}${localeCommand}&locale=en">${locale_en}</a>
+                        <a class="dropdown-item"
+                           href="${pageContext.request.contextPath}${localeCommand}&locale=ru">${locale_ru}</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+${user}

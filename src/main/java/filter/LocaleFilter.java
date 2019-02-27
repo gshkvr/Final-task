@@ -13,21 +13,19 @@ import java.util.*;
 @WebFilter(
         filterName = "LocaleFilter",
         urlPatterns = "/*",
-        initParams = {@WebInitParam(name = "defaultLocale", value = "ru-RU"),
-                @WebInitParam(name = "varLocale", value = "en-US"),
-                @WebInitParam(name = "varLocaleParam", value = "en")}
+        initParams = {@WebInitParam(name = "defaultLocale", value = "ru-RU")}
 )
 public class LocaleFilter implements Filter {
     private static final String LOCALE_ATTRIBUTE = "locale";
-    private String varLocaleParam;
+    private static final String RU = "ru";
+    private static final String EN = "en";
+    private static final Locale RU_LOCALE = new Locale("ru", "RU");
+    private static final Locale EN_LOCALE = new Locale("en", "US");
     private Locale defaultLocale;
-    private Locale varLocale;
 
     @Override
     public void init(FilterConfig filterConfig) {
-        varLocaleParam = filterConfig.getInitParameter("varLocaleParam");
         defaultLocale = Locale.forLanguageTag(filterConfig.getInitParameter("defaultLocale"));
-        varLocale = Locale.forLanguageTag(filterConfig.getInitParameter("varLocale"));
     }
 
     @Override
@@ -46,7 +44,14 @@ public class LocaleFilter implements Filter {
 
         if (httpRequest.getParameterMap().containsKey(LOCALE_ATTRIBUTE)) {
             String sLocale = httpRequest.getParameterMap().get(LOCALE_ATTRIBUTE)[0];
-            Locale locale = varLocaleParam.equals(sLocale) ? varLocale : defaultLocale;
+            Locale locale;
+            if (RU.equals(sLocale)) {
+                locale = RU_LOCALE;
+            } else if (EN.equals(sLocale)) {
+                locale = EN_LOCALE;
+            } else {
+                locale = defaultLocale;
+            }
             setLocale(servletResponse, session, locale);
         }
 

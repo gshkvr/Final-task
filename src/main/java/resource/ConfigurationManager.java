@@ -2,10 +2,10 @@ package resource;
 
 import java.util.ResourceBundle;
 
-public class DbManager {
-    private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("db");
+public class ConfigurationManager {
+    private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("config");
 
-    private DbManager() {
+    private ConfigurationManager() {
     }
 
     public static String getProperty(String key) {

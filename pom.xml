@@ -7,10 +7,21 @@
   <groupId>by.epam.kvirikashvili</groupId>
   <artifactId>finalTask</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <packaging>war</packaging>
 
-  <name>finalTask Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
+  <name>Interpol Maven Webapp</name>
   <url>http://www.example.com</url>
 
   <properties>
@@ -23,7 +34,9 @@
     <bootstrap-version>4.2.1</bootstrap-version>
     <jquery-version>3.3.1</jquery-version>
     <webjars-servlet-version>1.5</webjars-servlet-version>
+    <font-awesome-version>5.7.2</font-awesome-version>
     <mysql-connector-java-version>8.0.15</mysql-connector-java-version>
+    <jbcrypt-version>0.4</jbcrypt-version>
   </properties>
 
   <dependencies>
@@ -75,9 +88,19 @@
       <version>${webjars-servlet-version}</version>
     </dependency>
     <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>font-awesome</artifactId>
+      <version>${font-awesome-version}</version>
+    </dependency>
+    <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>${mysql-connector-java-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>${jbcrypt-version}</version>
     </dependency>
   </dependencies>
 
