@@ -2,9 +2,11 @@ package controller;
 
 import command.Command;
 import command.CommandFactory;
+import exception.CommandException;
 import exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import resource.ConfigurationManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +19,7 @@ import java.io.IOException;
 @WebServlet(name = "Controller", urlPatterns = "/controller")
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Controller.class);
+    private static final String ERROR_COMMAND = ConfigurationManager.getProperty("command.error");
     private static final CommandFactory commandFactory = CommandFactory.getInstance();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,25 +35,40 @@ public class Controller extends HttpServlet {
     private void processRequest(HttpServletRequest request,
                                 HttpServletResponse response)
             throws ServletException, IOException {
+
+        Page page;
         try {
             SessionRequestContent sessionRequestContent = new SessionRequestContent();
             sessionRequestContent.extractValues(request);
-            Command command = commandFactory.defineCommand(request);
-            Page page = command.execute(sessionRequestContent);
+            Command command = commandFactory.defineCommand(sessionRequestContent);
+            page = command.execute(sessionRequestContent);
             sessionRequestContent.insertAttributes(request);
             if (sessionRequestContent.isCookiesChanged()) {
                 sessionRequestContent.getCookies().forEach(response::addCookie);
             }
 
             if (page.isForRedirect()) {
-                response.sendRedirect(request.getContextPath() + page.getUrl());
+                redirect(page, request, response);
             } else {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page.getUrl());
-                dispatcher.forward(request, response);
+                forward(page, request, response);
             }
-        } catch (ServiceException e) {
+        } catch (ServiceException | CommandException e) {
             LOGGER.fatal(e.getMessage(), e);
-            e.printStackTrace();
+            page = new Page(ERROR_COMMAND, true);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page.getUrl());
+            dispatcher.forward(request, response);
         }
+    }
+
+    private void forward(Page page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String url = page.getUrl();
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(url);
+        requestDispatcher.forward(request, response);
+    }
+
+    private void redirect(Page page, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String url = page.getUrl();
+        String contextPath = request.getContextPath();
+        response.sendRedirect(contextPath + url);
     }
 }

@@ -60,9 +60,9 @@ public class UserDao extends AbstractDao<Integer, User> {
         parameters.add(password);
         String email = entity.getEmail();
         parameters.add(email);
-        String firstName = entity.getFirst_name();
+        String firstName = entity.getFirstName();
         parameters.add(firstName);
-        String lastName = entity.getLast_name();
+        String lastName = entity.getLastName();
         parameters.add(lastName);
         return parameters;
     }

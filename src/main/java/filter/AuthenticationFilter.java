@@ -1,5 +1,7 @@
 package filter;
 
+import entity.impl.User;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
@@ -16,18 +18,21 @@ import java.util.Optional;
         urlPatterns = "/*"
 )
 public class AuthenticationFilter implements Filter {
-    private static final String USER_ATTRIBUTE = "user";
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpSession session = httpRequest.getSession(true);
 
-        if (session.getAttribute(USER_ATTRIBUTE) == null && httpRequest.getCookies() != null) {
+        if (session.getAttribute(User.TABLE_NAME) == null && httpRequest.getCookies() != null) {
             List<Cookie> cookies = new LinkedList<>(Arrays.asList(httpRequest.getCookies()));
-            String user = getUserFromCookies(cookies);
+            String user = getFromCookies(cookies, User.TABLE_NAME);
             if (user != null) {
-                session.setAttribute(USER_ATTRIBUTE, user);
+                session.setAttribute(User.TABLE_NAME, user);
+            }
+            String userRole = getFromCookies(cookies, User.USER_ROLE);
+            if (userRole != null) {
+                session.setAttribute(User.USER_ROLE, userRole);
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);
@@ -39,14 +44,14 @@ public class AuthenticationFilter implements Filter {
     @Override
     public void destroy() {}
 
-    private String getUserFromCookies(List<Cookie> cookies) {
-        String user = null;
+    private String getFromCookies(List<Cookie> cookies, String name) {
+        String cookie = null;
         Optional<Cookie> anyCookie = cookies.stream()
-                .filter(c -> c.getName().equals(USER_ATTRIBUTE))
+                .filter(c -> c.getName().equals(name))
                 .findFirst();
         if (anyCookie.isPresent()) {
-            user = anyCookie.get().getValue();
+            cookie = anyCookie.get().getValue();
         }
-        return user;
+        return cookie;
     }
 }

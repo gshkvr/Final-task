@@ -38,7 +38,7 @@
                                         <h6 class="text-center"><fmt:message key="${errorLogin}" bundle="${mess}"/></h6>
                                     </div>
                                 </c:if>
-                                <button class="btn btn-lg btn btn-dark btn-block" type="submit">${signIn}</button>
+                                <button class="btn btn-lg btn btn-dark btn-block" type="submit">${bLogin}</button>
                             </form>
                         </div>
                     </div>

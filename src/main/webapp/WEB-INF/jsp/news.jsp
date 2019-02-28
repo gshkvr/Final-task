@@ -9,10 +9,9 @@
 
 <%@include file="../jspf/header.jspf" %>
 
-<fmt:message bundle="${mess}" key="message.news.title" var="title"/>
+<fmt:message bundle="${mess}" key="news.title" var="title"/>
 
 <div class="container" style="width:60%">
-    <input type="hidden" name="page" value="command.news" />
     <h1 class="my-4" align="center">
         <small>${title}</small>
     </h1>
@@ -22,10 +21,8 @@
             <c:when test="${locale == localeRu}">
                 <div>
                     <h3>${news.ruTitle == '' ? news.defaultTitle : news.ruTitle}</h3>
-                    <%--<h3>${news.ruTitle}</h3>--%>
                     <small><fmt:formatDate pattern = "dd.MM.yyyy" value = "${news.date}"/></small>
                     <p>${news.ruText == '' ? news.defaultText : news.ruText}</p>
-                    <%--<p>${news.ruText}</p>--%>
                 </div>
             </c:when>
             <c:when test="${locale == localeEn}">

@@ -8,7 +8,9 @@ public class User extends AbstractEntity {
 
     public static final String TABLE_NAME = "user";
     public static final String ID = "id";
+    public static final String USER_ID = "user_id";
     public static final String USER_ROLE_ID = "user_role_id";
+    public static final String USER_ROLE = "role";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
     public static final String CONFIRM_PASSWORD = "confirm_password";
@@ -20,8 +22,8 @@ public class User extends AbstractEntity {
     private String login;
     private String password;
     private String email;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
 
     public User() {
     }
@@ -32,8 +34,8 @@ public class User extends AbstractEntity {
         this.login = login;
         this.password = password;
         this.email = email;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = first_name;
+        this.lastName = last_name;
     }
 
     public UserRole getRole() {
@@ -68,20 +70,20 @@ public class User extends AbstractEntity {
         this.email = email;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
@@ -98,13 +100,13 @@ public class User extends AbstractEntity {
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(first_name, user.first_name) &&
-                Objects.equals(last_name, user.last_name);
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, role, login, password, email, first_name, last_name);
+        return Objects.hash(id, role, login, password, email, firstName, lastName);
     }
 
     @Override
@@ -115,8 +117,8 @@ public class User extends AbstractEntity {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 '}';
     }
 }

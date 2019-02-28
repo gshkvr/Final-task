@@ -4,10 +4,6 @@ public enum UserRole {
     ADMIN(1, "admin"),
     CLIENT(2, "client");
 
-    public static final String ID ="role_id";
-    public static final String NAME = "role_name";
-
-
     private int id;
     private String value;
 
@@ -17,10 +13,13 @@ public enum UserRole {
     }
 
     public static UserRole getById(int id) {
-        switch (id){
-            case 1: return UserRole.ADMIN;
-            case 2: return UserRole.CLIENT;
-            default: throw new IllegalArgumentException("No such UserRole");
+        switch (id) {
+            case 1:
+                return UserRole.ADMIN;
+            case 2:
+                return UserRole.CLIENT;
+            default:
+                throw new IllegalArgumentException("No such UserRole");
         }
     }
 
@@ -28,26 +27,7 @@ public enum UserRole {
         return id;
     }
 
-    //    private String name;
-//
-//    public UserRole(int id, String name) {
-//        this.id = id;
-//        this.name = name;
-//    }
-//
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-//
-//    public String getValue() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+    public String getValue() {
+        return value;
     }
+}

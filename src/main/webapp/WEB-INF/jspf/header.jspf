@@ -5,31 +5,38 @@
 <fmt:setLocale value="${locale}"/>
 
 <fmt:setBundle basename="messages" var="mess"/>
-<fmt:message bundle="${mess}" key="message.header.news" var="news"/>
-<fmt:message bundle="${mess}" key="message.header.signIn" var="signIn"/>
-<fmt:message bundle="${mess}" key="message.header.signOut" var="signOut"/>
-<fmt:message bundle="${mess}" key="message.header.register" var="register"/>
-<fmt:message bundle="${mess}" key="message.header.locale" var="locale_dropdown"/>
-<fmt:message bundle="${mess}" key="message.header.locale_ru" var="locale_ru"/>
-<fmt:message bundle="${mess}" key="message.header.locale_en" var="locale_en"/>
-<fmt:message bundle="${mess}" key="message.login" var="login"/>
-<fmt:message bundle="${mess}" key="message.password" var="password"/>
-<fmt:message bundle="${mess}" key="message.confirm_password" var="confirmPassword"/>
-<fmt:message bundle="${mess}" key="message.email" var="email"/>
-<fmt:message bundle="${mess}" key="message.first_name" var="first_name"/>
-<fmt:message bundle="${mess}" key="message.last_name" var="last_name"/>
-<fmt:message bundle="${mess}" key="message.register" var="bRegister"/>
+<fmt:message bundle="${mess}" key="header.news" var="news"/>
+<fmt:message bundle="${mess}" key="header.users" var="users"/>
+<fmt:message bundle="${mess}" key="header.signIn" var="signIn"/>
+<fmt:message bundle="${mess}" key="header.signOut" var="signOut"/>
+<fmt:message bundle="${mess}" key="header.register" var="register"/>
+<fmt:message bundle="${mess}" key="header.locale" var="locale_dropdown"/>
+<fmt:message bundle="${mess}" key="header.locale_ru" var="locale_ru"/>
+<fmt:message bundle="${mess}" key="header.locale_en" var="locale_en"/>
+<fmt:message bundle="${mess}" key="login" var="login"/>
+<fmt:message bundle="${mess}" key="password" var="password"/>
+<fmt:message bundle="${mess}" key="confirm_password" var="confirmPassword"/>
+<fmt:message bundle="${mess}" key="email" var="email"/>
+<fmt:message bundle="${mess}" key="firstName" var="firstName"/>
+<fmt:message bundle="${mess}" key="lastName" var="lastName"/>
+<fmt:message bundle="${mess}" key="button.login" var="bLogin"/>
+<fmt:message bundle="${mess}" key="button.register" var="bRegister"/>
+<fmt:message bundle="${mess}" key="button.delete" var="bDelete"/>
+<fmt:message bundle="${mess}" key="button.make_admin" var="bMakeAdmin"/>
 
 <fmt:setBundle basename="config" var="config"/>
 <fmt:message bundle="${config}" key="locale.ru" var="localeRu"/>
 <fmt:message bundle="${config}" key="locale.en" var="localeEn"/>
 <fmt:message bundle="${config}" key="command.register" var="registerCommand"/>
-<fmt:message bundle="${config}" key="command.register.page" var="registerPageCommand"/>
+<fmt:message bundle="${config}" key="command.register_page" var="registerPageCommand"/>
 <fmt:message bundle="${config}" key="command.login" var="loginCommand"/>
-<fmt:message bundle="${config}" key="command.login.page" var="loginPageCommand"/>
+<fmt:message bundle="${config}" key="command.login_page" var="loginPageCommand"/>
 <fmt:message bundle="${config}" key="command.logout" var="logoutCommand"/>
-<fmt:message bundle="${config}" key="command.news" var="newsCommand"/>
-<fmt:message bundle="${config}" key="command.change_locale" var="changeLocaleCommand"/>
+<fmt:message bundle="${config}" key="command.news_page" var="newsCommand"/>
+<fmt:message bundle="${config}" key="command.users" var="showUsersCommand"/>
+<fmt:message bundle="${config}" key="command.delete_user" var="deleteUserCommand"/>
+<fmt:message bundle="${config}" key="command.admin_user" var="adminUserCommand"/>
+<fmt:message bundle="${config}" key="attribute.user_id" var="userId"/>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
@@ -46,6 +53,12 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
+
+                <c:if test="${role == 'admin'}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}${showUsersCommand}">${users}</a>
+                    </li>
+                </c:if>
 
                 <c:choose>
                     <c:when test="${empty sessionScope.user}">

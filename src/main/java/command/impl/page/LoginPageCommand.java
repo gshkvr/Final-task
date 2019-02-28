@@ -1,4 +1,4 @@
-package command.impl;
+package command.impl.page;
 
 import command.Command;
 import controller.Page;
@@ -7,7 +7,7 @@ import resource.ConfigurationManager;
 
 public class LoginPageCommand implements Command {
     private static final String LOGIN_PAGE = ConfigurationManager.getProperty("page.login");
-    private static final String LOGIN_PAGE_COMMAND = ConfigurationManager.getProperty("command.login.page");
+    private static final String LOGIN_PAGE_COMMAND = ConfigurationManager.getProperty("command.login_page");
     private static final String LOGIN_ERROR_PARAM = "errorLogin";
     private static final String SUCCESS_REGISTRATION = "successRegister";
     private static final String LOCALE_COMMAND= "localeCommand";

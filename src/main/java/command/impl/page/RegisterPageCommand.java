@@ -1,4 +1,4 @@
-package command.impl;
+package command.impl.page;
 
 import command.Command;
 import controller.Page;
@@ -9,7 +9,7 @@ public class RegisterPageCommand implements Command {
 
     private static final String ERROR_REGISTRATION = "errorRegistration";
     private static final String REGISTER_PAGE = ConfigurationManager.getProperty("page.register");
-    private static final String REGISTER_PAGE_COMMAND = ConfigurationManager.getProperty("command.register.page");
+    private static final String REGISTER_PAGE_COMMAND = ConfigurationManager.getProperty("command.register_page");
     private static final String LOCALE_COMMAND= "localeCommand";
 
     @Override

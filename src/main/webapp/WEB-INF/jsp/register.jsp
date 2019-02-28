@@ -27,12 +27,12 @@
                                     <label for="email">${email}</label>
                                 </div>
                                 <div class="form-label-group">
-                                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="${first_name}" required>
-                                    <label for="first_name">${first_name}</label>
+                                    <input type="text" id="firstName" name="first_name" class="form-control" placeholder="${firstName}" required>
+                                    <label for="firstName">${firstName}</label>
                                 </div>
                                 <div class="form-label-group">
-                                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="${last_name}" required>
-                                    <label for="last_name">${last_name}</label>
+                                    <input type="text" id="lastName" name="last_name" class="form-control" placeholder="${lastName}" required>
+                                    <label for="lastName">${lastName}</label>
                                 </div>
                                 <hr>
                                 <div class="form-label-group">
