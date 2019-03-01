@@ -1,6 +1,7 @@
 package service;
 
-import dao.impl.UserDao;
+import dao.UserDao;
+import dao.impl.UserDaoImpl;
 import entity.impl.User;
 import entity.impl.UserRole;
 import exception.DaoException;
@@ -21,7 +22,7 @@ public class UserService {
         private static final UserService INSTANCE = new UserService();
     }
 
-    private final UserDao userDao = new UserDao();
+    private final UserDao userDao = UserDaoImpl.getInstance();
 
     public List<User> getAllUsers() throws ServiceException {
         try {
@@ -93,7 +94,7 @@ public class UserService {
                 throw new ServiceException("Can't make user with id = " + userId + " admin");
             }
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage(), e);
+            throw new ServiceException(e);
         }
     }
 }
