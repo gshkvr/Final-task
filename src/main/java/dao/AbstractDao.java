@@ -7,8 +7,8 @@ import exception.BuilderException;
 import exception.ConnectionPoolException;
 import exception.DaoException;
 import exception.ProxyConnectionException;
-import pool.ConnectionPool;
-import pool.ProxyConnection;
+import dao.pool.ConnectionPool;
+import dao.pool.ProxyConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

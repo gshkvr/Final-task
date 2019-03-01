@@ -1,4 +1,4 @@
-package pool;
+package dao.pool;
 
 import exception.ConnectionPoolException;
 import exception.ProxyConnectionException;
@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class ProxyConnection implements AutoCloseable {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);

@@ -1,4 +1,4 @@
-package pool;
+package dao.pool;
 
 import exception.ConnectionPoolException;
 import exception.ProxyConnectionException;
