@@ -7,7 +7,6 @@ import java.util.Objects;
 public class User extends AbstractEntity {
 
     public static final String TABLE_NAME = "user";
-    public static final String ID = "id";
     public static final String USER_ID = "user_id";
     public static final String USER_ROLE_ID = "user_role_id";
     public static final String USER_ROLE = "role";

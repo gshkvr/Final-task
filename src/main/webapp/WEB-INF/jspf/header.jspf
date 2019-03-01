@@ -1,5 +1,6 @@
 <%--@elvariable id="localeCommand" type="String"--%>
 <%--@elvariable id="locale" type="String"--%>
+<%--@elvariable id="role" type="String"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${locale}"/>
@@ -7,24 +8,28 @@
 <fmt:setBundle basename="messages" var="mess"/>
 <fmt:message bundle="${mess}" key="header.news" var="news"/>
 <fmt:message bundle="${mess}" key="header.users" var="users"/>
+<fmt:message bundle="${mess}" key="header.add_request" var="addRequest"/>
 <fmt:message bundle="${mess}" key="header.signIn" var="signIn"/>
 <fmt:message bundle="${mess}" key="header.signOut" var="signOut"/>
 <fmt:message bundle="${mess}" key="header.register" var="register"/>
 <fmt:message bundle="${mess}" key="header.locale" var="locale_dropdown"/>
-<fmt:message bundle="${mess}" key="header.locale_ru" var="locale_ru"/>
-<fmt:message bundle="${mess}" key="header.locale_en" var="locale_en"/>
-<fmt:message bundle="${mess}" key="login" var="login"/>
-<fmt:message bundle="${mess}" key="password" var="password"/>
-<fmt:message bundle="${mess}" key="confirm_password" var="confirmPassword"/>
-<fmt:message bundle="${mess}" key="email" var="email"/>
-<fmt:message bundle="${mess}" key="firstName" var="firstName"/>
-<fmt:message bundle="${mess}" key="lastName" var="lastName"/>
+<fmt:message bundle="${mess}" key="header.locale_ru" var="localeRuName"/>
+<fmt:message bundle="${mess}" key="header.locale_en" var="localeEnName"/>
+<fmt:message bundle="${mess}" key="register.login" var="login"/>
+<fmt:message bundle="${mess}" key="register.password" var="password"/>
+<fmt:message bundle="${mess}" key="register.confirm_password" var="confirmPassword"/>
+<fmt:message bundle="${mess}" key="register.email" var="email"/>
+<fmt:message bundle="${mess}" key="register.firstName" var="firstName"/>
+<fmt:message bundle="${mess}" key="register.lastName" var="lastName"/>
+<fmt:message bundle="${mess}" key="request.name" var="requestName"/>
 <fmt:message bundle="${mess}" key="button.login" var="bLogin"/>
 <fmt:message bundle="${mess}" key="button.register" var="bRegister"/>
+<fmt:message bundle="${mess}" key="button.add_request" var="bAddRequest"/>
 <fmt:message bundle="${mess}" key="button.delete" var="bDelete"/>
 <fmt:message bundle="${mess}" key="button.make_admin" var="bMakeAdmin"/>
 
 <fmt:setBundle basename="config" var="config"/>
+<fmt:message bundle="${config}" key="img.logo" var="logo"/>
 <fmt:message bundle="${config}" key="locale.ru" var="localeRu"/>
 <fmt:message bundle="${config}" key="locale.en" var="localeEn"/>
 <fmt:message bundle="${config}" key="command.register" var="registerCommand"/>
@@ -34,14 +39,18 @@
 <fmt:message bundle="${config}" key="command.logout" var="logoutCommand"/>
 <fmt:message bundle="${config}" key="command.news_page" var="newsCommand"/>
 <fmt:message bundle="${config}" key="command.users" var="showUsersCommand"/>
+<fmt:message bundle="${config}" key="command.add_request" var="addRequestCommand"/>
+<fmt:message bundle="${config}" key="command.add_request_page" var="addRequestPageCommand"/>
 <fmt:message bundle="${config}" key="command.delete_user" var="deleteUserCommand"/>
 <fmt:message bundle="${config}" key="command.admin_user" var="adminUserCommand"/>
 <fmt:message bundle="${config}" key="attribute.user_id" var="userId"/>
+<fmt:message bundle="${config}" key="attribute.locale_ru" var="attrLocaleRu"/>
+<fmt:message bundle="${config}" key="attribute.locale_en" var="attrLocaleEn"/>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
         <a class="navbar-brand" href="${pageContext.request.contextPath}${newsCommand}">
-            <img src="${pageContext.request.contextPath}/images/header/logo.png">
+            <img src="${pageContext.request.contextPath}${logo}"/>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -53,13 +62,16 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-
                 <c:if test="${role == 'admin'}">
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}${showUsersCommand}">${users}</a>
                     </li>
                 </c:if>
-
+                <c:if test="${role == 'client'}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}${addRequestPageCommand}">${addRequest}</a>
+                    </li>
+                </c:if>
                 <c:choose>
                     <c:when test="${empty sessionScope.user}">
                         <li class="nav-item">
@@ -80,9 +92,9 @@
                     <a class="nav-link dropdown-toggle"  id="dropdown-language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${locale_dropdown}</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown-language">
                         <a class="dropdown-item"
-                           href="${pageContext.request.contextPath}${localeCommand}&locale=en">${locale_en}</a>
+                           href="${pageContext.request.contextPath}${localeCommand}${attrLocaleRu}">${localeRuName}</a>
                         <a class="dropdown-item"
-                           href="${pageContext.request.contextPath}${localeCommand}&locale=ru">${locale_ru}</a>
+                           href="${pageContext.request.contextPath}${localeCommand}${attrLocaleEn}">${localeEnName}</a>
                     </div>
                 </li>
             </ul>

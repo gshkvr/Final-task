@@ -13,7 +13,7 @@ public class UserBuilder implements Builder<User> {
     @Override
     public User build(ResultSet resultSet) throws BuilderException {
         try {
-            int id = resultSet.getInt(User.ID);
+            int id = resultSet.getInt(User.USER_ID);
             int roleId = resultSet.getInt(User.USER_ROLE_ID);
             UserRole userRole = UserRole.getById(roleId);
             String login = resultSet.getString(User.LOGIN);

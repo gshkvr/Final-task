@@ -1,15 +1,25 @@
 package controller;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.*;
 
 public class SessionRequestContent {
     private Map<String, Object> requestAttributes = new HashMap<>();
     private Map<String, String[]> requestParameters = new HashMap<>();
     private Map<String, Object> sessionAttributes = new HashMap<>();
+    private List<FileItem> fileParts = new ArrayList<>();
     private List<Cookie> cookies;
+    private String realPath;
 
     private boolean requestAttributesChanged;
     private boolean sessionAttributesChanged;
@@ -53,6 +63,14 @@ public class SessionRequestContent {
         return cookiesChanged;
     }
 
+    public List<FileItem> getFileParts() {
+        return fileParts;
+    }
+
+    public String getRealPath() {
+        return realPath;
+    }
+
     public void setSessionInvalidated(boolean sessionInvalidated) {
         this.sessionInvalidated = sessionInvalidated;
     }
@@ -73,14 +91,50 @@ public class SessionRequestContent {
         sessionAttributes.put(name, value);
     }
 
-    public void extractValues(HttpServletRequest request) {
+    public void extractValues(HttpServletRequest request) throws ServletException {
+        if (ServletFileUpload.isMultipartContent(request)) {
+            try {
+                DiskFileItemFactory factory = new DiskFileItemFactory();
+                ServletContext context = request.getSession().getServletContext();
+                File repository = (File) context.getAttribute(ServletContext.TEMPDIR);
+                realPath = context.getRealPath("");
+                factory.setRepository(repository);
+                ServletFileUpload upload = new ServletFileUpload(factory);
+                List<FileItem> formItems = upload.parseRequest(request);
+                if (formItems != null && formItems.size() > 0) {
+                    for (FileItem item : formItems) {
+                        if (item.isFormField()) {
+                            String name = item.getFieldName();
+                            String value = item.getString();
+                            String[] values = this.requestParameters.get(name);
+                            if (values == null) {
+                                this.requestParameters.put(name, new String[]{value});
+                            } else {
+                                int length = values.length;
+                                String[] newValues = new String[length + 1];
+                                System.arraycopy(values, 0, newValues, 0, length);
+                                newValues[length] = value;
+                                this.requestParameters.put(name, newValues);
+                            }
+                        } else {
+                            fileParts.add(item);
+                        }
+                    }
+                }
+            } catch (FileUploadException e) {
+                throw new ServletException("Cannot parse multipart request: " + e.getMessage());
+            }
+        } else {
+            this.requestParameters = request.getParameterMap();
+        }
+
         Enumeration<String> attributeNames = request.getAttributeNames();
         while (attributeNames.hasMoreElements()) {
             String attributeName = attributeNames.nextElement();
             this.requestAttributes.put(attributeName, request.getAttribute(attributeName));
         }
         this.requestAttributesChanged = false;
-        this.requestParameters = request.getParameterMap();
+
         HttpSession session = request.getSession();
         Enumeration<String> sessionAttributeNames = session.getAttributeNames();
         while (sessionAttributeNames.hasMoreElements()) {

@@ -37,6 +37,8 @@
     <font-awesome-version>5.7.2</font-awesome-version>
     <mysql-connector-java-version>8.0.15</mysql-connector-java-version>
     <jbcrypt-version>0.4</jbcrypt-version>
+    <commons-fileupload-version>1.4</commons-fileupload-version>
+    <commons-io-version>2.6</commons-io-version>
   </properties>
 
   <dependencies>
@@ -101,6 +103,16 @@
       <groupId>org.mindrot</groupId>
       <artifactId>jbcrypt</artifactId>
       <version>${jbcrypt-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${commons-fileupload-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commons-io-version}</version>
     </dependency>
   </dependencies>
 

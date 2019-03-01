@@ -1,6 +1,7 @@
 package exception;
 
 public class CommandException extends Exception {
+
     private static final long serialVersionUID = -8096324692832465617L;
 
     public CommandException() {
