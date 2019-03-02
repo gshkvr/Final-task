@@ -19,11 +19,11 @@
                     <form action="controller" method="POST" enctype="multipart/form-data" class="form-signin" name="registerForm" >
                         <input type="hidden" name="command" value="add_request"/>
                         <div class="form-label-group">
-                            <input type="text" id="request_name" name="request_name" class="form-control" placeholder="${requestName}"/>
+                            <input type="text" id="request_name" name="request_name" class="form-control" placeholder="${requestName}" required/>
                             <label for="request_name">${requestName}</label>
                         </div>
 
-                        <input type="file" name="request_file" id="uploadFile"/>
+                        <input type="file" name="request_file" id="uploadFile" required/>
 
                         <c:if test="${errorRequest != null}">
                             <div>

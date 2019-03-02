@@ -1,16 +1,16 @@
 package service;
 
-import com.google.protobuf.ServiceException;
+import service.exception.ServiceException;
 import dao.NewsDao;
+import dao.exception.DaoException;
 import dao.impl.NewsDaoImpl;
 import entity.impl.News;
-import exception.DaoException;
 
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class NewsService {
-    private NewsService() {}
+    private NewsService() {
+    }
 
     public static NewsService getInstance() {
         return InstanceHolder.INSTANCE;
@@ -18,29 +18,15 @@ public class NewsService {
 
     private static class InstanceHolder {
         private static final NewsService INSTANCE = new NewsService();
-
-        private static List<News> news = null;
-        private static final ReentrantLock LOCK = new ReentrantLock();
     }
 
     private final NewsDao newsDao = NewsDaoImpl.getInstance();
 
-    public final List<News> loadNews() throws ServiceException {
-        if(InstanceHolder.news == null){
-            loadFromDB();
-        }
-        return InstanceHolder.news;
-    }
-
-    public void loadFromDB() throws ServiceException {
-        InstanceHolder.LOCK.lock();
-
-        try{
-            InstanceHolder.news = newsDao.findAll();
+    public final List<News> getAllNews() throws ServiceException {
+        try {
+            return newsDao.findAll();
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } finally {
-            InstanceHolder.LOCK.unlock();
         }
     }
 }

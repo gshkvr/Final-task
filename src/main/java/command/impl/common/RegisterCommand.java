@@ -1,11 +1,15 @@
 package command.impl.common;
 
 import command.Command;
+import command.exception.CommandException;
 import controller.Page;
 import controller.SessionRequestContent;
 import entity.impl.User;
 import entity.impl.UserRole;
-import exception.ServiceException;
+import service.exception.EmailExistsException;
+import service.exception.LoginExistsException;
+import service.exception.NotEqualPasswordsException;
+import service.exception.ServiceException;
 import resource.ConfigurationManager;
 import service.UserService;
 import util.CryptUtil;
@@ -18,35 +22,20 @@ public class RegisterCommand implements Command {
     private static final String EMAIL_EXISTS_ERROR = ConfigurationManager.getProperty("attribute.error.register.email");
     private static final String INCORRECT_PASSWORD_ERROR = ConfigurationManager.getProperty("attribute.error.register.password");
     private final UserService userService = UserService.getInstance();
-    private final CryptUtil cryptUtil = CryptUtil.getInstance();
 
     @Override
-    public Page execute(SessionRequestContent content) throws ServiceException {
-
-        String login = content.getRequestParameter(User.LOGIN);
-        if (userService.checkLoginExists(login)) {
+    public Page execute(SessionRequestContent content) throws CommandException {
+        try {
+            userService.registerUser(content);
+        } catch (LoginExistsException e) {
             return new Page(REGISTER_PAGE + LOGIN_EXISTS_ERROR, true);
-        }
-
-        String email = content.getRequestParameter(User.EMAIL);
-        if (userService.checkEmailExists(email)) {
-            return new Page(REGISTER_PAGE + EMAIL_EXISTS_ERROR, true);
-        }
-
-        String password = content.getRequestParameter(User.PASSWORD);
-        String confirmPassword = content.getRequestParameter(User.CONFIRM_PASSWORD);
-        if (!password.equals(confirmPassword)) {
+        } catch (NotEqualPasswordsException e) {
             return new Page(REGISTER_PAGE + INCORRECT_PASSWORD_ERROR, true);
+        } catch (EmailExistsException e) {
+            return new Page(REGISTER_PAGE + EMAIL_EXISTS_ERROR, true);
+        } catch (ServiceException e) {
+            throw new CommandException(e);
         }
-        password = cryptUtil.cryptPassword(password);
-
-        String firstName = content.getRequestParameter(User.FIRST_NAME);
-        String lastName = content.getRequestParameter(User.LAST_NAME);
-
-        User user = new User(0, UserRole.CLIENT, login, password, email, firstName, lastName);
-
-        userService.addUser(user);
-
         return new Page(LOGIN_PAGE_COMMAND + SUCCESS_REGISTRATION, true);
     }
 }

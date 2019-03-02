@@ -3,13 +3,23 @@ package builder.impl;
 import builder.Builder;
 import entity.impl.User;
 import entity.impl.UserRole;
-import exception.BuilderException;
+import builder.exception.BuilderException;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserBuilder implements Builder<User> {
+    private UserBuilder() {
+    }
+
+    public static UserBuilder getInstance() {
+        return UserBuilder.InstanceHolder.INSTANCE;
+    }
+
+    private static class InstanceHolder {
+        private static final UserBuilder INSTANCE = new UserBuilder();
+    }
+
     @Override
     public User build(ResultSet resultSet) throws BuilderException {
         try {

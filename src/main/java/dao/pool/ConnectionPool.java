@@ -1,7 +1,7 @@
 package dao.pool;
 
-import exception.ConnectionPoolException;
-import exception.ProxyConnectionException;
+import dao.exception.ConnectionPoolException;
+import dao.exception.ProxyConnectionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import resource.DbManager;
@@ -12,8 +12,17 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public enum ConnectionPool {
-    INSTANCE;
+public class ConnectionPool {
+    private ConnectionPool() {
+    }
+
+    public static ConnectionPool getInstance() {
+        return ConnectionPool.InstanceHolder.INSTANCE;
+    }
+
+    private static class InstanceHolder {
+        private static final ConnectionPool INSTANCE = new ConnectionPool();
+    }
 
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
     private static final String DB_DRIVER = DbManager.getProperty("driver");

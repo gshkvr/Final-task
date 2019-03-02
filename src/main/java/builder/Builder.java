@@ -1,7 +1,7 @@
 package builder;
 
+import builder.exception.BuilderException;
 import entity.AbstractEntity;
-import exception.BuilderException;
 
 import java.sql.ResultSet;
 

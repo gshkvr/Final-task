@@ -1,7 +1,7 @@
 package dao.pool;
 
-import exception.ConnectionPoolException;
-import exception.ProxyConnectionException;
+import dao.exception.ConnectionPoolException;
+import dao.exception.ProxyConnectionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ProxyConnection implements AutoCloseable {
-    private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final Connection connection;
 
     public ProxyConnection(Connection connection) {
@@ -19,7 +19,7 @@ public class ProxyConnection implements AutoCloseable {
 
     public void close() throws ProxyConnectionException {
         try {
-            ConnectionPool.INSTANCE.returnConnection(this);
+            connectionPool.returnConnection(this);
         } catch (ConnectionPoolException e) {
             throw new ProxyConnectionException("Couldn't return connection to pool", e);
         }
@@ -44,9 +44,4 @@ public class ProxyConnection implements AutoCloseable {
     public boolean getAutoCommit() throws SQLException {
         return connection.getAutoCommit();
     }
-
-    public void commit() throws SQLException {
-        connection.commit();
-    }
-
 }

@@ -10,7 +10,7 @@ public class LoginPageCommand implements Command {
     private static final String LOGIN_PAGE_COMMAND = ConfigurationManager.getProperty("command.login_page");
     private static final String LOGIN_ERROR_PARAM = "errorLogin";
     private static final String SUCCESS_REGISTRATION = "successRegister";
-    private static final String LOCALE_COMMAND= "localeCommand";
+    private static final String LOCALE_COMMAND = "localeCommand";
 
     @Override
     public Page execute(SessionRequestContent content) {

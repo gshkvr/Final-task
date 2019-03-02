@@ -1,4 +1,4 @@
-package exception;
+package builder.exception;
 
 public class BuilderException extends Exception {
 

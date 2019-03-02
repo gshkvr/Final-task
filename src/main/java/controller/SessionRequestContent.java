@@ -122,7 +122,7 @@ public class SessionRequestContent {
                     }
                 }
             } catch (FileUploadException e) {
-                throw new ServletException("Cannot parse multipart request: " + e.getMessage());
+                throw new ServletException("Cannot parse multipart request", e);
             }
         } else {
             this.requestParameters = request.getParameterMap();

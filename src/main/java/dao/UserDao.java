@@ -1,7 +1,7 @@
 package dao;
 
 import entity.impl.User;
-import exception.DaoException;
+import dao.exception.DaoException;
 
 import java.util.Optional;
 

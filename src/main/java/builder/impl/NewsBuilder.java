@@ -2,13 +2,24 @@ package builder.impl;
 
 import builder.Builder;
 import entity.impl.News;
-import exception.BuilderException;
+import builder.exception.BuilderException;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class NewsBuilder implements Builder<News> {
+    private NewsBuilder() {
+    }
+
+    public static NewsBuilder getInstance() {
+        return NewsBuilder.InstanceHolder.INSTANCE;
+    }
+
+    private static class InstanceHolder {
+        private static final NewsBuilder INSTANCE = new NewsBuilder();
+    }
+
     @Override
     public News build(ResultSet resultSet) throws BuilderException {
         try {
@@ -22,7 +33,7 @@ public class NewsBuilder implements Builder<News> {
 
             return new News( date, ruTitle, enTitle, defaultTitle, ruText, enText, defaultText);
         } catch (SQLException e) {
-            throw new BuilderException("Can't build news", e);
+            throw new BuilderException("Can't build News", e);
         }
     }
 }

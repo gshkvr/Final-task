@@ -10,7 +10,7 @@ public class RegisterPageCommand implements Command {
     private static final String ERROR_REGISTRATION = "errorRegistration";
     private static final String REGISTER_PAGE = ConfigurationManager.getProperty("page.register");
     private static final String REGISTER_PAGE_COMMAND = ConfigurationManager.getProperty("command.register_page");
-    private static final String LOCALE_COMMAND= "localeCommand";
+    private static final String LOCALE_COMMAND = "localeCommand";
 
     @Override
     public Page execute(SessionRequestContent content) {

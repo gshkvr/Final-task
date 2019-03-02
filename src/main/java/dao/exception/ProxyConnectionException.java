@@ -1,4 +1,4 @@
-package exception;
+package dao.exception;
 
 public class ProxyConnectionException extends Exception {
 

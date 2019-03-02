@@ -1,8 +1,6 @@
 package listener;
 
-import exception.ConnectionPoolException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import dao.exception.ConnectionPoolException;
 import dao.pool.ConnectionPool;
 
 import javax.servlet.ServletContextEvent;
@@ -11,16 +9,13 @@ import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class ConnectionPoolListener implements ServletContextListener {
-    private static final Logger LOGGER = LogManager.getLogger(ConnectionPoolListener.class);
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
-            ConnectionPool.INSTANCE.initialize();
-            System.out.println(LOGGER);
-            LOGGER.info("Connection pool initialized");
+            connectionPool.initialize();
         } catch (ConnectionPoolException e) {
-            LOGGER.fatal("Connection pool didn't initialize", e);
             throw new ExceptionInInitializerError("Couldn't initialize connection pool");
         }
     }
@@ -28,10 +23,8 @@ public class ConnectionPoolListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         try {
-            ConnectionPool.INSTANCE.close();
-            LOGGER.info("Connection pool destroyed");
+            connectionPool.close();
         } catch (ConnectionPoolException e) {
-            LOGGER.info("Connection pool didn't destroy", e);
             throw new ExceptionInInitializerError("Couldn't destroy connection pool");
         }
     }

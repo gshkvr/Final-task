@@ -2,13 +2,13 @@ package dao;
 
 import builder.Builder;
 import builder.BuilderFactory;
-import entity.AbstractEntity;
-import exception.BuilderException;
-import exception.ConnectionPoolException;
-import exception.DaoException;
-import exception.ProxyConnectionException;
+import builder.exception.BuilderException;
 import dao.pool.ConnectionPool;
 import dao.pool.ProxyConnection;
+import entity.AbstractEntity;
+import dao.exception.ConnectionPoolException;
+import dao.exception.DaoException;
+import dao.exception.ProxyConnectionException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +18,8 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K, T> {
-    private BuilderFactory builderFactory = BuilderFactory.INSTANCE;
+    private final BuilderFactory builderFactory = BuilderFactory.getInstance();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public List<T> findAll() throws DaoException {
@@ -27,9 +28,9 @@ public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K,
     }
 
     private List<T> executeListQuery(String query, Object... parameters) throws DaoException {
-        try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+        try (ProxyConnection connection = connectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
-            Builder<? extends AbstractEntity> builder = builderFactory.getBuilder(getTableName());
+            Builder builder = builderFactory.getBuilder(getTableName());
             setParameters(statement, parameters);
             ResultSet resultSet = statement.executeQuery();
             List<T> result = new ArrayList<>();
@@ -39,7 +40,7 @@ public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K,
             }
             return result;
         } catch (SQLException | BuilderException | ProxyConnectionException | ConnectionPoolException e) {
-            throw new DaoException(e.getMessage(), e);
+            throw new DaoException(e);
         }
     }
 
@@ -87,35 +88,43 @@ public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K,
     }
 
     private boolean executeCreateUpdateDelete(String query, List<String> parameters) throws DaoException {
-        try (ProxyConnection connection = ConnectionPool.INSTANCE.getConnection()) {
+        try (ProxyConnection connection = connectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             setParameters(statement, parameters);
             return statement.executeUpdate() == 1;
         } catch (SQLException | ProxyConnectionException | ConnectionPoolException e) {
-            throw new DaoException(e.getMessage(), e);
+            throw new DaoException(e);
         }
     }
 
-    private void setParameters(PreparedStatement statement, Object[] parameters) throws SQLException {
-        for (int i = 0; i < parameters.length; i++) {
-            Object parameter = parameters[i];
-            if (parameter != null) {
-                statement.setString(i + 1, parameter.toString());
-            } else {
-                statement.setString(i + 1, null);
+    private void setParameters(PreparedStatement statement, Object[] parameters) throws DaoException {
+        try {
+            for (int i = 0; i < parameters.length; i++) {
+                Object parameter = parameters[i];
+                if (parameter != null) {
+                    statement.setString(i + 1, parameter.toString());
+                } else {
+                    statement.setString(i + 1, null);
+                }
             }
+        } catch (SQLException e) {
+            throw new DaoException("Can't set parameters");
         }
     }
 
-    private void setParameters(PreparedStatement statement, List parameters) throws SQLException {
-        int i = 1;
-        for (Object parameter : parameters) {
-            if (parameter != null) {
-                statement.setString(i, parameter.toString());
-            } else {
-                statement.setString(i, null);
+    private void setParameters(PreparedStatement statement, List parameters) throws DaoException {
+        try {
+            int i = 1;
+            for (Object parameter : parameters) {
+                if (parameter != null) {
+                    statement.setString(i, parameter.toString());
+                } else {
+                    statement.setString(i, null);
+                }
+                i++;
             }
-            i++;
+        } catch (SQLException e) {
+            throw new DaoException("Can't set parameters");
         }
     }
 

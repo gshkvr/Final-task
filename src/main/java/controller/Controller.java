@@ -2,8 +2,7 @@ package controller;
 
 import command.Command;
 import command.CommandFactory;
-import exception.CommandException;
-import exception.ServiceException;
+import command.exception.CommandException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
@@ -54,7 +53,7 @@ public class Controller extends HttpServlet {
             } else {
                 forward(page, request, response);
             }
-        } catch (ServiceException | CommandException e) {
+        } catch (CommandException e) {
             LOGGER.fatal(e.getMessage(), e);
             page = new Page(ERROR_COMMAND, true);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page.getUrl());

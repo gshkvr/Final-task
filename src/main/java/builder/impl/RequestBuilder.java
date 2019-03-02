@@ -2,12 +2,23 @@ package builder.impl;
 
 import builder.Builder;
 import entity.impl.Request;
-import exception.BuilderException;
+import builder.exception.BuilderException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RequestBuilder implements Builder<Request> {
+    private RequestBuilder() {
+    }
+
+    public static RequestBuilder getInstance() {
+        return RequestBuilder.InstanceHolder.INSTANCE;
+    }
+
+    private static class InstanceHolder {
+        private static final RequestBuilder INSTANCE = new RequestBuilder();
+    }
+
     @Override
     public Request build(ResultSet resultSet) throws BuilderException {
         try {

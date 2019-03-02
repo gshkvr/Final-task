@@ -23,10 +23,7 @@ public class CommandFactory {
         private static final CommandFactory INSTANCE = new CommandFactory();
     }
 
-    //TODO - DaoManager ???
-    //private final DaoManager daoManager = DaoManager.getInstance();
     private static final String COMMAND = "command";
-
     private static final String ERROR_COMMAND = "error";
     private static final String NEWS_PAGE_COMMAND = "news_page";
     private static final String USERS_COMMAND = "users";

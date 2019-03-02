@@ -3,8 +3,8 @@ package command.impl.page;
 import command.Command;
 import controller.Page;
 import controller.SessionRequestContent;
-import exception.CommandException;
-import exception.ServiceException;
+import command.exception.CommandException;
+import service.exception.ServiceException;
 import resource.ConfigurationManager;
 import service.RequestService;
 
@@ -20,7 +20,7 @@ public class ShowRequestPageCommand implements Command {
             content.setRequestAttribute("allRequests", requestService.getAllRequests());
             content.setRequestAttribute(LOCALE_COMMAND, REQUESTS_SHOW_COMMAND);
         } catch (ServiceException e) {
-            throw new CommandException(e.getMessage(), e);
+            throw new CommandException(e);
         }
         return new Page(REQUESTS_SHOW_PAGE);
     }

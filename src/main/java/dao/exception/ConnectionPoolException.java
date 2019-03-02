@@ -1,4 +1,4 @@
-package exception;
+package dao.exception;
 
 public class ConnectionPoolException extends Exception {
 

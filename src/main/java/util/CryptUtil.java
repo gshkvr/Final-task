@@ -14,11 +14,11 @@ public class CryptUtil {
         private static final CryptUtil INSTANCE = new CryptUtil();
     }
 
-    public boolean checkPassword(String enteredPass, String storedPass){
+    public boolean checkPassword(String enteredPass, String storedPass) {
         return BCrypt.checkpw(enteredPass, storedPass);
     }
 
-    public String cryptPassword(String password){
+    public String cryptPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 }
