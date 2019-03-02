@@ -42,24 +42,30 @@ public class LocaleFilter implements Filter {
             setLocale(servletResponse, session, locale);
         }
 
-        if (httpRequest.getParameterMap().containsKey(LOCALE_ATTRIBUTE)) {
-            String sLocale = httpRequest.getParameterMap().get(LOCALE_ATTRIBUTE)[0];
-            Locale locale;
-            if (RU.equals(sLocale)) {
-                locale = RU_LOCALE;
-            } else if (EN.equals(sLocale)) {
-                locale = EN_LOCALE;
-            } else {
-                locale = defaultLocale;
-            }
+        String queryString = httpRequest.getQueryString();
+        queryString = queryString == null ? "" : queryString;
+
+        if (queryString.contains(LOCALE_ATTRIBUTE)) {
+            int index = queryString.indexOf(LOCALE_ATTRIBUTE);
+            String sLocale = queryString.substring(index + 7, index + 9);
+            Locale locale = getLocale(sLocale);
             setLocale(servletResponse, session, locale);
         }
-
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override
     public void destroy() {
+    }
+
+    private Locale getLocale(String sLocale) {
+        if (RU.equals(sLocale)) {
+            return RU_LOCALE;
+        } else if (EN.equals(sLocale)) {
+            return EN_LOCALE;
+        } else {
+            return defaultLocale;
+        }
     }
 
     private void setLocale(ServletResponse servletResponse, HttpSession session, Locale locale) {

@@ -15,7 +15,6 @@ public class EncodingFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
         encoding = filterConfig.getInitParameter("encoding");
-
     }
 
     @Override
