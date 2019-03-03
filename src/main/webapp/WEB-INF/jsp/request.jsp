@@ -6,7 +6,18 @@
     <link rel="stylesheet" href="webjars/font-awesome/5.7.2/css/all.css"/>
     <script src="webjars/jquery/3.3.1/jquery.js"></script>
     <script src="webjars/bootstrap/4.2.1/js/bootstrap.js"></script>
-    <style><%@include file='../../css/register.css' %></style>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css"/>
+    <script type="text/javascript">
+        function validate(form) {
+            var fileName = form.elements["uploadFile"].value;
+            var fileFormat = fileName.substring(fileName.length - 4);
+            if (fileFormat !== ".png" && fileFormat !== ".jpg") {
+                alert("File format: .png or .jpg");
+                form.elements["uploadFile"].value = "";
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
 <%@include file="../jspf/header.jspf" %>
@@ -16,14 +27,21 @@
             <div class="card card-signin flex-row my-5">
                 <div class="card-body">
                     <h5 class="card-title text-center">${addRequest}</h5>
-                    <form action="controller" method="POST" enctype="multipart/form-data" class="form-signin" name="registerForm" >
+                    <form action="controller" method="POST" enctype="multipart/form-data" class="form-signin"
+                          name="registerForm" onsubmit="return validate(this)">
                         <input type="hidden" name="command" value="add_request"/>
                         <div class="form-label-group">
-                            <input type="text" id="request_name" name="request_name" class="form-control" placeholder="${requestName}" required/>
+                            <input type="text" id="request_name" name="request_name" class="form-control"
+                                   placeholder="${requestName}" required/>
                             <label for="request_name">${requestName}</label>
                         </div>
-
-                        <input type="file" name="request_file" id="uploadFile" required/>
+                        <hr>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="request_file" id="uploadFile"
+                                   accept=".png,.jpg" required>
+                            <label class="custom-file-label" for="uploadFile">${requestChooseFile}</label>
+                        </div>
+                        <div class="form-label-group"></div>
 
                         <c:if test="${errorRequest != null}">
                             <div>

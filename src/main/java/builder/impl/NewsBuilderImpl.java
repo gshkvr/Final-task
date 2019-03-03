@@ -1,23 +1,23 @@
 package builder.impl;
 
 import builder.Builder;
-import entity.impl.News;
+import entity.News;
 import builder.exception.BuilderException;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class NewsBuilder implements Builder<News> {
-    private NewsBuilder() {
+public class NewsBuilderImpl implements Builder<News> {
+    private NewsBuilderImpl() {
     }
 
-    public static NewsBuilder getInstance() {
-        return NewsBuilder.InstanceHolder.INSTANCE;
+    public static NewsBuilderImpl getInstance() {
+        return NewsBuilderImpl.InstanceHolder.INSTANCE;
     }
 
     private static class InstanceHolder {
-        private static final NewsBuilder INSTANCE = new NewsBuilder();
+        private static final NewsBuilderImpl INSTANCE = new NewsBuilderImpl();
     }
 
     @Override

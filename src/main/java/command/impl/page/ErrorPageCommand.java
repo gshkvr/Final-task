@@ -7,7 +7,7 @@ import resource.ConfigurationManager;
 
 public class ErrorPageCommand implements Command {
     private static final String ERROR_PAGE = ConfigurationManager.getProperty("page.error");
-    private static final String ERROR_COMMAND = ConfigurationManager.getProperty("command.error");
+    private static final String ERROR_COMMAND = ConfigurationManager.getProperty("command.error_page");
     private static final String LOCALE_COMMAND = "localeCommand";
 
     @Override

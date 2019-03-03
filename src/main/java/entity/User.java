@@ -1,6 +1,4 @@
-package entity.impl;
-
-import entity.AbstractEntity;
+package entity;
 
 import java.util.Objects;
 

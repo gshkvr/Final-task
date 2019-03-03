@@ -12,8 +12,9 @@ import service.exception.ServiceException;
 
 
 public class AddRequestCommand implements Command {
+    private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message_page");
+    private static final String SUCCESS_ADD_REQUEST = ConfigurationManager.getProperty("success.add_request");
     private static final String REQUEST_PAGE_COMMAND = ConfigurationManager.getProperty("command.add_request_page");
-    private static final String REQUEST_SHOW_COMMAND = ConfigurationManager.getProperty("command.show_request_page");
     private static final String FILE_SIZE_ERROR = ConfigurationManager.getProperty("attribute.error.request.file_size");
     private static final String NAME_ERROR = ConfigurationManager.getProperty("attribute.error.request.name");
     private static final String FILE_ERROR = ConfigurationManager.getProperty("attribute.error.request.file");
@@ -30,7 +31,7 @@ public class AddRequestCommand implements Command {
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        return new Page(REQUEST_SHOW_COMMAND, true);
+        return new Page(MESSAGE_PAGE_COMMAND + SUCCESS_ADD_REQUEST, true);
     }
 
 }

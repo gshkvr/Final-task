@@ -1,5 +1,4 @@
 <%--@elvariable id="errorLogin" type="String"--%>
-<%--@elvariable id="successRegister" type="String"--%>
 <html>
     <head>
         <title>${login}</title>
@@ -7,7 +6,7 @@
         <link rel="stylesheet" href="webjars/font-awesome/5.7.2/css/all.css">
         <script src="webjars/jquery/3.3.1/jquery.js"></script>
         <script src="webjars/bootstrap/4.2.1/js/bootstrap.js"></script>
-        <style><%@include file='../../css/register.css' %></style>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css" />
     </head>
     <body>
         <%@include file="../jspf/header.jspf" %>
@@ -19,12 +18,6 @@
                             <h5 class="card-title text-center">${login}</h5>
                             <form class="form-signin" name="loginForm" method="POST" action="controller">
                                 <input type="hidden" name="command" value="login"/>
-                                <c:if test="${successRegister != null}">
-                                    <div>
-                                        <h6 class="text-center">
-                                        <fmt:message key="${successRegister}" bundle="${mess}"/></h6>
-                                    </div>
-                                </c:if>
                                 <div class="form-label-group">
                                     <input type="text" id="login" name="login" class="form-control" placeholder="${login}">
                                     <label for="login">${login}</label>

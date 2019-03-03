@@ -1,6 +1,6 @@
 package dao;
 
-import entity.impl.Request;
+import entity.Request;
 
 public interface RequestDao extends Dao<Integer, Request> {
 }

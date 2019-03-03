@@ -2,13 +2,11 @@ package dao.impl;
 
 import dao.AbstractDao;
 import dao.NewsDao;
-import entity.impl.News;
-import service.NewsService;
+import entity.News;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class NewsDaoImpl extends AbstractDao<Integer, News> implements NewsDao {
     private NewsDaoImpl() {}

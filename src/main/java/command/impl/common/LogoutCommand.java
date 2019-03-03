@@ -3,7 +3,7 @@ package command.impl.common;
 import command.Command;
 import controller.Page;
 import controller.SessionRequestContent;
-import entity.impl.User;
+import entity.User;
 import resource.ConfigurationManager;
 
 import javax.servlet.http.Cookie;

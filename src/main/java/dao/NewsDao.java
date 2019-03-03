@@ -1,6 +1,6 @@
 package dao;
 
-import entity.impl.News;
+import entity.News;
 
 public interface NewsDao extends Dao<Integer, News> {
 }

@@ -4,7 +4,7 @@ import service.exception.ServiceException;
 import dao.NewsDao;
 import dao.exception.DaoException;
 import dao.impl.NewsDaoImpl;
-import entity.impl.News;
+import entity.News;
 
 import java.util.List;
 

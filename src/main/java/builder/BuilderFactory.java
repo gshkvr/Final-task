@@ -1,11 +1,11 @@
 package builder;
 
-import builder.impl.NewsBuilder;
-import builder.impl.RequestBuilder;
-import builder.impl.UserBuilder;
-import entity.impl.News;
-import entity.impl.Request;
-import entity.impl.User;
+import builder.impl.NewsBuilderImpl;
+import builder.impl.RequestBuilderImpl;
+import builder.impl.UserBuilderImpl;
+import entity.News;
+import entity.Request;
+import entity.User;
 
 public class BuilderFactory {
     private BuilderFactory() {
@@ -19,9 +19,9 @@ public class BuilderFactory {
         private static final BuilderFactory INSTANCE = new BuilderFactory();
     }
 
-    private final Builder newsBuilder = NewsBuilder.getInstance();
-    private final Builder requestBuilder = RequestBuilder.getInstance();
-    private final Builder userBuilder = UserBuilder.getInstance();
+    private final Builder newsBuilder = NewsBuilderImpl.getInstance();
+    private final Builder requestBuilder = RequestBuilderImpl.getInstance();
+    private final Builder userBuilder = UserBuilderImpl.getInstance();
 
     public Builder getBuilder(String tableName) {
         switch (tableName) {

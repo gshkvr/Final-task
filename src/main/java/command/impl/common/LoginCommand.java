@@ -3,15 +3,11 @@ package command.impl.common;
 import command.Command;
 import controller.Page;
 import controller.SessionRequestContent;
-import entity.impl.User;
 import command.exception.CommandException;
 import service.exception.NoSuchUserException;
 import service.exception.ServiceException;
 import resource.ConfigurationManager;
 import service.UserService;
-
-import javax.servlet.http.Cookie;
-import java.util.Optional;
 
 public class LoginCommand implements Command {
     private static final String NEWS_COMMAND = ConfigurationManager.getProperty("command.news_page");

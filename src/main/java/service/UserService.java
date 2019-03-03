@@ -1,12 +1,11 @@
 package service;
 
-import controller.Page;
 import controller.SessionRequestContent;
 import dao.UserDao;
 import dao.exception.DaoException;
 import dao.impl.UserDaoImpl;
-import entity.impl.User;
-import entity.impl.UserRole;
+import entity.User;
+import entity.UserRole;
 import service.exception.*;
 import util.CryptUtil;
 

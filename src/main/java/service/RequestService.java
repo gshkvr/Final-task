@@ -4,7 +4,7 @@ import controller.SessionRequestContent;
 import dao.RequestDao;
 import dao.exception.DaoException;
 import dao.impl.RequestDaoImpl;
-import entity.impl.Request;
+import entity.Request;
 import org.apache.commons.fileupload.FileItem;
 import resource.ConfigurationManager;
 import service.exception.EmptyFileException;
@@ -14,6 +14,7 @@ import service.exception.ServiceException;
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class RequestService {
     private RequestService() {
@@ -31,7 +32,7 @@ public class RequestService {
     private final RequestDao requestDao = RequestDaoImpl.getInstance();
 
     public void createRequest(SessionRequestContent content) throws EmptyNameException, ServiceException, EmptyFileException {
-        String name = content.getRequestParameter(Request.REQUEST_NAME);
+        String name = content.getRequestParameter(Request.FULL_NAME);
         if (name == null || "".equals(name)) {
             throw new EmptyNameException();
         }
@@ -43,7 +44,7 @@ public class RequestService {
         String filePath;
         if (optionalItem.isPresent()) {
             FileItem item = optionalItem.get();
-            String fileName = item.getName();
+            String fileName = UUID.randomUUID().toString();
             filePath = IMAGES_DIRECTORY + File.separator + fileName;
             String extractPath = content.getRealPath() + filePath;
             File storeFile = new File(extractPath);
@@ -55,8 +56,8 @@ public class RequestService {
         } else {
             throw new EmptyFileException();
         }
-        Request request = new Request(0, name, filePath);
-        addRequest(request);
+        //Request request = new Request(0, name, filePath);
+        //addRequest(request);
     }
 
     public List<Request> getAllRequests() throws ServiceException {

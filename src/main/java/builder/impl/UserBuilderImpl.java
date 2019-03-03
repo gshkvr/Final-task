@@ -1,23 +1,23 @@
 package builder.impl;
 
 import builder.Builder;
-import entity.impl.User;
-import entity.impl.UserRole;
+import entity.User;
+import entity.UserRole;
 import builder.exception.BuilderException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserBuilder implements Builder<User> {
-    private UserBuilder() {
+public class UserBuilderImpl implements Builder<User> {
+    private UserBuilderImpl() {
     }
 
-    public static UserBuilder getInstance() {
-        return UserBuilder.InstanceHolder.INSTANCE;
+    public static UserBuilderImpl getInstance() {
+        return UserBuilderImpl.InstanceHolder.INSTANCE;
     }
 
     private static class InstanceHolder {
-        private static final UserBuilder INSTANCE = new UserBuilder();
+        private static final UserBuilderImpl INSTANCE = new UserBuilderImpl();
     }
 
     @Override

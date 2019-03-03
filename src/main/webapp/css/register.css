@@ -102,12 +102,11 @@
     color: #777;
 }
 
-.btn-google {
-    color: white;
-    background-color: #ea4335;
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "Browse";
 }
 
-.btn-facebook {
-    color: white;
-    background-color: #3b5998;
+.custom-file-input:lang(ru) ~ .custom-file-label::after {
+    content: "Выбрать";
 }
+

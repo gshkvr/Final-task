@@ -3,7 +3,7 @@ package command.impl.admin;
 import command.Command;
 import controller.Page;
 import controller.SessionRequestContent;
-import entity.impl.User;
+import entity.User;
 import command.exception.CommandException;
 import service.exception.ServiceException;
 import resource.ConfigurationManager;

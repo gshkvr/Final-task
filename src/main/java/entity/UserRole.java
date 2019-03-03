@@ -1,4 +1,4 @@
-package entity.impl;
+package entity;
 
 public enum UserRole {
     ADMIN(1, "admin"),

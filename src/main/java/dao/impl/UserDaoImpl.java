@@ -2,7 +2,7 @@ package dao.impl;
 
 import dao.AbstractDao;
 import dao.UserDao;
-import entity.impl.User;
+import entity.User;
 import dao.exception.DaoException;
 
 import java.util.ArrayList;

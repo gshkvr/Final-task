@@ -1,6 +1,6 @@
 package filter;
 
-import entity.impl.User;
+import entity.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

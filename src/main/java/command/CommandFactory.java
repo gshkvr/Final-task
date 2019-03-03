@@ -24,7 +24,8 @@ public class CommandFactory {
     }
 
     private static final String COMMAND = "command";
-    private static final String ERROR_COMMAND = "error";
+    private static final String ERROR_COMMAND = "error_page";
+    private static final String MESSAGE_COMMAND = "message_page";
     private static final String NEWS_PAGE_COMMAND = "news_page";
     private static final String USERS_COMMAND = "users";
     private static final String REQUEST_COMMAND = "add_request";
@@ -46,6 +47,8 @@ public class CommandFactory {
 
             case ERROR_COMMAND:
                 return new ErrorPageCommand();
+            case MESSAGE_COMMAND:
+                return new MessagePageCommand();
             case NEWS_PAGE_COMMAND:
                 return new NewsPageCommand();
             case REQUEST_COMMAND:
