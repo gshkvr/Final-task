@@ -1,5 +1,6 @@
 package service;
 
+import builder.impl.UserBuilderImpl;
 import controller.SessionRequestContent;
 import dao.UserDao;
 import dao.exception.DaoException;
@@ -29,16 +30,16 @@ public class UserService {
     private final UserDao userDao = UserDaoImpl.getInstance();
 
     public void loginUser(SessionRequestContent content) throws ServiceException, NoSuchUserException {
-        String login = content.getRequestParameter(User.LOGIN);
-        String pass = content.getRequestParameter(User.PASSWORD);
+        String login = content.getRequestParameter(UserBuilderImpl.LOGIN);
+        String pass = content.getRequestParameter(UserBuilderImpl.PASSWORD);
         Optional<User> optionalUser = findUserByLogin(login);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             if (cryptUtil.checkPassword(pass, user.getPassword())) {
-                content.setSessionAttribute(User.TABLE_NAME, login);
-                content.setSessionAttribute(User.USER_ROLE, user.getRole().getValue());
-                Cookie userCookie = new Cookie(User.TABLE_NAME, login);
-                Cookie roleCookie = new Cookie(User.USER_ROLE, user.getRole().getValue());
+                content.setSessionAttribute(UserBuilderImpl.TABLE_NAME, login);
+                content.setSessionAttribute(UserBuilderImpl.USER_ROLE, user.getRole().getValue());
+                Cookie userCookie = new Cookie(UserBuilderImpl.TABLE_NAME, login);
+                Cookie roleCookie = new Cookie(UserBuilderImpl.USER_ROLE, user.getRole().getValue());
                 content.setCookie(userCookie);
                 content.setCookie(roleCookie);
             }
@@ -48,25 +49,25 @@ public class UserService {
     }
 
     public void registerUser(SessionRequestContent content) throws ServiceException, LoginExistsException, EmailExistsException, NotEqualPasswordsException {
-        String login = content.getRequestParameter(User.LOGIN);
+        String login = content.getRequestParameter(UserBuilderImpl.LOGIN);
         if(checkLoginExists(login)){
             throw new LoginExistsException();
         }
 
-        String email = content.getRequestParameter(User.EMAIL);
+        String email = content.getRequestParameter(UserBuilderImpl.EMAIL);
         if (checkEmailExists(email)) {
             throw new EmailExistsException();
         }
 
-        String password = content.getRequestParameter(User.PASSWORD);
-        String confirmPassword = content.getRequestParameter(User.CONFIRM_PASSWORD);
+        String password = content.getRequestParameter(UserBuilderImpl.PASSWORD);
+        String confirmPassword = content.getRequestParameter(UserBuilderImpl.CONFIRM_PASSWORD);
         if (!password.equals(confirmPassword)) {
             throw new NotEqualPasswordsException();
         }
         password = cryptUtil.cryptPassword(password);
 
-        String firstName = content.getRequestParameter(User.FIRST_NAME);
-        String lastName = content.getRequestParameter(User.LAST_NAME);
+        String firstName = content.getRequestParameter(UserBuilderImpl.FIRST_NAME);
+        String lastName = content.getRequestParameter(UserBuilderImpl.LAST_NAME);
 
         User user = new User(0, UserRole.CLIENT, login, password, email, firstName, lastName);
 
@@ -97,7 +98,7 @@ public class UserService {
         }
     }
 
-    public boolean checkLoginExists(String login) throws ServiceException {
+    private boolean checkLoginExists(String login) throws ServiceException {
         try {
             Optional<User> optionalUser = userDao.findUserByLogin(login);
             return optionalUser.isPresent();
@@ -106,7 +107,7 @@ public class UserService {
         }
     }
 
-    public boolean checkEmailExists(String email) throws ServiceException {
+    private boolean checkEmailExists(String email) throws ServiceException {
         try {
             Optional<User> optionalUser = userDao.findUserByEmail(email);
             return optionalUser.isPresent();
@@ -115,7 +116,7 @@ public class UserService {
         }
     }
 
-    public boolean addUser(User user) throws ServiceException {
+    private boolean addUser(User user) throws ServiceException {
         try {
             return userDao.create(user);
         } catch (DaoException e) {
@@ -123,16 +124,20 @@ public class UserService {
         }
     }
 
-    public boolean deleteUser(int userId) throws ServiceException {
+    public boolean deleteUser(SessionRequestContent content) throws ServiceException {
         try {
+            String sUserId = content.getRequestParameter(UserBuilderImpl.USER_ID);
+            int userId = Integer.parseInt(sUserId);
             return userDao.delete(userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    public boolean makeUserAdmin(int userId) throws ServiceException {
+    public boolean makeUserAdmin(SessionRequestContent content) throws ServiceException {
         try {
+            String sUserId = content.getRequestParameter(UserBuilderImpl.USER_ID);
+            int userId = Integer.parseInt(sUserId);
             Optional<User> optionalUser = userDao.findEntityById(userId);
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();

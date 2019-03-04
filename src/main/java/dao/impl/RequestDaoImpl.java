@@ -1,5 +1,6 @@
 package dao.impl;
 
+import builder.impl.RequestBuilderImpl;
 import dao.AbstractDao;
 import dao.RequestDao;
 import entity.Request;
@@ -26,7 +27,7 @@ public class RequestDaoImpl extends AbstractDao<Integer, Request> implements Req
             "       interpol.request.sex_id AS sex_id,\n" +
             "       interpol.request.type_id AS type_id,\n" +
             "       interpol.request.full_name AS full_name,\n" +
-            "       interpol.request.nation AS nation,\n" +
+            "       interpol.request.nationality AS nationality,\n" +
             "       interpol.request.birth_date AS birth_date,\n" +
             "       interpol.request.file_link AS file_link\n" +
             "       FROM interpol.request request";
@@ -35,7 +36,7 @@ public class RequestDaoImpl extends AbstractDao<Integer, Request> implements Req
             "       interpol.request.sex_id AS sex_id,\n" +
             "       interpol.request.type_id AS type_id,\n" +
             "       interpol.request.full_name AS full_name,\n" +
-            "       interpol.request.nation AS nation,\n" +
+            "       interpol.request.nationality AS nationality,\n" +
             "       interpol.request.birth_date AS birth_date,\n" +
             "       interpol.request.file_link AS file_link\n" +
             "       FROM interpol.request request\n" +
@@ -53,7 +54,7 @@ public class RequestDaoImpl extends AbstractDao<Integer, Request> implements Req
 
     @Override
     protected String getTableName() {
-        return Request.TABLE_NAME;
+        return RequestBuilderImpl.TABLE_NAME;
     }
 
     @Override

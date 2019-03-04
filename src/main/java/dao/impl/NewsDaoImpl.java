@@ -1,5 +1,6 @@
 package dao.impl;
 
+import builder.impl.NewsBuilderImpl;
 import dao.AbstractDao;
 import dao.NewsDao;
 import entity.News;
@@ -9,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsDaoImpl extends AbstractDao<Integer, News> implements NewsDao {
-    private NewsDaoImpl() {}
+    private NewsDaoImpl() {
+    }
 
     public static NewsDaoImpl getInstance() {
         return NewsDaoImpl.InstanceHolder.INSTANCE;
@@ -46,7 +48,7 @@ public class NewsDaoImpl extends AbstractDao<Integer, News> implements NewsDao {
 
     @Override
     protected String getTableName() {
-        return News.TABLE_NAME;
+        return NewsBuilderImpl.TABLE_NAME;
     }
 
     @Override

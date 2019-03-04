@@ -2,6 +2,7 @@ package builder.impl;
 
 import builder.Builder;
 import builder.exception.BuilderException;
+import entity.Person;
 import entity.Request;
 import entity.RequestSex;
 import entity.RequestType;
@@ -10,32 +11,31 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RequestBuilderImpl implements Builder<Request> {
-    public static final String TABLE_NAME = "request";
-    public static final String REQUEST_ID = "request_id";
+public class PersonBuilderImpl implements Builder<Request> {
+    public static final String TABLE_NAME = "person";
+    public static final String PERSON_ID = "person_id";
     public static final String FULL_NAME = "full_name";
     public static final String SEX_ID = "sex_id";
     public static final String TYPE_ID = "type_id";
     public static final String BIRTH_DATE = "birth_date";
     public static final String NATIONALITY = "nationality";
     public static final String FILE_LINK = "file_link";
-    public static final String REQUEST_FILE = "request_file";
 
-    private RequestBuilderImpl() {
+    private PersonBuilderImpl() {
     }
 
-    public static RequestBuilderImpl getInstance() {
-        return RequestBuilderImpl.InstanceHolder.INSTANCE;
+    public static PersonBuilderImpl getInstance() {
+        return PersonBuilderImpl.InstanceHolder.INSTANCE;
     }
 
     private static class InstanceHolder {
-        private static final RequestBuilderImpl INSTANCE = new RequestBuilderImpl();
+        private static final PersonBuilderImpl INSTANCE = new PersonBuilderImpl();
     }
 
     @Override
-    public Request build(ResultSet resultSet) throws BuilderException {
+    public Person build(ResultSet resultSet) throws BuilderException {
         try {
-            int id = resultSet.getInt(REQUEST_ID);
+            int id = resultSet.getInt(PERSON_ID);
             String fullName = resultSet.getString(FULL_NAME);
             int sexId = resultSet.getInt(SEX_ID);
             RequestSex sex = RequestSex.getById(sexId);
@@ -45,9 +45,9 @@ public class RequestBuilderImpl implements Builder<Request> {
             String nationality = resultSet.getString(NATIONALITY);
             String fileLink = resultSet.getString(FILE_LINK);
 
-            return new Request(id, sex, type, fullName, nationality, birthDate, fileLink);
+            return new Person(id, sex, type, fullName, nationality, birthDate, fileLink);
         } catch (SQLException e) {
-            throw new BuilderException("Can't build Request", e);
+            throw new BuilderException("Can't build Person", e);
         }
     }
 }

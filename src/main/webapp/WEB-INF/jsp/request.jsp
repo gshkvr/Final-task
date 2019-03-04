@@ -24,7 +24,7 @@
 <div class="container">
     <div class="row justify-content-center align-items-center" style="height:50vh">
         <div>
-            <div class="card card-signin flex-row my-5" style="width:400px">
+            <div class="card card-signin flex-row my-5" style="width:450px">
                 <div class="card-body">
                     <h5 class="card-title text-center">${addRequest}</h5>
                     <form action="controller" method="POST" enctype="multipart/form-data" class="form-signin"
@@ -42,21 +42,21 @@
                         </div>
                         <div class="form-label-group"></div>
                         <div class="form-group form-inline">
-                            <label for="full_name">${requestName}</label>
-                            <div class="col-8">
+                            <label for="full_name" class="col-5 col-form-label">${requestName}</label>
+                            <div class="col-5">
                                 <input type="text" id="full_name" name="full_name" class="form-control"
                                        placeholder="${requestName}" required/>
                             </div>
                         </div>
                         <div class="form-group form-inline">
-                            <label for="birth_date" class="col-2 col-form-label">Date</label>
-                            <div class="col-8">
+                            <label for="birth_date" class="col-5 col-form-label">${requestBirthDate}</label>
+                            <div class="col-5">
                                 <input class="form-control" type="date" value="1990-01-01" id="birth_date" name="birth_date" required>
                             </div>
                         </div>
                         <div class="form-group form-inline">
-                            <label for="nationality">${requestNationality}  </label>
-                            <div class="col-8">
+                            <label for="nationality" class="col-5 col-form-label">${requestNationality}  </label>
+                            <div class="col-5">
                                 <select class="form-control" id="nationality" name="nationality">
                                     <option value="afghan">Afghan</option>
                                     <option value="albanian">Albanian</option>
@@ -151,7 +151,6 @@
                                     <option value="jordanian">Jordanian</option>
                                     <option value="kazakhstani">Kazakhstani</option>
                                     <option value="kenyan">Kenyan</option>
-                                    <option value="kittian and nevisian">Kittian and Nevisian</option>
                                     <option value="kuwaiti">Kuwaiti</option>
                                     <option value="kyrgyz">Kyrgyz</option>
                                     <option value="laotian">Laotian</option>
@@ -236,7 +235,6 @@
                                     <option value="thai">Thai</option>
                                     <option value="togolese">Togolese</option>
                                     <option value="tongan">Tongan</option>
-                                    <option value="trinidadian or tobagonian">Trinidadian or Tobagonian</option>
                                     <option value="tunisian">Tunisian</option>
                                     <option value="turkish">Turkish</option>
                                     <option value="tuvaluan">Tuvaluan</option>

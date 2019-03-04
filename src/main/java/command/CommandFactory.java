@@ -1,9 +1,9 @@
 package command;
 
-import command.impl.admin.AdminUserCommand;
-import command.impl.admin.DeleteUserCommand;
-import command.impl.admin.ShowUsersCommand;
+import command.impl.admin.*;
 import command.impl.client.AddRequestCommand;
+import command.impl.page.MissingPersonsPageCommand;
+import command.impl.page.WantedPersonsPageCommand;
 import command.impl.common.LoginCommand;
 import command.impl.common.LogoutCommand;
 import command.impl.common.RegisterCommand;
@@ -28,6 +28,8 @@ public class CommandFactory {
     private static final String MESSAGE_COMMAND = "message_page";
     private static final String NEWS_PAGE_COMMAND = "news_page";
     private static final String USERS_COMMAND = "users";
+    private static final String MISSING_COMMAND = "missing";
+    private static final String WANTED_COMMAND = "wanted";
     private static final String REQUEST_COMMAND = "add_request";
     private static final String REQUEST_ADD_PAGE_COMMAND = "add_request_page";
     private static final String REQUEST_SHOW_PAGE_COMMAND = "show_request_page";
@@ -38,6 +40,8 @@ public class CommandFactory {
     private static final String LOGOUT_COMMAND = "logout";
     private static final String DELETE_USER_COMMAND = "delete_user";
     private static final String ADMIN_USER_COMMAND = "admin_user";
+    private static final String DECLINE_REQUEST_COMMAND = "decline_request";
+    private static final String ACCEPT_REQUEST_COMMAND = "accept_request";
 
     public Command defineCommand(SessionRequestContent content) {
         String action = content.getRequestParameter(COMMAND);
@@ -73,6 +77,14 @@ public class CommandFactory {
                 return new DeleteUserCommand();
             case ADMIN_USER_COMMAND:
                 return new AdminUserCommand();
+            case ACCEPT_REQUEST_COMMAND:
+                return new AcceptRequestCommand();
+            case DECLINE_REQUEST_COMMAND:
+                return new DeclineRequestCommand();
+            case MISSING_COMMAND:
+                return new MissingPersonsPageCommand();
+            case WANTED_COMMAND:
+                return new WantedPersonsPageCommand();
             default:
                 return new NewsPageCommand();
         }

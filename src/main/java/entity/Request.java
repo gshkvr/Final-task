@@ -4,15 +4,6 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class Request extends AbstractEntity {
-    public static final String TABLE_NAME = "request";
-    public static final String REQUEST_ID = "request_id";
-    public static final String FULL_NAME = "full_name";
-    public static final String SEX_ID = "sex_id";
-    public static final String TYPE_ID = "type_id";
-    public static final String BIRTH_DATE = "birth_date";
-    public static final String NATIONALITY = "nationality";
-    public static final String FILE_LINK = "file_link";
-    public static final String REQUEST_FILE = "request_file";
 
     private RequestSex sex;
     private RequestType type;

@@ -1,5 +1,6 @@
 package service;
 
+import builder.impl.RequestBuilderImpl;
 import controller.SessionRequestContent;
 import dao.RequestDao;
 import dao.exception.DaoException;
@@ -7,6 +8,7 @@ import dao.impl.RequestDaoImpl;
 import entity.Request;
 import entity.RequestSex;
 import entity.RequestType;
+import entity.User;
 import org.apache.commons.fileupload.FileItem;
 import resource.ConfigurationManager;
 import service.exception.*;
@@ -33,37 +35,37 @@ public class RequestService {
     private final RequestDao requestDao = RequestDaoImpl.getInstance();
 
     public void createRequest(SessionRequestContent content) throws EmptyNameException, ServiceException, EmptyFileException, EmptySexException, EmptyTypeException, EmptyBirthDateException, EmptyNationalityException {
-        String fullName = content.getRequestParameter(Request.FULL_NAME);
+        String fullName = content.getRequestParameter(RequestBuilderImpl.FULL_NAME);
         if (fullName == null || "".equals(fullName)) {
             throw new EmptyNameException();
         }
 
-        String sSex = content.getRequestParameter(Request.SEX_ID);
+        String sSex = content.getRequestParameter(RequestBuilderImpl.SEX_ID);
         if (sSex == null || "".equals(sSex)) {
             throw new EmptySexException();
         }
         RequestSex sex = RequestSex.getByValue(sSex);
 
-        String sType = content.getRequestParameter(Request.TYPE_ID);
+        String sType = content.getRequestParameter(RequestBuilderImpl.TYPE_ID);
         if (sType == null || "".equals(sType)) {
             throw new EmptyTypeException();
         }
         RequestType type = RequestType.getByValue(sType);
 
-        String date = content.getRequestParameter(Request.BIRTH_DATE);
+        String date = content.getRequestParameter(RequestBuilderImpl.BIRTH_DATE);
         if (date == null || "".equals(date)) {
             throw new EmptyBirthDateException();
         }
         Date birthDate = Date.valueOf(date);
 
-        String nationality = content.getRequestParameter(Request.NATIONALITY);
+        String nationality = content.getRequestParameter(RequestBuilderImpl.NATIONALITY);
         if (nationality == null || "".equals(nationality)) {
             throw new EmptyNationalityException();
         }
 
         Optional<FileItem> optionalItem = content.getFileParts()
                 .stream()
-                .filter(i -> i.getFieldName().equals(Request.REQUEST_FILE))
+                .filter(i -> i.getFieldName().equals(RequestBuilderImpl.REQUEST_FILE))
                 .findFirst();
         String filePath;
         if (optionalItem.isPresent()) {
@@ -92,9 +94,27 @@ public class RequestService {
         }
     }
 
+    public Optional<Request> findRequestById(int id) throws ServiceException {
+        try {
+            return requestDao.findEntityById(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
     private boolean addRequest(Request request) throws ServiceException {
         try {
             return requestDao.create(request);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public boolean declineRequest(SessionRequestContent content) throws ServiceException {
+        try {
+            String sRequestId = content.getRequestParameter(RequestBuilderImpl.REQUEST_ID);
+            int requestId = Integer.parseInt(sRequestId);
+            return requestDao.delete(requestId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

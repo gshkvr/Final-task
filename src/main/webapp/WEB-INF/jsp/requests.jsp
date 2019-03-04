@@ -13,64 +13,39 @@
 <%@include file="../jspf/header.jspf" %>
 <div class="container">
 
-    <!-- Page Heading -->
-    <h1 class="my-4">Page Heading
-        <small>Secondary Text</small>
-    </h1>
-
-    <div class="row">
-        <div class="col-lg-4 col-sm-6 mb-4">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="${pageContext.request.contextPath}/images/persons/missing.jpg" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">Project One</a>
-                    </h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
-                </div>
-            </div>
-        </div>
-        <c:forEach items="${allRequests}" var="req">
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="${pageContext.request.contextPath}${req.fileLink}" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">${req.name}</a>
-                        </h4>
-                        <p class="card-text">${req.fileLink}</p>
+    <c:choose>
+        <c:when test="${allRequests.size() == 0}">
+            <h1 class="my-4">${requests}
+                <small>${noRequests}</small>
+            </h1>
+        </c:when>
+        <c:otherwise>
+            <h1 class="my-4">${requests}</h1>
+            <div class="row">
+                <c:forEach items="${allRequests}" var="req">
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <div class="card h-auto">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}${req.fileLink}" alt="">
+                            <div class="card-body">
+                                <h4 class="card-title">${req.fullName}</h4>
+                                <p class="card-text">${requestSex}: ${req.sex}</p>
+                                <p class="card-text">${requestBirthDate}: <fmt:formatDate pattern = "dd.MM.yyyy" value = "${req.birthDate}"/></p>
+                                <p class="card-text">${requestNationality}: ${fn:toUpperCase(req.nationality)}</p>
+                                <div class="form-group form-inline">
+                                    <form method="POST" action="${declineRequestCommand}${requestId}${req.id}">
+                                        <input type="submit" class="btn btn-danger" value="${bDecline}"/>
+                                    </form>
+                                    <form method="POST" action="${acceptRequestCommand}${requestId}${req.id}">
+                                        <input type="submit" class="btn btn-success" value="${bAccept}"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </c:forEach>
             </div>
-        </c:forEach>
-    </div>
-    <!-- /.row -->
-
-    <!-- Pagination -->
-    <ul class="pagination justify-content-center">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">1</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">3</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-            </a>
-        </li>
-    </ul>
-
+        </c:otherwise>
+    </c:choose>
 </div>
 </body>
 </html>

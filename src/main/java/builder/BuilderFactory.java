@@ -1,11 +1,9 @@
 package builder;
 
 import builder.impl.NewsBuilderImpl;
+import builder.impl.PersonBuilderImpl;
 import builder.impl.RequestBuilderImpl;
 import builder.impl.UserBuilderImpl;
-import entity.News;
-import entity.Request;
-import entity.User;
 
 public class BuilderFactory {
     private BuilderFactory() {
@@ -22,15 +20,18 @@ public class BuilderFactory {
     private final Builder newsBuilder = NewsBuilderImpl.getInstance();
     private final Builder requestBuilder = RequestBuilderImpl.getInstance();
     private final Builder userBuilder = UserBuilderImpl.getInstance();
+    private final Builder personBuilder = PersonBuilderImpl.getInstance();
 
     public Builder getBuilder(String tableName) {
         switch (tableName) {
-            case User.TABLE_NAME:
+            case UserBuilderImpl.TABLE_NAME:
                 return userBuilder;
-            case News.TABLE_NAME:
+            case NewsBuilderImpl.TABLE_NAME:
                 return newsBuilder;
-            case Request.TABLE_NAME:
+            case RequestBuilderImpl.TABLE_NAME:
                 return requestBuilder;
+            case PersonBuilderImpl.TABLE_NAME:
+                return personBuilder;
             default:
                 throw new IllegalArgumentException("No such builder type in BuilderFactory");
         }

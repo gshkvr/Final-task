@@ -15,10 +15,8 @@ public class DeleteUserCommand implements Command {
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {
-        String sUserId = content.getRequestParameter(User.USER_ID);
-        int userId = Integer.parseInt(sUserId);
         try {
-            userService.deleteUser(userId);
+            userService.deleteUser(content);
             return new Page(USERS_COMMAND, true);
         } catch (ServiceException e) {
             throw new CommandException(e);

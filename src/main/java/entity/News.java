@@ -5,15 +5,6 @@ import java.util.Objects;
 
 public class News extends AbstractEntity {
 
-    public static final String TABLE_NAME = "news";
-    public static final String DATE_COLUMN = "date";
-    public static final String RU_TITLE_COLUMN = "ru_title";
-    public static final String RU_TEXT_COLUMN = "ru_text";
-    public static final String EN_TITLE_COLUMN = "en_title";
-    public static final String EN_TEXT_COLUMN = "en_text";
-    public static final String DEFAULT_TITLE_COLUMN = "default_title";
-    public static final String DEFAULT_TEXT_COLUMN = "default_text";
-
     private Date date;
     private String ruTitle;
     private String enTitle;

@@ -1,6 +1,6 @@
 package filter;
 
-import entity.User;
+import builder.impl.UserBuilderImpl;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -24,25 +24,27 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpSession session = httpRequest.getSession(true);
 
-        if (session.getAttribute(User.TABLE_NAME) == null && httpRequest.getCookies() != null) {
+        if (session.getAttribute(UserBuilderImpl.TABLE_NAME) == null && httpRequest.getCookies() != null) {
             List<Cookie> cookies = new LinkedList<>(Arrays.asList(httpRequest.getCookies()));
-            String user = getFromCookies(cookies, User.TABLE_NAME);
+            String user = getFromCookies(cookies, UserBuilderImpl.TABLE_NAME);
             if (user != null) {
-                session.setAttribute(User.TABLE_NAME, user);
+                session.setAttribute(UserBuilderImpl.TABLE_NAME, user);
             }
-            String userRole = getFromCookies(cookies, User.USER_ROLE);
+            String userRole = getFromCookies(cookies, UserBuilderImpl.USER_ROLE);
             if (userRole != null) {
-                session.setAttribute(User.USER_ROLE, userRole);
+                session.setAttribute(UserBuilderImpl.USER_ROLE, userRole);
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override
-    public void init(FilterConfig filterConfig) {}
+    public void init(FilterConfig filterConfig) {
+    }
 
     @Override
-    public void destroy() {}
+    public void destroy() {
+    }
 
     private String getFromCookies(List<Cookie> cookies, String name) {
         String cookie = null;

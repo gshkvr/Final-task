@@ -1,16 +1,18 @@
 package dao.impl;
 
+import builder.impl.UserBuilderImpl;
 import dao.AbstractDao;
 import dao.UserDao;
-import entity.User;
 import dao.exception.DaoException;
+import entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
-    private UserDaoImpl() {}
+    private UserDaoImpl() {
+    }
 
     public static UserDaoImpl getInstance() {
         return UserDaoImpl.InstanceHolder.INSTANCE;
@@ -71,7 +73,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
     @Override
     protected String getTableName() {
-        return User.TABLE_NAME;
+        return UserBuilderImpl.TABLE_NAME;
     }
 
     @Override
