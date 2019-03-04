@@ -23,6 +23,17 @@ public enum RequestSex {
         }
     }
 
+    public static RequestSex getByValue(String value) {
+        switch (value) {
+            case "male":
+                return RequestSex.MALE;
+            case "female":
+                return RequestSex.FEMALE;
+            default:
+                throw new IllegalArgumentException("No such RequestSex");
+        }
+    }
+
     public int getId() {
         return id;
     }

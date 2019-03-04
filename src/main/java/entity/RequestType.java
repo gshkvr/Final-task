@@ -23,6 +23,17 @@ public enum  RequestType {
         }
     }
 
+    public static RequestType getByValue(String value) {
+        switch (value) {
+            case "missing":
+                return RequestType.MISSING;
+            case "wanted":
+                return RequestType.WANTED;
+            default:
+                throw new IllegalArgumentException("No such RequestType");
+        }
+    }
+
     public int getId() {
         return id;
     }
