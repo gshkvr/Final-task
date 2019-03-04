@@ -13,9 +13,12 @@ public class AddRequestPageCommand implements Command {
 
     @Override
     public Page execute(SessionRequestContent content) {
-        String registrationError = content.getRequestParameter(ERROR_REQUEST);
-        content.setRequestAttribute(ERROR_REQUEST, registrationError);
         content.setRequestAttribute(LOCALE_COMMAND, REQUEST_PAGE_COMMAND);
+        String registrationError = content.getRequestParameter(ERROR_REQUEST);
+        if (registrationError != null) {
+            content.setRequestAttribute(LOCALE_COMMAND, REQUEST_PAGE_COMMAND + ConfigurationManager.getProperty(registrationError));
+            content.setRequestAttribute(ERROR_REQUEST, registrationError);
+        }
         return new Page(REQUEST_PAGE);
     }
 }

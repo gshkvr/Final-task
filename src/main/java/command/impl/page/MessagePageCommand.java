@@ -13,9 +13,12 @@ public class MessagePageCommand implements Command {
 
     @Override
     public Page execute(SessionRequestContent content) {
-        String success = content.getRequestParameter(SUCCESS_ATTRIBUTE);
-        content.setRequestAttribute(SUCCESS_ATTRIBUTE, success);
         content.setRequestAttribute(LOCALE_COMMAND, MESSAGE_PAGE_COMMAND);
+        String success = content.getRequestParameter(SUCCESS_ATTRIBUTE);
+        if(success != null){
+            content.setRequestAttribute(LOCALE_COMMAND, MESSAGE_PAGE_COMMAND + ConfigurationManager.getProperty(success));
+            content.setRequestAttribute(SUCCESS_ATTRIBUTE, success);
+        }
         return new Page(MESSAGE_PAGE);
     }
 }

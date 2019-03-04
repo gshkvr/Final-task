@@ -15,9 +15,9 @@ public class RegisterCommand implements Command {
     private static final String REGISTER_PAGE = ConfigurationManager.getProperty("command.register_page");
     private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message_page");
     private static final String SUCCESS_REGISTRATION = ConfigurationManager.getProperty("success.register");
-    private static final String LOGIN_EXISTS_ERROR = ConfigurationManager.getProperty("attribute.error.register.login");
-    private static final String EMAIL_EXISTS_ERROR = ConfigurationManager.getProperty("attribute.error.register.email");
-    private static final String INCORRECT_PASSWORD_ERROR = ConfigurationManager.getProperty("attribute.error.register.password");
+    private static final String LOGIN_EXISTS_ERROR = ConfigurationManager.getProperty("error.register.login");
+    private static final String EMAIL_EXISTS_ERROR = ConfigurationManager.getProperty("error.register.email");
+    private static final String INCORRECT_PASSWORD_ERROR = ConfigurationManager.getProperty("error.register.password");
     private final UserService userService = UserService.getInstance();
 
     @Override

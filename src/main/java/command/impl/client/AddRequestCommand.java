@@ -13,13 +13,13 @@ public class AddRequestCommand implements Command {
     private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message_page");
     private static final String SUCCESS_ADD_REQUEST = ConfigurationManager.getProperty("success.add_request");
     private static final String REQUEST_PAGE_COMMAND = ConfigurationManager.getProperty("command.add_request_page");
-    private static final String FILE_SIZE_ERROR = ConfigurationManager.getProperty("attribute.error.request.file_size");
-    private static final String NAME_ERROR = ConfigurationManager.getProperty("attribute.error.request.name");
-    private static final String FILE_ERROR = ConfigurationManager.getProperty("attribute.error.request.file");
-    private static final String SEX_ERROR = ConfigurationManager.getProperty("attribute.error.request.sex");
-    private static final String TYPE_ERROR = ConfigurationManager.getProperty("attribute.error.request.type");
-    private static final String NATIONALITY_ERROR = ConfigurationManager.getProperty("attribute.error.request.nationality");
-    private static final String BIRTH_DATE_ERROR = ConfigurationManager.getProperty("attribute.error.request.birth_date");
+    private static final String FILE_SIZE_ERROR = ConfigurationManager.getProperty("error.request.file_size");
+    private static final String NAME_ERROR = ConfigurationManager.getProperty("error.request.name");
+    private static final String FILE_ERROR = ConfigurationManager.getProperty("error.request.file");
+    private static final String SEX_ERROR = ConfigurationManager.getProperty("error.request.sex");
+    private static final String TYPE_ERROR = ConfigurationManager.getProperty("error.request.type");
+    private static final String NATIONALITY_ERROR = ConfigurationManager.getProperty("error.request.nationality");
+    private static final String BIRTH_DATE_ERROR = ConfigurationManager.getProperty("error.request.birth_date");
     private final RequestService requestService = RequestService.getInstance();
 
     @Override

@@ -26,19 +26,19 @@
         </h1>
         <table class="table">
             <tbody>
-            <c:forEach items="${wantedPersons}" var="person">
                 <div class="col-lg-4 col-sm-6 mb-4">
-                    <div class="card h-auto">
-                        <img class="card-img-top" src="${pageContext.request.contextPath}${person.fileLink}" alt="">
-                        <div class="card-body">
-                            <h4 class="card-title">${person.fullName}</h4>
-                            <p class="card-text">${requestSex}: ${person.sex}</p>
-                            <p class="card-text">${requestBirthDate}: <fmt:formatDate pattern = "dd.MM.yyyy" value = "${person.birthDate}"/></p>
-                            <p class="card-text">${requestNationality}: ${fn:toUpperCase(person.nationality)}</p>
+                    <c:forEach items="${wantedPersons}" var="person">
+                        <div class="card h-auto">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}${person.fileLink}" alt="">
+                            <div class="card-body">
+                                <h4 class="card-title">${person.fullName}</h4>
+                                <p class="card-text">${requestSex}: ${person.sex}</p>
+                                <p class="card-text">${requestBirthDate}: <fmt:formatDate pattern = "dd.MM.yyyy" value = "${person.birthDate}"/></p>
+                                <p class="card-text">${requestNationality}: ${fn:toUpperCase(person.nationality)}</p>
+                            </div>
                         </div>
-                    </div>
+                    </c:forEach>
                 </div>
-            </c:forEach>
             </tbody>
         </table>
         </c:otherwise>

@@ -15,8 +15,11 @@ public class RegisterPageCommand implements Command {
     @Override
     public Page execute(SessionRequestContent content) {
         String registrationError = content.getRequestParameter(ERROR_REGISTRATION);
-        content.setRequestAttribute(ERROR_REGISTRATION, registrationError);
         content.setRequestAttribute(LOCALE_COMMAND, REGISTER_PAGE_COMMAND);
+        if(registrationError!=null){
+            content.setRequestAttribute(ERROR_REGISTRATION, registrationError);
+            content.setRequestAttribute(LOCALE_COMMAND, REGISTER_PAGE_COMMAND + ConfigurationManager.getProperty(registrationError));
+        }
         return new Page(REGISTER_PAGE);
     }
 }
