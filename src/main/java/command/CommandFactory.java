@@ -2,8 +2,6 @@ package command;
 
 import command.impl.admin.*;
 import command.impl.client.AddRequestCommand;
-import command.impl.page.MissingPersonsPageCommand;
-import command.impl.page.WantedPersonsPageCommand;
 import command.impl.common.LoginCommand;
 import command.impl.common.LogoutCommand;
 import command.impl.common.RegisterCommand;
@@ -27,6 +25,8 @@ public class CommandFactory {
     private static final String ERROR_COMMAND = "error_page";
     private static final String MESSAGE_COMMAND = "message_page";
     private static final String NEWS_PAGE_COMMAND = "news_page";
+    private static final String ADD_NEWS_COMMAND = "add_news";
+    private static final String ADD_NEWS_PAGE_COMMAND = "add_news_page";
     private static final String USERS_COMMAND = "users";
     private static final String MISSING_COMMAND = "missing";
     private static final String WANTED_COMMAND = "wanted";
@@ -85,6 +85,10 @@ public class CommandFactory {
                 return new MissingPersonsPageCommand();
             case WANTED_COMMAND:
                 return new WantedPersonsPageCommand();
+            case ADD_NEWS_COMMAND:
+                return new AddNewsCommand();
+            case ADD_NEWS_PAGE_COMMAND:
+                return new AddNewsPageCommand();
             default:
                 return new NewsPageCommand();
         }

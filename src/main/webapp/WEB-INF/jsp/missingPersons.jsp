@@ -1,8 +1,9 @@
 <%--@elvariable id="missingPersons" type="java.util.List"--%>
 <%--@elvariable id="user" type="String"--%>
+<%@include file="../jspf/import.jspf" %>
 <html>
 <head>
-    <title>${wanted}</title>
+    <title>${missing}</title>
     <link rel="stylesheet" href="webjars/bootstrap/4.2.1/css/bootstrap.css">
     <script src="webjars/jquery/3.3.1/jquery.js"></script>
     <script src="webjars/bootstrap/4.2.1/js/bootstrap.js"></script>

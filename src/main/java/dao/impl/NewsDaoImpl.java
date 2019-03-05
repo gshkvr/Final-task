@@ -28,7 +28,8 @@ public class NewsDaoImpl extends AbstractDao<Integer, News> implements NewsDao {
             "       interpol.news.ru_text AS ru_text,\n" +
             "       interpol.news.en_text AS en_text,\n" +
             "       interpol.news.default_text AS default_text\n" +
-            "       FROM interpol.news news";
+            "       FROM interpol.news news\n" +
+            "       ORDER BY news.date desc ";
     private static final String SELECT_NEWS_BY_ID = "SELECT interpol.news.date AS date,\n" +
             "       interpol.news.ru_title AS ru_title,\n" +
             "       interpol.news.en_title AS en_title,\n" +

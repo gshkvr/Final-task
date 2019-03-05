@@ -1,6 +1,7 @@
+<%@include file="../jspf/import.jspf" %>
 <html>
 <head>
-    <title>Error Page</title>
+    <title>${error}</title>
     <link rel="stylesheet" href="webjars/bootstrap/4.2.1/css/bootstrap.css">
     <link rel="stylesheet" href="webjars/font-awesome/5.7.2/css/all.css">
     <script src="webjars/jquery/3.3.1/jquery.js"></script>

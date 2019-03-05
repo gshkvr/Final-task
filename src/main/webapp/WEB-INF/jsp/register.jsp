@@ -1,4 +1,5 @@
 <%--@elvariable id="errorRegistration" type="String"--%>
+<%@include file="../jspf/import.jspf" %>
 <html>
     <head>
         <title>${register}</title>

@@ -1,4 +1,5 @@
 <%--@elvariable id="errorLogin" type="String"--%>
+<%@include file="../jspf/import.jspf" %>
 <html>
     <head>
         <title>${login}</title>

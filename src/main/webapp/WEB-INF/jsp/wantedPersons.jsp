@@ -1,5 +1,6 @@
 <%--@elvariable id="wantedPersons" type="java.util.List"--%>
 <%--@elvariable id="user" type="String"--%>
+<%@include file="../jspf/import.jspf" %>
 <html>
 <head>
     <title>${wanted}</title>

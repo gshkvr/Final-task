@@ -1,4 +1,5 @@
 <%--@elvariable id="errorRequest" type="String"--%>
+<%@include file="../jspf/import.jspf" %>
 <html>
 <head>
     <title>${addRequest}</title>

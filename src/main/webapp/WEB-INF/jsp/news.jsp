@@ -1,3 +1,4 @@
+<%@include file="../jspf/import.jspf" %>
 <html>
 <head>
     <title>${news}</title>
@@ -22,21 +23,21 @@
                 <div>
                     <h3>${news.ruTitle == '' ? news.defaultTitle : news.ruTitle}</h3>
                     <small><fmt:formatDate pattern = "dd.MM.yyyy" value = "${news.date}"/></small>
-                    <p>${news.ruText == '' ? news.defaultText : news.ruText}</p>
+                    ${news.ruText == '' ? news.defaultText : news.ruText}
                 </div>
             </c:when>
             <c:when test="${locale == localeEn}">
                 <div>
                     <h3>${news.enTitle}</h3>
                     <small><fmt:formatDate pattern = "dd.MM.yyyy" value = "${news.date}"/></small>
-                    <p>${news.enText}</p>
+                    ${news.enText == '' ? news.defaultText : news.enText}
                 </div>
             </c:when>
             <c:otherwise>
                 <div>
                     <h3>${news.defaultTitle}</h3>
                     <small><fmt:formatDate pattern = "dd.MM.yyyy" value = "${news.date}"/></small>
-                    <p>${news.defaultText}</p>
+                    ${news.defaultText}
                 </div>
             </c:otherwise>
         </c:choose>
