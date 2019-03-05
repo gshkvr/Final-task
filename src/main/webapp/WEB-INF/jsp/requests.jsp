@@ -11,8 +11,7 @@
 </head>
 <body>
 <%@include file="../jspf/header.jspf" %>
-<div class="container">
-
+<div class="container" style="width:60%">
     <c:choose>
         <c:when test="${allRequests.size() == 0}">
             <h1 class="my-4">${requests}
