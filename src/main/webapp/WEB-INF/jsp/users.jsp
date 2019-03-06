@@ -1,5 +1,5 @@
 <%--@elvariable id="allUsers" type="java.util.List"--%>
-<%--@elvariable id="user" type="String"--%>
+<%--@elvariable id="user" type="entity.User"--%>
 <%@include file="../jspf/import.jspf" %>
 <html>
 <head>
