@@ -21,10 +21,6 @@
     <filter-name>LocaleFilter</filter-name>
     <servlet-name>Controller</servlet-name>
   </filter-mapping>
-  <filter-mapping>
-    <filter-name>AuthenticationFilter</filter-name>
-    <servlet-name>Controller</servlet-name>
-  </filter-mapping>
 
   <error-page>
     <error-code>404</error-code>

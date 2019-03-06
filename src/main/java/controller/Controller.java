@@ -44,9 +44,6 @@ public class Controller extends HttpServlet {
             Command command = commandFactory.defineCommand(sessionRequestContent);
             page = command.execute(sessionRequestContent);
             sessionRequestContent.insertAttributes(request);
-            if (sessionRequestContent.isCookiesChanged()) {
-                sessionRequestContent.getCookies().forEach(response::addCookie);
-            }
 
             if (page.isForRedirect()) {
                 redirect(page, request, response);

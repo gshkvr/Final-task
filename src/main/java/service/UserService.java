@@ -10,7 +10,6 @@ import entity.UserRole;
 import service.exception.*;
 import util.CryptUtil;
 
-import javax.servlet.http.Cookie;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,12 +35,7 @@ public class UserService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             if (cryptUtil.checkPassword(pass, user.getPassword())) {
-                content.setSessionAttribute(UserBuilderImpl.TABLE_NAME, login);
-                content.setSessionAttribute(UserBuilderImpl.USER_ROLE, user.getRole().getValue());
-                Cookie userCookie = new Cookie(UserBuilderImpl.TABLE_NAME, login);
-                Cookie roleCookie = new Cookie(UserBuilderImpl.USER_ROLE, user.getRole().getValue());
-                content.setCookie(userCookie);
-                content.setCookie(roleCookie);
+                content.setSessionAttribute(UserBuilderImpl.TABLE_NAME, user);
             }
         } else {
             throw new NoSuchUserException();
@@ -50,7 +44,7 @@ public class UserService {
 
     public void registerUser(SessionRequestContent content) throws ServiceException, LoginExistsException, EmailExistsException, NotEqualPasswordsException {
         String login = content.getRequestParameter(UserBuilderImpl.LOGIN);
-        if(checkLoginExists(login)){
+        if (checkLoginExists(login)) {
             throw new LoginExistsException();
         }
 

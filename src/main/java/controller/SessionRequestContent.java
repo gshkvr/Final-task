@@ -18,12 +18,10 @@ public class SessionRequestContent {
     private Map<String, String[]> requestParameters = new HashMap<>();
     private Map<String, Object> sessionAttributes = new HashMap<>();
     private List<FileItem> fileParts = new ArrayList<>();
-    private List<Cookie> cookies;
     private String realPath;
 
     private boolean requestAttributesChanged;
     private boolean sessionAttributesChanged;
-    private boolean cookiesChanged;
 
     private boolean sessionInvalidated = false;
 
@@ -53,14 +51,6 @@ public class SessionRequestContent {
 
     public boolean isSessionInvalidated() {
         return sessionInvalidated;
-    }
-
-    public List<Cookie> getCookies() {
-        return cookies;
-    }
-
-    public boolean isCookiesChanged() {
-        return cookiesChanged;
     }
 
     public List<FileItem> getFileParts() {
@@ -142,8 +132,6 @@ public class SessionRequestContent {
             this.sessionAttributes.put(attributeName, session.getAttribute(attributeName));
         }
         this.sessionAttributesChanged = false;
-        this.cookies = new LinkedList<>();
-        this.cookiesChanged = false;
     }
 
     public void insertAttributes(HttpServletRequest request) {
@@ -159,10 +147,4 @@ public class SessionRequestContent {
             }
         }
     }
-
-    public void setCookie(Cookie cookie) {
-        this.cookiesChanged = true;
-        this.cookies.add(cookie);
-    }
-
 }
