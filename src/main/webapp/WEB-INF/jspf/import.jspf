@@ -60,6 +60,7 @@
 <fmt:message bundle="${mess}" key="add_news.date" var="date"/>
 
 <fmt:message bundle="${config}" key="img.logo" var="logo"/>
+<fmt:message bundle="${config}" key="img.account" var="account"/>
 <fmt:message bundle="${config}" key="locale.ru" var="localeRu"/>
 <fmt:message bundle="${config}" key="locale.en" var="localeEn"/>
 <fmt:message bundle="${config}" key="command.register" var="registerCommand"/>
