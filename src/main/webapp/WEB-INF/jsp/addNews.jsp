@@ -1,5 +1,6 @@
 <%--@elvariable id="errorAddNews" type="String"--%>
 <%@include file="../jspf/import.jspf" %>
+<%@ taglib prefix="md" uri="dateTag" %>
 <html>
 <head>
     <title>${addNews}</title>
@@ -37,7 +38,7 @@
                         <div class="form-row justify-content-center">
                             <label for="date" class="col-2 col-form-label">${date}</label>
                             <div class="col-3">
-                                <input class="form-control" type="date" value="1990-01-01" id="date" name="date" required>
+                                <input class="form-control" type="date" value="<md:date/>" id="date" name="date" required>
                             </div>
                         </div>
                         <hr>
