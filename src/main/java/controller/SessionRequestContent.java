@@ -7,7 +7,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -25,32 +24,8 @@ public class SessionRequestContent {
 
     private boolean sessionInvalidated = false;
 
-    public Map<String, Object> getRequestAttributes() {
-        return requestAttributes;
-    }
-
-    public Map<String, String[]> getRequestParameters() {
-        return requestParameters;
-    }
-
     public String getRequestParameter(String paramName) {
         return requestParameters.get(paramName) != null && requestParameters.get(paramName).length > 0 ? requestParameters.get(paramName)[0] : null;
-    }
-
-    public Map<String, Object> getSessionAttributes() {
-        return sessionAttributes;
-    }
-
-    public boolean isRequestAttributesChanged() {
-        return requestAttributesChanged;
-    }
-
-    public boolean isSessionAttributesChanged() {
-        return sessionAttributesChanged;
-    }
-
-    public boolean isSessionInvalidated() {
-        return sessionInvalidated;
     }
 
     public List<FileItem> getFileParts() {
@@ -81,7 +56,7 @@ public class SessionRequestContent {
         sessionAttributes.put(name, value);
     }
 
-    public void extractValues(HttpServletRequest request) throws ServletException {
+    void extractValues(HttpServletRequest request) throws ServletException {
         if (ServletFileUpload.isMultipartContent(request)) {
             try {
                 DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -134,7 +109,7 @@ public class SessionRequestContent {
         this.sessionAttributesChanged = false;
     }
 
-    public void insertAttributes(HttpServletRequest request) {
+    void insertAttributes(HttpServletRequest request) {
         if (requestAttributesChanged) {
             requestAttributes.forEach(request::setAttribute);
         }

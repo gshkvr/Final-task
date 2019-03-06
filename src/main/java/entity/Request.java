@@ -42,10 +42,6 @@ public class Request extends AbstractEntity {
         return fullName;
     }
 
-    public void setFullName(String full_name) {
-        this.fullName = full_name;
-    }
-
     public String getNationality() {
         return nationality;
     }
@@ -58,16 +54,8 @@ public class Request extends AbstractEntity {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public String getFileLink() {
         return fileLink;
-    }
-
-    public void setFileLink(String fileLink) {
-        this.fileLink = fileLink;
     }
 
     @Override

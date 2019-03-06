@@ -13,7 +13,6 @@ public class AddRequestCommand implements Command {
     private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message_page");
     private static final String SUCCESS_ADD_REQUEST = ConfigurationManager.getProperty("success.add_request");
     private static final String REQUEST_PAGE_COMMAND = ConfigurationManager.getProperty("command.add_request_page");
-    private static final String FILE_SIZE_ERROR = ConfigurationManager.getProperty("error.request.file_size");
     private static final String NAME_ERROR = ConfigurationManager.getProperty("error.request.name");
     private static final String FILE_ERROR = ConfigurationManager.getProperty("error.request.file");
     private static final String SEX_ERROR = ConfigurationManager.getProperty("error.request.sex");

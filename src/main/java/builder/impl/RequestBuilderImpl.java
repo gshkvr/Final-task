@@ -18,7 +18,7 @@ public class RequestBuilderImpl implements Builder<Request> {
     public static final String TYPE_ID = "type_id";
     public static final String BIRTH_DATE = "birth_date";
     public static final String NATIONALITY = "nationality";
-    public static final String FILE_LINK = "file_link";
+    private static final String FILE_LINK = "file_link";
     public static final String REQUEST_FILE = "request_file";
 
     private RequestBuilderImpl() {

@@ -1,13 +1,12 @@
 package command.impl.admin;
 
 import command.Command;
+import command.exception.CommandException;
 import controller.Page;
 import controller.SessionRequestContent;
-import entity.User;
-import command.exception.CommandException;
-import service.exception.ServiceException;
 import resource.ConfigurationManager;
 import service.UserService;
+import service.exception.ServiceException;
 
 public class AdminUserCommand implements Command {
     private static final String USERS_COMMAND = ConfigurationManager.getProperty("command.users");

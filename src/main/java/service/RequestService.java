@@ -8,7 +8,6 @@ import dao.impl.RequestDaoImpl;
 import entity.Request;
 import entity.RequestSex;
 import entity.RequestType;
-import entity.User;
 import org.apache.commons.fileupload.FileItem;
 import resource.ConfigurationManager;
 import service.exception.*;
@@ -94,7 +93,7 @@ public class RequestService {
         }
     }
 
-    public Optional<Request> findRequestById(int id) throws ServiceException {
+    Optional<Request> findRequestById(int id) throws ServiceException {
         try {
             return requestDao.findEntityById(id);
         } catch (DaoException e) {
@@ -102,27 +101,27 @@ public class RequestService {
         }
     }
 
-    private boolean addRequest(Request request) throws ServiceException {
+    private void addRequest(Request request) throws ServiceException {
         try {
-            return requestDao.create(request);
+            requestDao.create(request);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    public boolean declineRequest(SessionRequestContent content) throws ServiceException {
+    public void declineRequest(SessionRequestContent content) throws ServiceException {
         try {
             String sRequestId = content.getRequestParameter(RequestBuilderImpl.REQUEST_ID);
             int requestId = Integer.parseInt(sRequestId);
-            return requestDao.delete(requestId);
+            requestDao.delete(requestId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    public boolean deleteRequest(int requestId) throws ServiceException {
+    void deleteRequest(int requestId) throws ServiceException {
         try {
-            return requestDao.delete(requestId);
+            requestDao.delete(requestId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

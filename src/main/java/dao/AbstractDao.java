@@ -3,12 +3,12 @@ package dao;
 import builder.Builder;
 import builder.BuilderFactory;
 import builder.exception.BuilderException;
-import dao.pool.ConnectionPool;
-import dao.pool.ProxyConnection;
-import entity.AbstractEntity;
 import dao.exception.ConnectionPoolException;
 import dao.exception.DaoException;
 import dao.exception.ProxyConnectionException;
+import dao.pool.ConnectionPool;
+import dao.pool.ProxyConnection;
+import entity.AbstractEntity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

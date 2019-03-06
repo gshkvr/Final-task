@@ -13,13 +13,13 @@ import java.sql.SQLException;
 
 public class PersonBuilderImpl implements Builder<Request> {
     public static final String TABLE_NAME = "person";
-    public static final String PERSON_ID = "person_id";
-    public static final String FULL_NAME = "full_name";
-    public static final String SEX_ID = "sex_id";
-    public static final String TYPE_ID = "type_id";
-    public static final String BIRTH_DATE = "birth_date";
-    public static final String NATIONALITY = "nationality";
-    public static final String FILE_LINK = "file_link";
+    private static final String PERSON_ID = "person_id";
+    private static final String FULL_NAME = "full_name";
+    private static final String SEX_ID = "sex_id";
+    private static final String TYPE_ID = "type_id";
+    private static final String BIRTH_DATE = "birth_date";
+    private static final String NATIONALITY = "nationality";
+    private static final String FILE_LINK = "file_link";
 
     private PersonBuilderImpl() {
     }

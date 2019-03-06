@@ -67,17 +67,9 @@ public class PersonService {
         }
     }
 
-    private boolean addPerson(Person person) throws ServiceException {
+    private void addPerson(Person person) throws ServiceException {
         try {
-            return personDao.create(person);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    public boolean deletePerson(int personId) throws ServiceException {
-        try {
-            return personDao.delete(personId);
+            personDao.create(person);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

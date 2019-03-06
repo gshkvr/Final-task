@@ -1,14 +1,12 @@
 package builder.impl;
 
 import builder.Builder;
-import entity.News;
 import builder.exception.BuilderException;
+import entity.News;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
 
 public class NewsBuilderImpl implements Builder<News> {
     public static final String TABLE_NAME = "news";

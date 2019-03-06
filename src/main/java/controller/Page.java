@@ -14,19 +14,11 @@ public class Page {
         this.forRedirect = forRedirect;
     }
 
-    public boolean isForRedirect() {
+    boolean isForRedirect() {
         return forRedirect;
     }
 
-    public void setForRedirect(boolean forRedirect) {
-        this.forRedirect = forRedirect;
-    }
-
-    public String getUrl() {
+    String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }

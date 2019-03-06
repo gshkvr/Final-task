@@ -36,16 +36,8 @@ public class News extends AbstractEntity {
         return ruTitle;
     }
 
-    public void setRuTitle(String ruTitle) {
-        this.ruTitle = ruTitle;
-    }
-
     public String getEnTitle() {
         return enTitle;
-    }
-
-    public void setEnTitle(String enTitle) {
-        this.enTitle = enTitle;
     }
 
     public String getRuText() {
@@ -66,10 +58,6 @@ public class News extends AbstractEntity {
 
     public String getDefaultTitle() {
         return defaultTitle;
-    }
-
-    public void setDefaultTitle(String defaultTitle) {
-        this.defaultTitle = defaultTitle;
     }
 
     public String getDefaultText() {

@@ -1,3 +1,5 @@
+<%--@elvariable id="allNews" type="java.util.List"--%>
+<%--@elvariable id="role" type="String"--%>
 <%@include file="../jspf/import.jspf" %>
 <html>
 <head>

@@ -1,9 +1,9 @@
 package builder.impl;
 
 import builder.Builder;
+import builder.exception.BuilderException;
 import entity.User;
 import entity.UserRole;
-import builder.exception.BuilderException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ public class UserBuilderImpl implements Builder<User> {
 
     public static final String TABLE_NAME = "user";
     public static final String USER_ID = "user_id";
-    public static final String USER_ROLE_ID = "user_role_id";
+    private static final String USER_ROLE_ID = "user_role_id";
     public static final String USER_ROLE = "role";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";

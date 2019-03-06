@@ -60,7 +60,7 @@ public class ConnectionPool {
         }
     }
 
-    public void returnConnection(ProxyConnection connection) throws ConnectionPoolException {
+    void returnConnection(ProxyConnection connection) throws ConnectionPoolException {
         try {
             if (!connection.getAutoCommit()) {
                 connection.setAutoCommit(true);

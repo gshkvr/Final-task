@@ -29,10 +29,10 @@ public class NewsService {
     private static final String CLOSE_TAG = "</p>";
     private final NewsDao newsDao = NewsDaoImpl.getInstance();
 
-    public boolean addNews(SessionRequestContent content) throws ServiceException, EmptyRuTitleException, EmptyRuTextException, EmptyEnTitleException, EmptyEnTextException, EmptyDateException {
+    public void addNews(SessionRequestContent content) throws ServiceException, EmptyRuTitleException, EmptyRuTextException, EmptyEnTitleException, EmptyEnTextException, EmptyDateException {
         News news = getNewsFromRequestContent(content);
         try {
-            return newsDao.create(news);
+            newsDao.create(news);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -67,10 +67,10 @@ public class NewsService {
         }
     }
 
-    public boolean updateNews(SessionRequestContent content) throws EmptyDateException, EmptyRuTextException, EmptyEnTitleException, EmptyEnTextException, EmptyRuTitleException, ServiceException {
+    public void updateNews(SessionRequestContent content) throws EmptyDateException, EmptyRuTextException, EmptyEnTitleException, EmptyEnTextException, EmptyRuTitleException, ServiceException {
         News news = getNewsFromRequestContent(content);
         try {
-            return newsDao.update(news);
+            newsDao.update(news);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

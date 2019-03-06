@@ -85,14 +85,6 @@ public class UserService {
         }
     }
 
-    public Optional<User> findUserByEmail(String email) throws ServiceException {
-        try {
-            return userDao.findUserByEmail(email);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
     private boolean checkLoginExists(String login) throws ServiceException {
         try {
             Optional<User> optionalUser = userDao.findUserByLogin(login);
@@ -111,25 +103,25 @@ public class UserService {
         }
     }
 
-    private boolean addUser(User user) throws ServiceException {
+    private void addUser(User user) throws ServiceException {
         try {
-            return userDao.create(user);
+            userDao.create(user);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    public boolean deleteUser(SessionRequestContent content) throws ServiceException {
+    public void deleteUser(SessionRequestContent content) throws ServiceException {
         try {
             String sUserId = content.getRequestParameter(UserBuilderImpl.USER_ID);
             int userId = Integer.parseInt(sUserId);
-            return userDao.delete(userId);
+            userDao.delete(userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    public boolean makeUserAdmin(SessionRequestContent content) throws ServiceException {
+    public void makeUserAdmin(SessionRequestContent content) throws ServiceException {
         try {
             String sUserId = content.getRequestParameter(UserBuilderImpl.USER_ID);
             int userId = Integer.parseInt(sUserId);
@@ -138,7 +130,7 @@ public class UserService {
                 User user = optionalUser.get();
                 UserRole admin = UserRole.ADMIN;
                 user.setRole(admin);
-                return userDao.update(user);
+                userDao.update(user);
             } else {
                 throw new ServiceException("Can't make user with id = " + userId + " admin");
             }
