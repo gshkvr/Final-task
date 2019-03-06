@@ -23,6 +23,11 @@
                 <div>
                     <h3>${news.ruTitle == '' ? news.defaultTitle : news.ruTitle}</h3>
                     <small><fmt:formatDate pattern = "dd.MM.yyyy" value = "${news.date}"/></small>
+                    <c:if test="${role == 'admin'}">
+                        <form method="POST" action="${editNewsPageCommand}${newsId}${news.id}">
+                            <input type="submit" class="btn btn-secondary btn-sm" value="${bEditNews}"/>
+                        </form>
+                    </c:if>
                     ${news.ruText == '' ? news.defaultText : news.ruText}
                 </div>
             </c:when>
@@ -30,6 +35,11 @@
                 <div>
                     <h3>${news.enTitle}</h3>
                     <small><fmt:formatDate pattern = "dd.MM.yyyy" value = "${news.date}"/></small>
+                    <c:if test="${role == 'admin'}">
+                        <form method="POST" action="${editNewsPageCommand}${newsId}${news.id}">
+                            <input type="submit" class="btn btn-secondary btn-sm" value="${bEditNews}"/>
+                        </form>
+                    </c:if>
                     ${news.enText == '' ? news.defaultText : news.enText}
                 </div>
             </c:when>

@@ -26,7 +26,9 @@ public class CommandFactory {
     private static final String MESSAGE_COMMAND = "message_page";
     private static final String NEWS_PAGE_COMMAND = "news_page";
     private static final String ADD_NEWS_COMMAND = "add_news";
+    private static final String EDIT_NEWS_COMMAND = "edit_news";
     private static final String ADD_NEWS_PAGE_COMMAND = "add_news_page";
+    private static final String EDIT_NEWS_PAGE_COMMAND = "edit_news_page";
     private static final String USERS_COMMAND = "users";
     private static final String MISSING_COMMAND = "missing";
     private static final String WANTED_COMMAND = "wanted";
@@ -89,6 +91,10 @@ public class CommandFactory {
                 return new AddNewsCommand();
             case ADD_NEWS_PAGE_COMMAND:
                 return new AddNewsPageCommand();
+            case EDIT_NEWS_PAGE_COMMAND:
+                return new EditNewsPageCommand();
+            case EDIT_NEWS_COMMAND:
+                return new EditNewsCommand();
             default:
                 return new NewsPageCommand();
         }

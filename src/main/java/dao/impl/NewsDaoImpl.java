@@ -21,7 +21,8 @@ public class NewsDaoImpl extends AbstractDao<Integer, News> implements NewsDao {
         private static final NewsDaoImpl INSTANCE = new NewsDaoImpl();
     }
 
-    private static final String SELECT_NEWS_ALL = "SELECT interpol.news.date AS date,\n" +
+    private static final String SELECT_NEWS_ALL = "SELECT interpol.news.id AS news_id,\n" +
+            "       interpol.news.date AS date,\n" +
             "       interpol.news.ru_title AS ru_title,\n" +
             "       interpol.news.en_title AS en_title,\n" +
             "       interpol.news.default_title AS default_title,\n" +
@@ -30,7 +31,8 @@ public class NewsDaoImpl extends AbstractDao<Integer, News> implements NewsDao {
             "       interpol.news.default_text AS default_text\n" +
             "       FROM interpol.news news\n" +
             "       ORDER BY news.date desc ";
-    private static final String SELECT_NEWS_BY_ID = "SELECT interpol.news.date AS date,\n" +
+    private static final String SELECT_NEWS_BY_ID = "SELECT interpol.news.id AS news_id,\n" +
+            "       interpol.news.date AS date,\n" +
             "       interpol.news.ru_title AS ru_title,\n" +
             "       interpol.news.en_title AS en_title,\n" +
             "       interpol.news.default_title AS default_title,\n" +

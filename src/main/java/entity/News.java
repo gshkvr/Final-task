@@ -13,10 +13,8 @@ public class News extends AbstractEntity {
     private String enText;
     private String defaultText;
 
-    public News() {
-    }
-
-    public News(Date date, String ruTitle, String enTitle, String defaultTitle, String ruText, String enText, String defaultText) {
+    public News(int id, Date date, String ruTitle, String enTitle, String defaultTitle, String ruText, String enText, String defaultText) {
+        this.id = id;
         this.date = date;
         this.ruTitle = ruTitle;
         this.enTitle = enTitle;

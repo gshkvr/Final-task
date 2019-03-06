@@ -71,4 +71,5 @@
         </div>
     </div>
 </nav>
-${user}
+Role: ${role}
+User: ${user}
