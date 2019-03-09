@@ -10,7 +10,7 @@ import service.RequestService;
 
 public class ShowRequestPageCommand implements Command {
     private static final String REQUESTS_SHOW_PAGE = ConfigurationManager.getProperty("page.requests");
-    private static final String REQUESTS_SHOW_COMMAND = ConfigurationManager.getProperty("command.show_request_page");
+    private static final String REQUESTS_SHOW_COMMAND = ConfigurationManager.getProperty("command.show.request.page");
     private static final String LOCALE_COMMAND = "localeCommand";
     private final RequestService requestService = RequestService.getInstance();
 

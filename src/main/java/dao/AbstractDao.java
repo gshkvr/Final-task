@@ -58,17 +58,17 @@ public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K,
     }
 
     @Override
-    public boolean create(T entity) throws DaoException {
+    public void create(T entity) throws DaoException {
         String query = getCreateQuery();
         List<String> parameters = getParametersForCreate(entity);
-        return executeCreateUpdateDelete(query, parameters);
+        executeCreateUpdateDelete(query, parameters, true);
     }
 
     @Override
-    public boolean update(T entity) throws DaoException {
+    public void update(T entity) throws DaoException {
         String query = getUpdateQuery();
         List<String> parameters = getParametersForUpdate(entity);
-        return executeCreateUpdateDelete(query, parameters);
+        executeCreateUpdateDelete(query, parameters, true);
     }
 
     private List<String> getParametersForUpdate(T entity) {
@@ -80,18 +80,24 @@ public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K,
     }
 
     @Override
-    public boolean delete(K id) throws DaoException {
+    public void delete(K id, boolean commit) throws DaoException {
         String query = getDeleteQuery();
         List<String> parameters = new ArrayList<>();
         parameters.add(id.toString());
-        return executeCreateUpdateDelete(query, parameters);
+        executeCreateUpdateDelete(query, parameters, commit);
     }
 
-    private boolean executeCreateUpdateDelete(String query, List<String> parameters) throws DaoException {
+    private void executeCreateUpdateDelete(String query, List<String> parameters, boolean commit) throws DaoException {
         try (ProxyConnection connection = connectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             setParameters(statement, parameters);
-            return statement.executeUpdate() == 1;
+            if (commit) {
+                statement.executeUpdate();
+            } else {
+                connection.setAutoCommit(false);
+                statement.executeUpdate();
+                connection.setAutoCommit(true);
+            }
         } catch (SQLException | ProxyConnectionException | ConnectionPoolException e) {
             throw new DaoException(e);
         }

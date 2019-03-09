@@ -9,13 +9,13 @@ import service.NewsService;
 import service.exception.*;
 
 public class AddNewsCommand implements Command {
-    private static final String NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.news_page");
-    private static final String ADD_NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.add_news_page");
-    private static final String ERROR_RU_TITLE = ConfigurationManager.getProperty("error.add_news.ru_title");
-    private static final String ERROR_RU_TEXT = ConfigurationManager.getProperty("error.add_news.ru_text");
-    private static final String ERROR_EN_TITLE = ConfigurationManager.getProperty("error.add_news.en_title");
-    private static final String ERROR_EN_TEXT = ConfigurationManager.getProperty("error.add_news.en_text");
-    private static final String ERROR_DATE = ConfigurationManager.getProperty("error.add_news.date");
+    private static final String NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.news.page");
+    private static final String ADD_NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.add.news.page");
+    private static final String ERROR_RU_TITLE = ConfigurationManager.getProperty("error.add.news.ru.title");
+    private static final String ERROR_RU_TEXT = ConfigurationManager.getProperty("error.add.news.ru.text");
+    private static final String ERROR_EN_TITLE = ConfigurationManager.getProperty("error.add.news.en.title");
+    private static final String ERROR_EN_TEXT = ConfigurationManager.getProperty("error.add.news.en.text");
+    private static final String ERROR_DATE = ConfigurationManager.getProperty("error.add.news.date");
     private final NewsService newsService = NewsService.getInstance();
 
     @Override

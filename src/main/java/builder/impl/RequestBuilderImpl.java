@@ -2,9 +2,9 @@ package builder.impl;
 
 import builder.Builder;
 import builder.exception.BuilderException;
+import entity.PersonSex;
+import entity.PersonType;
 import entity.Request;
-import entity.RequestSex;
-import entity.RequestType;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -38,9 +38,9 @@ public class RequestBuilderImpl implements Builder<Request> {
             int id = resultSet.getInt(REQUEST_ID);
             String fullName = resultSet.getString(FULL_NAME);
             int sexId = resultSet.getInt(SEX_ID);
-            RequestSex sex = RequestSex.getById(sexId);
+            PersonSex sex = PersonSex.getById(sexId);
             int typeId = resultSet.getInt(TYPE_ID);
-            RequestType type = RequestType.getById(typeId);
+            PersonType type = PersonType.getById(typeId);
             Date birthDate = resultSet.getDate(BIRTH_DATE);
             String nationality = resultSet.getString(NATIONALITY);
             String fileLink = resultSet.getString(FILE_LINK);

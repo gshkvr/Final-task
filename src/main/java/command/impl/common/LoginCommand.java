@@ -10,8 +10,8 @@ import resource.ConfigurationManager;
 import service.UserService;
 
 public class LoginCommand implements Command {
-    private static final String NEWS_COMMAND = ConfigurationManager.getProperty("command.news_page");
-    private static final String LOGIN_PAGE_COMMAND = ConfigurationManager.getProperty("command.login_page");
+    private static final String NEWS_COMMAND = ConfigurationManager.getProperty("command.news.page");
+    private static final String LOGIN_PAGE_COMMAND = ConfigurationManager.getProperty("command.login.page");
     private static final String LOGIN_ERROR = ConfigurationManager.getProperty("error.login");
 
     private final UserService userService = UserService.getInstance();

@@ -3,15 +3,15 @@ package builder.impl;
 import builder.Builder;
 import builder.exception.BuilderException;
 import entity.Person;
+import entity.PersonType;
 import entity.Request;
-import entity.RequestSex;
-import entity.RequestType;
+import entity.PersonSex;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PersonBuilderImpl implements Builder<Request> {
+public class PersonBuilderImpl implements Builder<Person> {
     public static final String TABLE_NAME = "person";
     private static final String PERSON_ID = "person_id";
     private static final String FULL_NAME = "full_name";
@@ -38,9 +38,9 @@ public class PersonBuilderImpl implements Builder<Request> {
             int id = resultSet.getInt(PERSON_ID);
             String fullName = resultSet.getString(FULL_NAME);
             int sexId = resultSet.getInt(SEX_ID);
-            RequestSex sex = RequestSex.getById(sexId);
+            PersonSex sex = PersonSex.getById(sexId);
             int typeId = resultSet.getInt(TYPE_ID);
-            RequestType type = RequestType.getById(typeId);
+            PersonType type = PersonType.getById(typeId);
             Date birthDate = resultSet.getDate(BIRTH_DATE);
             String nationality = resultSet.getString(NATIONALITY);
             String fileLink = resultSet.getString(FILE_LINK);

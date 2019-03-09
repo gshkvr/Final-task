@@ -6,7 +6,7 @@ import controller.SessionRequestContent;
 import resource.ConfigurationManager;
 
 public class LogoutCommand implements Command {
-    private static final String NEWS_COMMAND = ConfigurationManager.getProperty("command.news_page");
+    private static final String NEWS_COMMAND = ConfigurationManager.getProperty("command.news.page");
 
     @Override
     public Page execute(SessionRequestContent content) {

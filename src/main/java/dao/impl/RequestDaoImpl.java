@@ -3,9 +3,9 @@ package dao.impl;
 import builder.impl.RequestBuilderImpl;
 import dao.AbstractDao;
 import dao.RequestDao;
+import entity.PersonSex;
 import entity.Request;
-import entity.RequestSex;
-import entity.RequestType;
+import entity.PersonType;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -30,7 +30,8 @@ public class RequestDaoImpl extends AbstractDao<Integer, Request> implements Req
             "       interpol.request.nationality AS nationality,\n" +
             "       interpol.request.birth_date AS birth_date,\n" +
             "       interpol.request.file_link AS file_link\n" +
-            "       FROM interpol.request request";
+            "       FROM interpol.request request\n" +
+            "       ORDER BY request.id desc ";
 
     private static final String SELECT_REQUEST_BY_ID = "SELECT interpol.request.id AS request_id,\n" +
             "       interpol.request.sex_id AS sex_id,\n" +
@@ -42,12 +43,12 @@ public class RequestDaoImpl extends AbstractDao<Integer, Request> implements Req
             "       FROM interpol.request request\n" +
             "       WHERE request.id = ?";
 
-    private static final String CREATE_REQUEST = "insert into interpol.request (full_name, sex_id," +
-            "       type_id, birth_date, nationality, file_link) " +
+    private static final String CREATE_REQUEST = "insert into interpol.request (full_name, nationality, " +
+            "       sex_id, type_id, birth_date, file_link) " +
             "       values (?,?,?,?,?,?)";
 
-    private static final String UPDATE_REQUEST = "update interpol.request set full_name=?, sex_id=?," +
-            "       type_id=?, birth_date=?, nationality=?, file_link=? " +
+    private static final String UPDATE_REQUEST = "update interpol.request set full_name=?, nationality=?, " +
+            "       sex_id=?, type_id=?, birth_date=?, file_link=? " +
             "       where id=?";
 
     private static final String DELETE_REQUEST = "delete from interpol.request where id=?";
@@ -87,16 +88,16 @@ public class RequestDaoImpl extends AbstractDao<Integer, Request> implements Req
         List<String> parameters = new ArrayList<>();
         String fullName = entity.getFullName();
         parameters.add(fullName);
-        RequestSex sex = entity.getSex();
+        String nationality = entity.getNationality();
+        parameters.add(nationality);
+        PersonSex sex = entity.getSex();
         int sexId = sex.getId();
         parameters.add(String.valueOf(sexId));
-        RequestType type = entity.getType();
+        PersonType type = entity.getType();
         int typeId = type.getId();
         parameters.add(String.valueOf(typeId));
         Date birthDate = entity.getBirthDate();
         parameters.add(birthDate.toString());
-        String nationality = entity.getNationality();
-        parameters.add(nationality);
         String fileLink = entity.getFileLink();
         parameters.add(fileLink);
         return parameters;

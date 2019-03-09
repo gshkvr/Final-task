@@ -10,7 +10,7 @@ import service.exception.NoSuchRequestException;
 import service.exception.ServiceException;
 
 public class AcceptRequestCommand implements Command {
-    private static final String REQUESTS_PAGE = ConfigurationManager.getProperty("command.show_request_page");
+    private static final String REQUESTS_PAGE = ConfigurationManager.getProperty("command.show.request.page");
     private final PersonService personService = PersonService.getInstance();
 
     @Override

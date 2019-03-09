@@ -19,8 +19,8 @@ public class AccessFilter implements Filter {
     private static final String COMMAND = "command";
     private static final String ADMIN = "admin";
     private static final String CLIENT = "client";
-    private static final String LOGIN_REDIRECT = ConfigurationManager.getProperty("command.login_page");
-    private static final String NEWS_REDIRECT = ConfigurationManager.getProperty("command.news_page");
+    private static final String LOGIN_REDIRECT = ConfigurationManager.getProperty("command.login.page");
+    private static final String NEWS_REDIRECT = ConfigurationManager.getProperty("command.news.page");
     private final Set<String> unauthorizedCommands = Set.of("news_page", "login_page", "login", "register_page",
             "register", "error_page", "message_page");
     private final Set<String> clientCommands = Set.of("news_page", "add_request_page", "add_request", "logout",
@@ -39,32 +39,32 @@ public class AccessFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
         HttpSession session = httpRequest.getSession(true);
 
-        String command = httpRequest.getParameter(COMMAND);
-        String role = (String) session.getAttribute(UserBuilderImpl.USER_ROLE);
-        String redirectPage = null;
-        if (command != null) {
-            switch (role == null ? "" : role) {
-                case ADMIN:
-                    if (!isAdminCommand(command)) {
-                        redirectPage = NEWS_REDIRECT;
-                    }
-                    break;
-                case CLIENT:
-                    if (!isClientCommand(command)) {
-                        redirectPage = NEWS_REDIRECT;
-                    }
-                    break;
-                default:
-                    if (!isUnauthorizedCommand(command)) {
-                        redirectPage = LOGIN_REDIRECT;
-                    }
-                    break;
-            }
-        }
-        if (redirectPage != null) {
-            httpResponse.sendRedirect(redirectPage);
-            return;
-        }
+//        String command = httpRequest.getParameter(COMMAND);
+//        String role = (String) session.getAttribute(UserBuilderImpl.USER_ROLE);
+//        String redirectPage = null;
+//        if (command != null) {
+//            switch (role == null ? "" : role) {
+//                case ADMIN:
+//                    if (!isAdminCommand(command)) {
+//                        redirectPage = NEWS_REDIRECT;
+//                    }
+//                    break;
+//                case CLIENT:
+//                    if (!isClientCommand(command)) {
+//                        redirectPage = NEWS_REDIRECT;
+//                    }
+//                    break;
+//                default:
+//                    if (!isUnauthorizedCommand(command)) {
+//                        redirectPage = LOGIN_REDIRECT;
+//                    }
+//                    break;
+//            }
+//        }
+//        if (redirectPage != null) {
+//            httpResponse.sendRedirect(redirectPage);
+//            return;
+//        }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

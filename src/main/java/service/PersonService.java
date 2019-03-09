@@ -6,8 +6,8 @@ import dao.PersonDao;
 import dao.exception.DaoException;
 import dao.impl.PersonDaoImpl;
 import entity.Person;
+import entity.PersonType;
 import entity.Request;
-import entity.RequestType;
 import service.exception.NoSuchRequestException;
 import service.exception.ServiceException;
 
@@ -35,11 +35,9 @@ public class PersonService {
         int id = Integer.parseInt(sId);
         Optional<Request> optionalRequest = requestService.findRequestById(id);
         if (optionalRequest.isPresent()) {
-            Request request = optionalRequest.get();
-            Person person = new Person(0, request.getSex(), request.getType(), request.getFullName(),
-                    request.getNationality(), request.getBirthDate(), request.getFileLink());
+            Person person = optionalRequest.get();
+            requestService.deleteRequest(id, false);
             addPerson(person);
-            requestService.deleteRequest(id);
         } else {
             throw new NoSuchRequestException();
         }
@@ -49,7 +47,7 @@ public class PersonService {
         try {
             return personDao.findAll()
                     .stream()
-                    .filter(person -> person.getType() == RequestType.WANTED)
+                    .filter(person -> person.getType() == PersonType.WANTED)
                     .collect(Collectors.toList());
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -60,7 +58,7 @@ public class PersonService {
         try {
             return personDao.findAll()
                     .stream()
-                    .filter(person -> person.getType() == RequestType.MISSING)
+                    .filter(person -> person.getType() == PersonType.MISSING)
                     .collect(Collectors.toList());
         } catch (DaoException e) {
             throw new ServiceException(e);

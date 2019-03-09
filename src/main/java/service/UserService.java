@@ -115,7 +115,7 @@ public class UserService {
         try {
             String sUserId = content.getRequestParameter(UserBuilderImpl.USER_ID);
             int userId = Integer.parseInt(sUserId);
-            userDao.delete(userId);
+            userDao.delete(userId, true);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

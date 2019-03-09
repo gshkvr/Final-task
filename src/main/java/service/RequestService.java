@@ -5,9 +5,9 @@ import controller.SessionRequestContent;
 import dao.RequestDao;
 import dao.exception.DaoException;
 import dao.impl.RequestDaoImpl;
+import entity.PersonSex;
 import entity.Request;
-import entity.RequestSex;
-import entity.RequestType;
+import entity.PersonType;
 import org.apache.commons.fileupload.FileItem;
 import resource.ConfigurationManager;
 import service.exception.*;
@@ -43,13 +43,13 @@ public class RequestService {
         if (sSex == null || "".equals(sSex)) {
             throw new EmptySexException();
         }
-        RequestSex sex = RequestSex.getByValue(sSex);
+        PersonSex sex = PersonSex.getByValue(sSex);
 
         String sType = content.getRequestParameter(RequestBuilderImpl.TYPE_ID);
         if (sType == null || "".equals(sType)) {
             throw new EmptyTypeException();
         }
-        RequestType type = RequestType.getByValue(sType);
+        PersonType type = PersonType.getByValue(sType);
 
         String date = content.getRequestParameter(RequestBuilderImpl.BIRTH_DATE);
         if (date == null || "".equals(date)) {
@@ -113,15 +113,15 @@ public class RequestService {
         try {
             String sRequestId = content.getRequestParameter(RequestBuilderImpl.REQUEST_ID);
             int requestId = Integer.parseInt(sRequestId);
-            requestDao.delete(requestId);
+            requestDao.delete(requestId, true);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    void deleteRequest(int requestId) throws ServiceException {
+    void deleteRequest(int requestId, boolean commit) throws ServiceException {
         try {
-            requestDao.delete(requestId);
+            requestDao.delete(requestId, commit);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

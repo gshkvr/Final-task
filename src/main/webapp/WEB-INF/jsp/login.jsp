@@ -20,11 +20,11 @@
                             <form class="form-signin" name="loginForm" method="POST" action="controller">
                                 <input type="hidden" name="command" value="login"/>
                                 <div class="form-label-group">
-                                    <input type="text" id="login" name="login" class="form-control" placeholder="${login}">
+                                    <input type="text" id="login" name="login" class="form-control" placeholder="${login}" required>
                                     <label for="login">${login}</label>
                                 </div>
                                 <div class="form-label-group">
-                                    <input type="password" id="password" name="password" class="form-control" placeholder="${password}">
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="${password}" required>
                                     <label for="password">${password}</label>
                                 </div>
                                 <c:if test="${errorLogin != null}">

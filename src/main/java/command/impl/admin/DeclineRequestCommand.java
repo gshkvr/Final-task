@@ -10,7 +10,7 @@ import service.exception.ServiceException;
 
 public class DeclineRequestCommand implements Command {
     private final RequestService requestService = RequestService.getInstance();
-    private static final String REQUESTS_PAGE = ConfigurationManager.getProperty("command.show_request_page");
+    private static final String REQUESTS_PAGE = ConfigurationManager.getProperty("command.show.request.page");
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {

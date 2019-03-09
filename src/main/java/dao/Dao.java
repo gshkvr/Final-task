@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface Dao<K, T extends AbstractEntity> {
         List<T> findAll() throws DaoException;
         Optional<T> findEntityById(K id) throws DaoException;
-        boolean delete(K id) throws DaoException;
-        boolean create(T entity)  throws DaoException;
-        boolean update(T entity) throws DaoException;
+        void delete(K id, boolean commit) throws DaoException;
+        void create(T entity)  throws DaoException;
+        void update(T entity) throws DaoException;
 }

@@ -1,36 +1,36 @@
 package entity;
 
-public enum RequestSex {
+public enum PersonSex {
     MALE(1, "male"),
     FEMALE(2, "female");
 
     private int id;
     private String value;
 
-    RequestSex(int id, String value) {
+    PersonSex(int id, String value) {
         this.id = id;
         this.value = value;
     }
 
-    public static RequestSex getById(int id) {
+    public static PersonSex getById(int id) {
         switch (id) {
             case 1:
-                return RequestSex.MALE;
+                return PersonSex.MALE;
             case 2:
-                return RequestSex.FEMALE;
+                return PersonSex.FEMALE;
             default:
-                throw new IllegalArgumentException("No such RequestSex");
+                throw new IllegalArgumentException("No such PersonSex");
         }
     }
 
-    public static RequestSex getByValue(String value) {
+    public static PersonSex getByValue(String value) {
         switch (value) {
             case "male":
-                return RequestSex.MALE;
+                return PersonSex.MALE;
             case "female":
-                return RequestSex.FEMALE;
+                return PersonSex.FEMALE;
             default:
-                throw new IllegalArgumentException("No such RequestSex");
+                throw new IllegalArgumentException("No such PersonSex");
         }
     }
 

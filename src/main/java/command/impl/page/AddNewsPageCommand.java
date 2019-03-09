@@ -6,8 +6,8 @@ import controller.SessionRequestContent;
 import resource.ConfigurationManager;
 
 public class AddNewsPageCommand implements Command {
-    private static final String ADD_NEWS_PAGE = ConfigurationManager.getProperty("page.add_news");
-    private static final String ADD_NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.add_news_page");
+    private static final String ADD_NEWS_PAGE = ConfigurationManager.getProperty("page.add.news");
+    private static final String ADD_NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.add.news.page");
     private static final String ERROR_PARAMETER = "errorAddNews";
     private static final String LOCALE_COMMAND = "localeCommand";
 

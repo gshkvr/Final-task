@@ -29,7 +29,7 @@ public class ConnectionPool {
     private static final String DB_URL = DbManager.getProperty("url");
     private static final String DB_USER = DbManager.getProperty("user");
     private static final String DB_PASSWORD = DbManager.getProperty("password");
-    private static final int DB_MAX_CONNECTIONS = Integer.parseInt(DbManager.getProperty("max_connections"));
+    private static final int DB_MAX_CONNECTIONS = Integer.parseInt(DbManager.getProperty("max.connections"));
 
     private final LinkedBlockingQueue<ProxyConnection> availableConnections = new LinkedBlockingQueue<>();
     private final ArrayDeque<ProxyConnection> usedConnections = new ArrayDeque<>();
@@ -51,23 +51,17 @@ public class ConnectionPool {
         try {
             ProxyConnection connection = availableConnections.take();
             usedConnections.push(connection);
-            if (connection.getAutoCommit()) {
-                connection.setAutoCommit(false);
-            }
             return connection;
-        } catch (SQLException | InterruptedException e) {
+        } catch (InterruptedException e) {
             throw new ConnectionPoolException("Exception getting connection", e);
         }
     }
 
     void returnConnection(ProxyConnection connection) throws ConnectionPoolException {
         try {
-            if (!connection.getAutoCommit()) {
-                connection.setAutoCommit(true);
-            }
             usedConnections.remove(connection);
             availableConnections.put(connection);
-        } catch (SQLException | InterruptedException e) {
+        } catch (InterruptedException e) {
             throw new ConnectionPoolException("Exception returning connection", e);
         }
     }

@@ -10,7 +10,7 @@ import service.NewsService;
 
 public class NewsPageCommand implements Command {
     private static final String NEWS_PAGE = ConfigurationManager.getProperty("page.news");
-    private static final String NEWS_COMMAND = ConfigurationManager.getProperty("command.news_page");
+    private static final String NEWS_COMMAND = ConfigurationManager.getProperty("command.news.page");
     private static final String LOCALE_COMMAND = "localeCommand";
     private static final String ALL_NEWS = "allNews";
     private final NewsService newsService = NewsService.getInstance();

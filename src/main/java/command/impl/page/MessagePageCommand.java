@@ -7,7 +7,7 @@ import resource.ConfigurationManager;
 
 public class MessagePageCommand implements Command {
     private static final String MESSAGE_PAGE = ConfigurationManager.getProperty("page.message");
-    private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message_page");
+    private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message.page");
     private static final String SUCCESS_ATTRIBUTE = "success";
     private static final String LOCALE_COMMAND = "localeCommand";
 

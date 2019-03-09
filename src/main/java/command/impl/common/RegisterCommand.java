@@ -12,8 +12,8 @@ import resource.ConfigurationManager;
 import service.UserService;
 
 public class RegisterCommand implements Command {
-    private static final String REGISTER_PAGE = ConfigurationManager.getProperty("command.register_page");
-    private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message_page");
+    private static final String REGISTER_PAGE = ConfigurationManager.getProperty("command.register.page");
+    private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message.page");
     private static final String SUCCESS_REGISTRATION = ConfigurationManager.getProperty("success.register");
     private static final String LOGIN_EXISTS_ERROR = ConfigurationManager.getProperty("error.register.login");
     private static final String EMAIL_EXISTS_ERROR = ConfigurationManager.getProperty("error.register.email");

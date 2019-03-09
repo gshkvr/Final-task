@@ -4,8 +4,8 @@ import builder.impl.PersonBuilderImpl;
 import dao.AbstractDao;
 import dao.PersonDao;
 import entity.Person;
-import entity.RequestSex;
-import entity.RequestType;
+import entity.PersonSex;
+import entity.PersonType;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -30,7 +30,8 @@ public class PersonDaoImpl extends AbstractDao<Integer, Person> implements Perso
             "       interpol.person.nationality AS nationality,\n" +
             "       interpol.person.birth_date AS birth_date,\n" +
             "       interpol.person.file_link AS file_link\n" +
-            "       FROM interpol.person person";
+            "       FROM interpol.person person\n" +
+            "       ORDER BY person.id desc ";
 
     private static final String SELECT_PERSON_BY_ID = "SELECT interpol.person.id AS person_id,\n" +
             "       interpol.person.sex_id AS sex_id,\n" +
@@ -87,10 +88,10 @@ public class PersonDaoImpl extends AbstractDao<Integer, Person> implements Perso
         List<String> parameters = new ArrayList<>();
         String fullName = entity.getFullName();
         parameters.add(fullName);
-        RequestSex sex = entity.getSex();
+        PersonSex sex = entity.getSex();
         int sexId = sex.getId();
         parameters.add(String.valueOf(sexId));
-        RequestType type = entity.getType();
+        PersonType type = entity.getType();
         int typeId = type.getId();
         parameters.add(String.valueOf(typeId));
         Date birthDate = entity.getBirthDate();

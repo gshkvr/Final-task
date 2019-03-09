@@ -20,7 +20,7 @@ import java.io.IOException;
 @MultipartConfig
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Controller.class);
-    private static final String ERROR_COMMAND = ConfigurationManager.getProperty("command.error_page");
+    private static final String ERROR_COMMAND = ConfigurationManager.getProperty("command.error.page");
     private static final CommandFactory commandFactory = CommandFactory.getInstance();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

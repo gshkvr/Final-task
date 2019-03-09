@@ -11,9 +11,9 @@ import service.exception.NoSuchNewsException;
 import service.exception.ServiceException;
 
 public class EditNewsPageCommand implements Command {
-    private static final String EDIT_NEWS_PAGE = ConfigurationManager.getProperty("page.edit_news");
-    private static final String EDIT_NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.edit_news_page");
-    private static final String ATTRIBUTE_NEWS_ID = ConfigurationManager.getProperty("attribute.news_id");
+    private static final String EDIT_NEWS_PAGE = ConfigurationManager.getProperty("page.edit.news");
+    private static final String EDIT_NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.edit.news.page");
+    private static final String ATTRIBUTE_NEWS_ID = ConfigurationManager.getProperty("attribute.news.id");
     private static final String LOCALE_COMMAND = "localeCommand";
     private static final String ERROR_PARAMETER = "errorAddNews";
     private static final String NEWS_PARAM = "editNews";
