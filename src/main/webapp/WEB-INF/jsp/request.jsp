@@ -19,6 +19,14 @@
             }
         }
     </script>
+    <script>
+        jQuery(document).ready(function(){
+            $('.custom-file-input').on('change', function() {
+                var fileName = $(this).val().split('\\').pop();
+                $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+            });
+        })
+    </script>
 </head>
 <body>
 <%@include file="../jspf/header.jspf" %>
@@ -29,7 +37,7 @@
                 <div class="card-body">
                     <h5 class="card-title text-center">${addRequest}</h5>
                     <form action="controller" method="POST" enctype="multipart/form-data" class="form-signin"
-                          name="registerForm" onsubmit="return validate(this)">
+                          onsubmit="return validate(this)">
                         <input type="hidden" name="command" value="add_request"/>
                         <div class="form-row justify-content-center">
                             <div class="form-check form-check-inline">
