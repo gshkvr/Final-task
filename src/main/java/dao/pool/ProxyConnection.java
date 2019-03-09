@@ -38,8 +38,4 @@ public class ProxyConnection implements AutoCloseable {
     public void setAutoCommit(boolean autoCommit) throws SQLException {
         connection.setAutoCommit(autoCommit);
     }
-
-    boolean getAutoCommit() throws SQLException {
-        return connection.getAutoCommit();
-    }
 }

@@ -36,7 +36,7 @@ public class PersonService {
         Optional<Request> optionalRequest = requestService.findRequestById(id);
         if (optionalRequest.isPresent()) {
             Person person = optionalRequest.get();
-            requestService.deleteRequest(id, false);
+            requestService.deleteRequest(id);
             addPerson(person);
         } else {
             throw new NoSuchRequestException();

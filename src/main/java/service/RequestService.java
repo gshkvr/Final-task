@@ -62,13 +62,11 @@ public class RequestService {
             throw new EmptyNationalityException();
         }
 
-        Optional<FileItem> optionalItem = content.getFileParts()
-                .stream()
-                .filter(i -> i.getFieldName().equals(RequestBuilderImpl.REQUEST_FILE))
-                .findFirst();
+        FileItem item = (FileItem) content.getRequestAttribute(RequestBuilderImpl.REQUEST_FILE);
         String filePath;
-        if (optionalItem.isPresent()) {
-            FileItem item = optionalItem.get();
+        if(item == null){
+            throw new EmptyFileException();
+        } else {
             String fileName = UUID.randomUUID().toString();
             filePath = IMAGES_DIRECTORY + File.separator + fileName;
             String extractPath = content.getRealPath() + filePath;
@@ -78,9 +76,8 @@ public class RequestService {
             } catch (Exception e) {
                 throw new ServiceException(e);
             }
-        } else {
-            throw new EmptyFileException();
         }
+
         Request request = new Request(0, sex, type, fullName, nationality, birthDate, filePath);
         addRequest(request);
     }
@@ -119,9 +116,9 @@ public class RequestService {
         }
     }
 
-    void deleteRequest(int requestId, boolean commit) throws ServiceException {
+    void deleteRequest(int requestId) throws ServiceException {
         try {
-            requestDao.delete(requestId, commit);
+            requestDao.delete(requestId, false);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

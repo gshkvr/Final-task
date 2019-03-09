@@ -30,42 +30,42 @@ public class AccessFilter implements Filter {
             "accept_request", "logout", "error_page", "message_page");
 
     @Override
-    public void init(FilterConfig filterConfig) {
-    }
-
-    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
         HttpSession session = httpRequest.getSession(true);
 
-//        String command = httpRequest.getParameter(COMMAND);
-//        String role = (String) session.getAttribute(UserBuilderImpl.USER_ROLE);
-//        String redirectPage = null;
-//        if (command != null) {
-//            switch (role == null ? "" : role) {
-//                case ADMIN:
-//                    if (!isAdminCommand(command)) {
-//                        redirectPage = NEWS_REDIRECT;
-//                    }
-//                    break;
-//                case CLIENT:
-//                    if (!isClientCommand(command)) {
-//                        redirectPage = NEWS_REDIRECT;
-//                    }
-//                    break;
-//                default:
-//                    if (!isUnauthorizedCommand(command)) {
-//                        redirectPage = LOGIN_REDIRECT;
-//                    }
-//                    break;
-//            }
-//        }
-//        if (redirectPage != null) {
-//            httpResponse.sendRedirect(redirectPage);
-//            return;
-//        }
+        String command = httpRequest.getParameter(COMMAND);
+        String role = (String) session.getAttribute(UserBuilderImpl.USER_ROLE);
+        String redirectPage = null;
+        if (command != null) {
+            switch (role == null ? "" : role) {
+                case ADMIN:
+                    if (!isAdminCommand(command)) {
+                        redirectPage = NEWS_REDIRECT;
+                    }
+                    break;
+                case CLIENT:
+                    if (!isClientCommand(command)) {
+                        redirectPage = NEWS_REDIRECT;
+                    }
+                    break;
+                default:
+                    if (!isUnauthorizedCommand(command)) {
+                        redirectPage = LOGIN_REDIRECT;
+                    }
+                    break;
+            }
+        }
+        if (redirectPage != null) {
+            httpResponse.sendRedirect(redirectPage);
+            return;
+        }
         filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override

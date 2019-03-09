@@ -14,6 +14,10 @@
   </welcome-file-list>
 
   <filter-mapping>
+    <filter-name>FileFilter</filter-name>
+    <servlet-name>Controller</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
     <filter-name>EncodingFilter</filter-name>
     <servlet-name>Controller</servlet-name>
   </filter-mapping>

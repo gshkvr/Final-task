@@ -3,9 +3,8 @@ package builder.impl;
 import builder.Builder;
 import builder.exception.BuilderException;
 import entity.Person;
-import entity.PersonType;
-import entity.Request;
 import entity.PersonSex;
+import entity.PersonType;
 
 import java.sql.Date;
 import java.sql.ResultSet;
