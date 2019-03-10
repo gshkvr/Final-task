@@ -56,6 +56,8 @@ public class UserService {
             if (cryptUtil.checkPassword(pass, user.getPassword())) {
                 content.setSessionAttribute(UserBuilderImpl.TABLE_NAME, user.getLogin());
                 content.setSessionAttribute(UserBuilderImpl.USER_ROLE, user.getRole().getValue());
+            } else {
+                throw new NoSuchUserException();
             }
         } else {
             throw new NoSuchUserException();
