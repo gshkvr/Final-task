@@ -14,6 +14,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * The type File filter.
+ * Extracts params and attributes from request with
+ * multipart content, puts them to {@link HashMap}
+ * and returns {@link HttpServletRequestWrapper} with
+ * request and parameters.
+ *
+ * @author George Kvirikashvili
+ */
 @WebFilter(
         filterName = "FileFilter",
         urlPatterns = "/*",

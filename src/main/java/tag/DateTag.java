@@ -5,6 +5,12 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * The type Date tag.
+ * Custom tag which creates current date.
+ *
+ * @author George Kvirikashvili
+ */
 public class DateTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {

@@ -4,13 +4,18 @@ import command.Command;
 import command.exception.CommandException;
 import controller.Page;
 import controller.SessionRequestContent;
+import resource.ConfigurationManager;
+import service.UserService;
 import service.exception.EmailExistsException;
 import service.exception.LoginExistsException;
 import service.exception.NotEqualPasswordsException;
 import service.exception.ServiceException;
-import resource.ConfigurationManager;
-import service.UserService;
 
+/**
+ * Common {@code command}. Makes registration or redirects on error page.
+ *
+ * @author George Kvirikashvili
+ */
 public class RegisterCommand implements Command {
     private static final String REGISTER_PAGE = ConfigurationManager.getProperty("command.register.page");
     private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message.page");

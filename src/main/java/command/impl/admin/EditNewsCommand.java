@@ -5,10 +5,16 @@ import command.Command;
 import command.exception.CommandException;
 import controller.Page;
 import controller.SessionRequestContent;
+import entity.News;
 import resource.ConfigurationManager;
 import service.NewsService;
 import service.exception.*;
 
+/**
+ * Administrator {@code command}. Edit {@link News}.
+ *
+ * @author George Kvirikashvili
+ */
 public class EditNewsCommand implements Command {
     private static final String NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.news.page");
     private static final String EDIT_NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.edit.news.page");

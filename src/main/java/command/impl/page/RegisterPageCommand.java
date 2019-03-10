@@ -5,8 +5,12 @@ import controller.Page;
 import controller.SessionRequestContent;
 import resource.ConfigurationManager;
 
+/**
+ * Command that opens register page.
+ *
+ * @author George Kvirikashvili
+ */
 public class RegisterPageCommand implements Command {
-
     private static final String ERROR_REGISTRATION = "errorRegistration";
     private static final String REGISTER_PAGE = ConfigurationManager.getProperty("page.register");
     private static final String REGISTER_PAGE_COMMAND = ConfigurationManager.getProperty("command.register.page");

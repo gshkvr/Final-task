@@ -5,6 +5,11 @@ import controller.Page;
 import controller.SessionRequestContent;
 import resource.ConfigurationManager;
 
+/**
+ * Command that opens message page and shows necessary message.
+ *
+ * @author George Kvirikashvili
+ */
 public class MessagePageCommand implements Command {
     private static final String MESSAGE_PAGE = ConfigurationManager.getProperty("page.message");
     private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message.page");

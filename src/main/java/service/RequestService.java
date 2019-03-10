@@ -18,10 +18,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Provides methods to work with {@link Request}
+ * and "request" table.
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class RequestService {
     private RequestService() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static RequestService getInstance() {
         return RequestService.InstanceHolder.INSTANCE;
     }
@@ -33,6 +45,18 @@ public class RequestService {
     private final static String IMAGES_DIRECTORY = ConfigurationManager.getProperty("images.directory");
     private final RequestDao requestDao = RequestDaoImpl.getInstance();
 
+    /**
+     * Create request.
+     *
+     * @param content the content
+     * @throws EmptyNameException        the empty name exception
+     * @throws ServiceException          the service exception
+     * @throws EmptyFileException        the empty file exception
+     * @throws EmptySexException         the empty sex exception
+     * @throws EmptyTypeException        the empty type exception
+     * @throws EmptyBirthDateException   the empty birth date exception
+     * @throws EmptyNationalityException the empty nationality exception
+     */
     public void createRequest(SessionRequestContent content) throws EmptyNameException, ServiceException, EmptyFileException, EmptySexException, EmptyTypeException, EmptyBirthDateException, EmptyNationalityException {
         String fullName = content.getRequestParameter(RequestBuilderImpl.FULL_NAME);
         if (fullName == null || "".equals(fullName)) {
@@ -82,6 +106,12 @@ public class RequestService {
         addRequest(request);
     }
 
+    /**
+     * Gets all requests.
+     *
+     * @return the all requests
+     * @throws ServiceException the service exception
+     */
     public List<Request> getAllRequests() throws ServiceException {
         try {
             return requestDao.findAll();
@@ -90,6 +120,13 @@ public class RequestService {
         }
     }
 
+    /**
+     * Find request by id optional.
+     *
+     * @param id the id
+     * @return the optional
+     * @throws ServiceException the service exception
+     */
     Optional<Request> findRequestById(int id) throws ServiceException {
         try {
             return requestDao.findEntityById(id);
@@ -106,6 +143,12 @@ public class RequestService {
         }
     }
 
+    /**
+     * Decline request.
+     *
+     * @param content the content
+     * @throws ServiceException the service exception
+     */
     public void declineRequest(SessionRequestContent content) throws ServiceException {
         try {
             String sRequestId = content.getRequestParameter(RequestBuilderImpl.REQUEST_ID);
@@ -116,6 +159,12 @@ public class RequestService {
         }
     }
 
+    /**
+     * Delete request.
+     *
+     * @param requestId the request id
+     * @throws ServiceException the service exception
+     */
     void deleteRequest(int requestId) throws ServiceException {
         try {
             requestDao.delete(requestId, false);

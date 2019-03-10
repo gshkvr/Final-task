@@ -4,10 +4,16 @@ import command.Command;
 import command.exception.CommandException;
 import controller.Page;
 import controller.SessionRequestContent;
+import entity.User;
 import resource.ConfigurationManager;
 import service.UserService;
 import service.exception.ServiceException;
 
+/**
+ * Administrator {@code command}. Deletes {@link User} from users list.
+ *
+ * @author George Kvirikashvili
+ */
 public class DeleteUserCommand implements Command {
     private static final String USERS_COMMAND = ConfigurationManager.getProperty("command.users");
     private final UserService userService = UserService.getInstance();

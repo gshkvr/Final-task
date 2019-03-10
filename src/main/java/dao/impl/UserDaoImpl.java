@@ -10,10 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Contains methods to work with
+ * "user" table and its representation
+ * {@link User}
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     private UserDaoImpl() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static UserDaoImpl getInstance() {
         return UserDaoImpl.InstanceHolder.INSTANCE;
     }

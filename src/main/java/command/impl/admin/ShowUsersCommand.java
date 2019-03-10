@@ -8,6 +8,11 @@ import resource.ConfigurationManager;
 import service.UserService;
 import service.exception.ServiceException;
 
+/**
+ * Administrator {@code command}. Gets all {@code users}.
+ *
+ * @author George Kvirikashvili
+ */
 public class ShowUsersCommand implements Command {
     private static final String USERS_PAGE = ConfigurationManager.getProperty("page.users");
     private static final String USERS_COMMAND = ConfigurationManager.getProperty("command.users");

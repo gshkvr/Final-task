@@ -5,6 +5,12 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
+/**
+ * The type Encoding filter.
+ * Sets encoding to request.
+ *
+ * @author George Kvirikashvili
+ */
 @WebFilter(filterName = "EncodingFilter",
         urlPatterns = "/*",
         servletNames = "Controller",

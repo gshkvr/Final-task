@@ -4,10 +4,16 @@ import command.Command;
 import command.exception.CommandException;
 import controller.Page;
 import controller.SessionRequestContent;
+import entity.Person;
 import resource.ConfigurationManager;
 import service.PersonService;
 import service.exception.ServiceException;
 
+/**
+ * Command that opens page with missing {@link Person}.
+ *
+ * @author George Kvirikashvili
+ */
 public class MissingPersonsPageCommand implements Command {
     private static final String MISSING_PERSONS_COMMAND = ConfigurationManager.getProperty("command.missing");
     private static final String MISSING_PERSONS_PAGE = ConfigurationManager.getProperty("page.missing");

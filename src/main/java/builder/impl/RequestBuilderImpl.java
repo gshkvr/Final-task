@@ -10,7 +10,16 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Creates an object {@link Request}
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class RequestBuilderImpl implements Builder<Request> {
+    /**
+     * Constants to get values from sql request.
+     */
     public static final String TABLE_NAME = "request";
     public static final String REQUEST_ID = "request_id";
     public static final String FULL_NAME = "full_name";
@@ -24,6 +33,11 @@ public class RequestBuilderImpl implements Builder<Request> {
     private RequestBuilderImpl() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static RequestBuilderImpl getInstance() {
         return RequestBuilderImpl.InstanceHolder.INSTANCE;
     }

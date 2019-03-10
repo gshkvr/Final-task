@@ -10,6 +10,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * The type Locale filter.
+ * Sets the {@link Locale} to the request, response,
+ * session and creates {@link Cookie} with locale parameter.
+ *
+ * @author George Kvirikashvili
+ */
 @WebFilter(
         filterName = "LocaleFilter",
         urlPatterns = "/*",

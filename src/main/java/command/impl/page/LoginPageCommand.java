@@ -5,6 +5,11 @@ import controller.Page;
 import controller.SessionRequestContent;
 import resource.ConfigurationManager;
 
+/**
+ * Command that opens login page.
+ *
+ * @author George Kvirikashvili
+ */
 public class LoginPageCommand implements Command {
     private static final String LOGIN_PAGE = ConfigurationManager.getProperty("page.login");
     private static final String LOGIN_PAGE_COMMAND = ConfigurationManager.getProperty("command.login.page");

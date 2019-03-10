@@ -16,6 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Gets parameters and attributes from request and puts
+ * it to {@link SessionRequestContent}. Gets {@code command}
+ * from {@link CommandFactory}, executes it and forwards
+ * or redirects to the necessary {@link Page}.
+ *
+ * @author George Kvirikashvili
+ */
 @WebServlet(name = "Controller", urlPatterns = "/controller")
 @MultipartConfig
 public class Controller extends HttpServlet {
@@ -23,11 +31,29 @@ public class Controller extends HttpServlet {
     private static final String ERROR_COMMAND = ConfigurationManager.getProperty("command.error.page");
     private static final CommandFactory commandFactory = CommandFactory.getInstance();
 
+    /**
+     * Handles requests that was got by GET method.
+     * Forwards or redirects to the necessary page.
+     *
+     * @param request  request gotten from browser
+     * @param response response that was sent to browser
+     * @throws ServletException if some exception occurred
+     * @throws IOException      if some exception occurred
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    /**
+     * Handles requests that was got by POST method.
+     * Forwards or redirects to the necessary page.
+     *
+     * @param request  request gotten from browser
+     * @param response response that was sent to browser
+     * @throws ServletException if some exception occurred
+     * @throws IOException      if some exception occurred
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);

@@ -4,10 +4,16 @@ import command.Command;
 import command.exception.CommandException;
 import controller.Page;
 import controller.SessionRequestContent;
+import entity.News;
 import resource.ConfigurationManager;
 import service.NewsService;
 import service.exception.*;
 
+/**
+ * Administrator {@code command}. Add new {@link News}.
+ *
+ * @author George Kvirikashvili
+ */
 public class AddNewsCommand implements Command {
     private static final String NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.news.page");
     private static final String ADD_NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.add.news.page");

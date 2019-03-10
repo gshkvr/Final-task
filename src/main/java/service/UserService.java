@@ -13,10 +13,22 @@ import util.CryptUtil;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Provides methods to work with {@link User}
+ * and "user" table.
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class UserService {
     private UserService() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static UserService getInstance() {
         return UserService.InstanceHolder.INSTANCE;
     }
@@ -28,6 +40,13 @@ public class UserService {
     private final CryptUtil cryptUtil = CryptUtil.getInstance();
     private final UserDao userDao = UserDaoImpl.getInstance();
 
+    /**
+     * Login user.
+     *
+     * @param content the content
+     * @throws ServiceException    the service exception
+     * @throws NoSuchUserException the no such user exception
+     */
     public void loginUser(SessionRequestContent content) throws ServiceException, NoSuchUserException {
         String login = content.getRequestParameter(UserBuilderImpl.LOGIN);
         String pass = content.getRequestParameter(UserBuilderImpl.PASSWORD);
@@ -43,6 +62,15 @@ public class UserService {
         }
     }
 
+    /**
+     * Register user.
+     *
+     * @param content the content
+     * @throws ServiceException           the service exception
+     * @throws LoginExistsException       the login exists exception
+     * @throws EmailExistsException       the email exists exception
+     * @throws NotEqualPasswordsException the not equal passwords exception
+     */
     public void registerUser(SessionRequestContent content) throws ServiceException, LoginExistsException, EmailExistsException, NotEqualPasswordsException {
         String login = content.getRequestParameter(UserBuilderImpl.LOGIN);
         if (checkLoginExists(login)) {
@@ -69,6 +97,12 @@ public class UserService {
         addUser(user);
     }
 
+    /**
+     * Gets all users.
+     *
+     * @return the all users
+     * @throws ServiceException the service exception
+     */
     public List<User> getAllUsers() throws ServiceException {
         try {
             return userDao.findAll();
@@ -111,6 +145,12 @@ public class UserService {
         }
     }
 
+    /**
+     * Delete user.
+     *
+     * @param content the content
+     * @throws ServiceException the service exception
+     */
     public void deleteUser(SessionRequestContent content) throws ServiceException {
         try {
             String sUserId = content.getRequestParameter(UserBuilderImpl.USER_ID);
@@ -121,6 +161,12 @@ public class UserService {
         }
     }
 
+    /**
+     * Make user admin.
+     *
+     * @param content the content
+     * @throws ServiceException the service exception
+     */
     public void makeUserAdmin(SessionRequestContent content) throws ServiceException {
         try {
             String sUserId = content.getRequestParameter(UserBuilderImpl.USER_ID);

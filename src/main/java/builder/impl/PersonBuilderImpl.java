@@ -10,7 +10,16 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Creates an object {@link Person}
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class PersonBuilderImpl implements Builder<Person> {
+    /**
+     * Constants to get values from sql request.
+     */
     public static final String TABLE_NAME = "person";
     private static final String PERSON_ID = "person_id";
     private static final String FULL_NAME = "full_name";
@@ -23,6 +32,11 @@ public class PersonBuilderImpl implements Builder<Person> {
     private PersonBuilderImpl() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static PersonBuilderImpl getInstance() {
         return PersonBuilderImpl.InstanceHolder.INSTANCE;
     }

@@ -4,11 +4,16 @@ import command.Command;
 import command.exception.CommandException;
 import controller.Page;
 import controller.SessionRequestContent;
+import entity.Request;
 import resource.ConfigurationManager;
 import service.RequestService;
 import service.exception.*;
 
-
+/**
+ * Client {@code command}. Add new {@link Request}.
+ *
+ * @author George Kvirikashvili
+ */
 public class AddRequestCommand implements Command {
     private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message.page");
     private static final String SUCCESS_ADD_REQUEST = ConfigurationManager.getProperty("success.add.request");

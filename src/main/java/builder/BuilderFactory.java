@@ -5,10 +5,21 @@ import builder.impl.PersonBuilderImpl;
 import builder.impl.RequestBuilderImpl;
 import builder.impl.UserBuilderImpl;
 
+/**
+ * Returns an object of {@link Builder} builder.
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class BuilderFactory {
     private BuilderFactory() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static BuilderFactory getInstance() {
         return BuilderFactory.InstanceHolder.INSTANCE;
     }
@@ -22,6 +33,13 @@ public class BuilderFactory {
     private final Builder userBuilder = UserBuilderImpl.getInstance();
     private final Builder personBuilder = PersonBuilderImpl.getInstance();
 
+    /**
+     * Gets builder.
+     * Returns specified builder by {@code tableName}
+     *
+     * @param tableName the name of entity, which builder is necessary
+     * @return the specified builder
+     */
     public Builder getBuilder(String tableName) {
         switch (tableName) {
             case UserBuilderImpl.TABLE_NAME:

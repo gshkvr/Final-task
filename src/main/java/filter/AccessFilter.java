@@ -11,6 +11,12 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * The type Access filter.
+ * Checks if user has access to current command.
+ *
+ * @author George Kvirikashvili
+ */
 @WebFilter(
         filterName = "AccessFilter",
         urlPatterns = "/*"

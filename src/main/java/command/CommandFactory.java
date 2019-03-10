@@ -6,13 +6,26 @@ import command.impl.common.LoginCommand;
 import command.impl.common.LogoutCommand;
 import command.impl.common.RegisterCommand;
 import command.impl.page.*;
+import controller.Controller;
 import controller.SessionRequestContent;
 
+/**
+ * The type Command factory.
+ * Singleton.
+ * Defines which {@link Command} should be execute in {@link Controller}.
+ *
+ * @author George Kvirikashvili
+ */
 public class CommandFactory {
 
     private CommandFactory() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static CommandFactory getInstance() {
         return CommandFactory.InstanceHolder.INSTANCE;
     }
@@ -45,6 +58,12 @@ public class CommandFactory {
     private static final String DECLINE_REQUEST_COMMAND = "decline_request";
     private static final String ACCEPT_REQUEST_COMMAND = "accept_request";
 
+    /**
+     * Gets parameter {@code command} from content and returns necessary {@link Command}.
+     *
+     * @param content the content with parameters and attributes from http request
+     * @return the command for execute in controller
+     */
     public Command defineCommand(SessionRequestContent content) {
         String action = content.getRequestParameter(COMMAND);
         action = action == null ? "" : action;

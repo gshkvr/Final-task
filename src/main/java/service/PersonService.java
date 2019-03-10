@@ -15,10 +15,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Provides methods to work with {@link Person}
+ * and "person" table.
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class PersonService {
     private PersonService() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static PersonService getInstance() {
         return PersonService.InstanceHolder.INSTANCE;
     }
@@ -30,6 +42,13 @@ public class PersonService {
     private final RequestService requestService = RequestService.getInstance();
     private final PersonDao personDao = PersonDaoImpl.getInstance();
 
+    /**
+     * Create person.
+     *
+     * @param content the content
+     * @throws ServiceException       the service exception
+     * @throws NoSuchRequestException the no such request exception
+     */
     public void createPerson(SessionRequestContent content) throws ServiceException, NoSuchRequestException {
         String sId = content.getRequestParameter(RequestBuilderImpl.REQUEST_ID);
         int id = Integer.parseInt(sId);
@@ -43,6 +62,12 @@ public class PersonService {
         }
     }
 
+    /**
+     * Gets all wanted persons.
+     *
+     * @return the all wanted persons
+     * @throws ServiceException the service exception
+     */
     public List<Person> getAllWantedPersons() throws ServiceException {
         try {
             return personDao.findAll()
@@ -54,6 +79,12 @@ public class PersonService {
         }
     }
 
+    /**
+     * Gets all missing persons.
+     *
+     * @return the all missing persons
+     * @throws ServiceException the service exception
+     */
     public List<Person> getAllMissingPersons() throws ServiceException {
         try {
             return personDao.findAll()

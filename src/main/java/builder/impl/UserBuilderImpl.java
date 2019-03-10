@@ -8,8 +8,16 @@ import entity.UserRole;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Creates an object {@link User}
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class UserBuilderImpl implements Builder<User> {
-
+    /**
+     * Constants to get values from sql request.
+     */
     public static final String TABLE_NAME = "user";
     public static final String USER_ID = "user_id";
     private static final String USER_ROLE_ID = "user_role_id";
@@ -24,6 +32,11 @@ public class UserBuilderImpl implements Builder<User> {
     private UserBuilderImpl() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static UserBuilderImpl getInstance() {
         return UserBuilderImpl.InstanceHolder.INSTANCE;
     }

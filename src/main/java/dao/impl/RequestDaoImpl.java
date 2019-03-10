@@ -4,17 +4,30 @@ import builder.impl.RequestBuilderImpl;
 import dao.AbstractDao;
 import dao.RequestDao;
 import entity.PersonSex;
-import entity.Request;
 import entity.PersonType;
+import entity.Request;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contains methods to work with
+ * "request" table and its representation
+ * {@link Request}
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class RequestDaoImpl extends AbstractDao<Integer, Request> implements RequestDao {
     private RequestDaoImpl() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static RequestDaoImpl getInstance() {
         return RequestDaoImpl.InstanceHolder.INSTANCE;
     }

@@ -5,6 +5,11 @@ import controller.Page;
 import controller.SessionRequestContent;
 import resource.ConfigurationManager;
 
+/**
+ * Command that opens error page.
+ *
+ * @author George Kvirikashvili
+ */
 public class ErrorPageCommand implements Command {
     private static final String ERROR_PAGE = ConfigurationManager.getProperty("page.error");
     private static final String ERROR_COMMAND = ConfigurationManager.getProperty("command.error.page");

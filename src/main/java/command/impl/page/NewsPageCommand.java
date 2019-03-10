@@ -1,13 +1,19 @@
 package command.impl.page;
 
 import command.Command;
+import command.exception.CommandException;
 import controller.Page;
 import controller.SessionRequestContent;
-import command.exception.CommandException;
-import service.exception.ServiceException;
+import entity.News;
 import resource.ConfigurationManager;
 import service.NewsService;
+import service.exception.ServiceException;
 
+/**
+ * Command that opens page with {@link News}.
+ *
+ * @author George Kvirikashvili
+ */
 public class NewsPageCommand implements Command {
     private static final String NEWS_PAGE = ConfigurationManager.getProperty("page.news");
     private static final String NEWS_COMMAND = ConfigurationManager.getProperty("command.news.page");

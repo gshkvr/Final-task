@@ -1,14 +1,19 @@
 package command.impl.common;
 
 import command.Command;
+import command.exception.CommandException;
 import controller.Page;
 import controller.SessionRequestContent;
-import command.exception.CommandException;
-import service.exception.NoSuchUserException;
-import service.exception.ServiceException;
 import resource.ConfigurationManager;
 import service.UserService;
+import service.exception.NoSuchUserException;
+import service.exception.ServiceException;
 
+/**
+ * Common {@code command}. Login user or redirect to error page.
+ *
+ * @author George Kvirikashvili
+ */
 public class LoginCommand implements Command {
     private static final String NEWS_COMMAND = ConfigurationManager.getProperty("command.news.page");
     private static final String LOGIN_PAGE_COMMAND = ConfigurationManager.getProperty("command.login.page");

@@ -8,7 +8,16 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Creates an object {@link News}
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class NewsBuilderImpl implements Builder<News> {
+    /**
+     * Constants to get values from sql request.
+     */
     public static final String TABLE_NAME = "news";
     public static final String NEWS_ID = "news_id";
     public static final String DATE = "date";
@@ -23,6 +32,11 @@ public class NewsBuilderImpl implements Builder<News> {
     private NewsBuilderImpl() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static NewsBuilderImpl getInstance() {
         return NewsBuilderImpl.InstanceHolder.INSTANCE;
     }

@@ -12,10 +12,22 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Provides methods to work with {@link News}
+ * and "news" table.
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class NewsService {
     private NewsService() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static NewsService getInstance() {
         return InstanceHolder.INSTANCE;
     }
@@ -29,6 +41,17 @@ public class NewsService {
     private static final String CLOSE_TAG = "</p>";
     private final NewsDao newsDao = NewsDaoImpl.getInstance();
 
+    /**
+     * Add news.
+     *
+     * @param content the content
+     * @throws ServiceException      the service exception
+     * @throws EmptyRuTitleException the empty ru title exception
+     * @throws EmptyRuTextException  the empty ru text exception
+     * @throws EmptyEnTitleException the empty en title exception
+     * @throws EmptyEnTextException  the empty en text exception
+     * @throws EmptyDateException    the empty date exception
+     */
     public void addNews(SessionRequestContent content) throws ServiceException, EmptyRuTitleException, EmptyRuTextException, EmptyEnTitleException, EmptyEnTextException, EmptyDateException {
         News news = getNewsFromRequestContent(content);
         try {
@@ -38,6 +61,12 @@ public class NewsService {
         }
     }
 
+    /**
+     * Gets all news.
+     *
+     * @return the all news
+     * @throws ServiceException the service exception
+     */
     public List<News> getAllNews() throws ServiceException {
         try {
             List<News> newsList = newsDao.findAll();
@@ -52,6 +81,14 @@ public class NewsService {
         }
     }
 
+    /**
+     * Gets news.
+     *
+     * @param content the content
+     * @return the news
+     * @throws ServiceException    the service exception
+     * @throws NoSuchNewsException the no such news exception
+     */
     public News getNews(SessionRequestContent content) throws ServiceException, NoSuchNewsException {
         try {
             String id = content.getRequestParameter(NewsBuilderImpl.NEWS_ID);
@@ -67,6 +104,17 @@ public class NewsService {
         }
     }
 
+    /**
+     * Update news.
+     *
+     * @param content the content
+     * @throws EmptyDateException    the empty date exception
+     * @throws EmptyRuTextException  the empty ru text exception
+     * @throws EmptyEnTitleException the empty en title exception
+     * @throws EmptyEnTextException  the empty en text exception
+     * @throws EmptyRuTitleException the empty ru title exception
+     * @throws ServiceException      the service exception
+     */
     public void updateNews(SessionRequestContent content) throws EmptyDateException, EmptyRuTextException, EmptyEnTitleException, EmptyEnTextException, EmptyRuTitleException, ServiceException {
         News news = getNewsFromRequestContent(content);
         try {

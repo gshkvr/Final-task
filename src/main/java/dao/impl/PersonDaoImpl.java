@@ -11,10 +11,23 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contains methods to work with
+ * "person" table and its representation
+ * {@link Person}
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class PersonDaoImpl extends AbstractDao<Integer, Person> implements PersonDao {
     private PersonDaoImpl() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static PersonDaoImpl getInstance() {
         return PersonDaoImpl.InstanceHolder.INSTANCE;
     }

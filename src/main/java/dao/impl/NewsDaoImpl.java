@@ -9,10 +9,23 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contains methods to work with
+ * "news" table and its representation
+ * {@link News}
+ * Singleton.
+ *
+ * @author George Kvirikashvili
+ */
 public class NewsDaoImpl extends AbstractDao<Integer, News> implements NewsDao {
     private NewsDaoImpl() {
     }
 
+    /**
+     * Gets singleton instance.
+     *
+     * @return the instance
+     */
     public static NewsDaoImpl getInstance() {
         return NewsDaoImpl.InstanceHolder.INSTANCE;
     }

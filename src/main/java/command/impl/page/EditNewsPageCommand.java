@@ -10,6 +10,11 @@ import service.NewsService;
 import service.exception.NoSuchNewsException;
 import service.exception.ServiceException;
 
+/**
+ * Command that opens page to edit {@link News}.
+ *
+ * @author George Kvirikashvili
+ */
 public class EditNewsPageCommand implements Command {
     private static final String EDIT_NEWS_PAGE = ConfigurationManager.getProperty("page.edit.news");
     private static final String EDIT_NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.edit.news.page");

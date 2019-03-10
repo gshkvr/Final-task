@@ -5,6 +5,11 @@ import controller.Page;
 import controller.SessionRequestContent;
 import resource.ConfigurationManager;
 
+/**
+ * Common {@code command}. Logout user.
+ *
+ * @author George Kvirikashvili
+ */
 public class LogoutCommand implements Command {
     private static final String NEWS_COMMAND = ConfigurationManager.getProperty("command.news.page");
 

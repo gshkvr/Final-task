@@ -4,10 +4,16 @@ import command.Command;
 import command.exception.CommandException;
 import controller.Page;
 import controller.SessionRequestContent;
+import entity.Request;
 import resource.ConfigurationManager;
 import service.RequestService;
 import service.exception.ServiceException;
 
+/**
+ * Administrator {@code command}. Deletes {@link Request} from requests.
+ *
+ * @author George Kvirikashvili
+ */
 public class DeclineRequestCommand implements Command {
     private final RequestService requestService = RequestService.getInstance();
     private static final String REQUESTS_PAGE = ConfigurationManager.getProperty("command.show.request.page");
