@@ -14,15 +14,15 @@ public class RegisterPageCommand implements Command {
     private static final String ERROR_REGISTRATION = "errorRegistration";
     private static final String REGISTER_PAGE = ConfigurationManager.getProperty("page.register");
     private static final String REGISTER_PAGE_COMMAND = ConfigurationManager.getProperty("command.register.page");
-    private static final String LOCALE_COMMAND = "localeCommand";
+    private static final String CURRENT_COMMAND = "currentCommand";
 
     @Override
     public Page execute(SessionRequestContent content) {
         String registrationError = content.getRequestParameter(ERROR_REGISTRATION);
-        content.setRequestAttribute(LOCALE_COMMAND, REGISTER_PAGE_COMMAND);
+        content.setRequestAttribute(CURRENT_COMMAND, REGISTER_PAGE_COMMAND);
         if(registrationError!=null){
             content.setRequestAttribute(ERROR_REGISTRATION, registrationError);
-            content.setRequestAttribute(LOCALE_COMMAND, REGISTER_PAGE_COMMAND + ConfigurationManager.getProperty(registrationError));
+            content.setRequestAttribute(CURRENT_COMMAND, REGISTER_PAGE_COMMAND + ConfigurationManager.getProperty(registrationError));
         }
         return new Page(REGISTER_PAGE);
     }

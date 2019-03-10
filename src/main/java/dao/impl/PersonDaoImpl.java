@@ -20,7 +20,8 @@ import java.util.List;
  * @author George Kvirikashvili
  */
 public class PersonDaoImpl extends AbstractDao<Integer, Person> implements PersonDao {
-    private PersonDaoImpl() {
+
+    PersonDaoImpl() {
     }
 
     /**
@@ -35,16 +36,6 @@ public class PersonDaoImpl extends AbstractDao<Integer, Person> implements Perso
     private static class InstanceHolder {
         private static final PersonDaoImpl INSTANCE = new PersonDaoImpl();
     }
-
-    private static final String SELECT_PERSON_ALL = "SELECT interpol.person.id AS person_id,\n" +
-            "       interpol.person.sex_id AS sex_id,\n" +
-            "       interpol.person.type_id AS type_id,\n" +
-            "       interpol.person.full_name AS full_name,\n" +
-            "       interpol.person.nationality AS nationality,\n" +
-            "       interpol.person.birth_date AS birth_date,\n" +
-            "       interpol.person.file_link AS file_link\n" +
-            "       FROM interpol.person person\n" +
-            "       ORDER BY person.id desc ";
 
     private static final String SELECT_PERSON_BY_ID = "SELECT interpol.person.id AS person_id,\n" +
             "       interpol.person.sex_id AS sex_id,\n" +
@@ -77,11 +68,6 @@ public class PersonDaoImpl extends AbstractDao<Integer, Person> implements Perso
     }
 
     @Override
-    protected String getFindAllQuery() {
-        return SELECT_PERSON_ALL;
-    }
-
-    @Override
     public String getCreateQuery() {
         return CREATE_PERSON;
     }
@@ -94,6 +80,16 @@ public class PersonDaoImpl extends AbstractDao<Integer, Person> implements Perso
     @Override
     public String getDeleteQuery() {
         return DELETE_PERSON;
+    }
+
+    @Override
+    protected String getFindAllQuery() {
+        return null;
+    }
+
+    @Override
+    protected String getFindAllPageQuery() {
+        return null;
     }
 
     @Override

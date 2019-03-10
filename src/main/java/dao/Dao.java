@@ -29,6 +29,16 @@ public interface Dao<K, T extends AbstractEntity> {
     List<T> findAll() throws DaoException;
 
     /**
+     * Find all records in table and
+     * returns list of objects.
+     *
+     * @param page the number of page
+     * @return the list of {@link T}
+     * @throws DaoException if some exception occurred
+     */
+    List<T> findAll(int page) throws DaoException;
+
+    /**
      * Find optional object by id.
      *
      * @param id the id of looking object

@@ -1,4 +1,4 @@
-<%--@elvariable id="localeCommand" type="String"--%>
+<%--@elvariable id="currentCommand" type="String"--%>
 <%--@elvariable id="locale" type="String"--%>
 <%--@elvariable id="role" type="String"--%>
 
@@ -51,9 +51,9 @@
                     <a class="nav-link dropdown-toggle"  id="dropdown-language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${locale_dropdown}</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown-language">
                         <a class="dropdown-item"
-                           href="${pageContext.request.contextPath}${localeCommand}${attrLocaleRu}">${localeRuName}</a>
+                           href="${pageContext.request.contextPath}${currentCommand}${attrLocaleRu}">${localeRuName}</a>
                         <a class="dropdown-item"
-                           href="${pageContext.request.contextPath}${localeCommand}${attrLocaleEn}">${localeEnName}</a>
+                           href="${pageContext.request.contextPath}${currentCommand}${attrLocaleEn}">${localeEnName}</a>
                     </div>
                 </li>
                 <c:choose>

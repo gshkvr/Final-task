@@ -87,3 +87,4 @@
 <fmt:message bundle="${config}" key="attribute.news.id" var="newsId"/>
 <fmt:message bundle="${config}" key="attribute.locale.ru" var="attrLocaleRu"/>
 <fmt:message bundle="${config}" key="attribute.locale.en" var="attrLocaleEn"/>
+<fmt:message bundle="${config}" key="attribute.page" var="attrPage"/>

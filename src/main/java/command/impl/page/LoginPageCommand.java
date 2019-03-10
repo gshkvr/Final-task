@@ -15,20 +15,20 @@ public class LoginPageCommand implements Command {
     private static final String LOGIN_PAGE_COMMAND = ConfigurationManager.getProperty("command.login.page");
     private static final String LOGIN_ERROR_PARAM = "errorLogin";
     private static final String SUCCESS_REGISTRATION_PARAM = "successRegister";
-    private static final String LOCALE_COMMAND = "localeCommand";
+    private static final String CURRENT_COMMAND = "currentCommand";
 
     @Override
     public Page execute(SessionRequestContent content) {
         String errorLogin = content.getRequestParameter(LOGIN_ERROR_PARAM);
-        content.setRequestAttribute(LOCALE_COMMAND, LOGIN_PAGE_COMMAND);
+        content.setRequestAttribute(CURRENT_COMMAND, LOGIN_PAGE_COMMAND);
         if(errorLogin != null){
             content.setRequestAttribute(LOGIN_ERROR_PARAM, errorLogin);
-            content.setRequestAttribute(LOCALE_COMMAND, LOGIN_PAGE_COMMAND + ConfigurationManager.getProperty(errorLogin));
+            content.setRequestAttribute(CURRENT_COMMAND, LOGIN_PAGE_COMMAND + ConfigurationManager.getProperty(errorLogin));
         }
         String successRegister = content.getRequestParameter(SUCCESS_REGISTRATION_PARAM);
         if(successRegister != null){
             content.setRequestAttribute(SUCCESS_REGISTRATION_PARAM, successRegister);
-            content.setRequestAttribute(LOCALE_COMMAND, LOGIN_PAGE_COMMAND + ConfigurationManager.getProperty(successRegister));
+            content.setRequestAttribute(CURRENT_COMMAND, LOGIN_PAGE_COMMAND + ConfigurationManager.getProperty(successRegister));
         }
         return new Page(LOGIN_PAGE);
     }

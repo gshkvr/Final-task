@@ -1,4 +1,7 @@
 <%--@elvariable id="allNews" type="java.util.List"--%>
+<%--@elvariable id="currentCommand" type="String"--%>
+<%--@elvariable id="pages" type="java.lang.Integer"--%>
+<%--@elvariable id="activePage" type="java.lang.Integer"--%>
 <%--@elvariable id="role" type="String"--%>
 <%@include file="../jspf/import.jspf" %>
 <html>
@@ -7,6 +10,7 @@
     <link rel="stylesheet" href="webjars/bootstrap/4.2.1/css/bootstrap.css">
     <script src="webjars/jquery/3.3.1/jquery.js"></script>
     <script src="webjars/bootstrap/4.2.1/js/bootstrap.js"></script>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
 </head>
 <body>
 
@@ -56,6 +60,7 @@
     <hr>
     </c:forEach>
 
+    <%@include file="../jspf/pagination.jspf" %>
 </div>
 
 </body>

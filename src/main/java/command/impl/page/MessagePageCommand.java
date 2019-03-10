@@ -14,14 +14,14 @@ public class MessagePageCommand implements Command {
     private static final String MESSAGE_PAGE = ConfigurationManager.getProperty("page.message");
     private static final String MESSAGE_PAGE_COMMAND = ConfigurationManager.getProperty("command.message.page");
     private static final String SUCCESS_ATTRIBUTE = "success";
-    private static final String LOCALE_COMMAND = "localeCommand";
+    private static final String CURRENT_COMMAND = "currentCommand";
 
     @Override
     public Page execute(SessionRequestContent content) {
-        content.setRequestAttribute(LOCALE_COMMAND, MESSAGE_PAGE_COMMAND);
+        content.setRequestAttribute(CURRENT_COMMAND, MESSAGE_PAGE_COMMAND);
         String success = content.getRequestParameter(SUCCESS_ATTRIBUTE);
         if(success != null){
-            content.setRequestAttribute(LOCALE_COMMAND, MESSAGE_PAGE_COMMAND + ConfigurationManager.getProperty(success));
+            content.setRequestAttribute(CURRENT_COMMAND, MESSAGE_PAGE_COMMAND + ConfigurationManager.getProperty(success));
             content.setRequestAttribute(SUCCESS_ATTRIBUTE, success);
         }
         return new Page(MESSAGE_PAGE);

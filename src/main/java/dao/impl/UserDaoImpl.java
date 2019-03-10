@@ -100,6 +100,11 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     }
 
     @Override
+    protected String getFindAllPageQuery() {
+        return SELECT_USER_ALL;
+    }
+
+    @Override
     public String getCreateQuery() {
         return CREATE_USER;
     }

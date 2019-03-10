@@ -43,7 +43,7 @@
         </c:otherwise>
     </c:choose>
     <hr>
+    <%@include file="../jspf/pagination.jspf" %>
 </div>
-
 </body>
 </html>

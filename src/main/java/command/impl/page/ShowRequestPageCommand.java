@@ -17,14 +17,24 @@ import service.exception.ServiceException;
 public class ShowRequestPageCommand implements Command {
     private static final String REQUESTS_SHOW_PAGE = ConfigurationManager.getProperty("page.requests");
     private static final String REQUESTS_SHOW_COMMAND = ConfigurationManager.getProperty("command.show.request.page");
-    private static final String LOCALE_COMMAND = "localeCommand";
+    private static final String CURRENT_COMMAND = "currentCommand";
+    private static final String ALL_REQUESTS = "allRequests";
+    private static final String PAGES_PARAMETER = "pages";
+    private static final String PAGE_PARAMETER = "page";
+    private static final String ACTIVE_PAGE_PARAMETER = "activePage";
     private final RequestService requestService = RequestService.getInstance();
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {
         try {
-            content.setRequestAttribute("allRequests", requestService.getAllRequests());
-            content.setRequestAttribute(LOCALE_COMMAND, REQUESTS_SHOW_COMMAND);
+            int page = 1;
+            if(content.getRequestParameter(PAGE_PARAMETER) != null){
+                page = Integer.parseInt(content.getRequestParameter(PAGE_PARAMETER));
+            }
+            content.setRequestAttribute(PAGES_PARAMETER, requestService.pageAmount());
+            content.setRequestAttribute(ALL_REQUESTS, requestService.getAllRequests(page));
+            content.setRequestAttribute(ACTIVE_PAGE_PARAMETER, page);
+            content.setRequestAttribute(CURRENT_COMMAND, REQUESTS_SHOW_COMMAND);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

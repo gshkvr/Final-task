@@ -6,8 +6,8 @@ import dao.RequestDao;
 import dao.exception.DaoException;
 import dao.impl.RequestDaoImpl;
 import entity.PersonSex;
-import entity.Request;
 import entity.PersonType;
+import entity.Request;
 import org.apache.commons.fileupload.FileItem;
 import resource.ConfigurationManager;
 import service.exception.*;
@@ -42,6 +42,7 @@ public class RequestService {
         private static final RequestService INSTANCE = new RequestService();
     }
 
+    private static final int NEWS_ON_PAGE = 6;
     private final static String IMAGES_DIRECTORY = ConfigurationManager.getProperty("images.directory");
     private final RequestDao requestDao = RequestDaoImpl.getInstance();
 
@@ -88,7 +89,7 @@ public class RequestService {
 
         FileItem item = (FileItem) content.getRequestAttribute(RequestBuilderImpl.REQUEST_FILE);
         String filePath;
-        if(item == null){
+        if (item == null) {
             throw new EmptyFileException();
         } else {
             String fileName = UUID.randomUUID().toString();
@@ -107,12 +108,27 @@ public class RequestService {
     }
 
     /**
+     * Gets all news on page.
+     *
+     * @param page number of page
+     * @return the all requests
+     * @throws ServiceException the service exception
+     */
+    public List<Request> getAllRequests(int page) throws ServiceException {
+        try {
+            return requestDao.findAll(page);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    /**
      * Gets all requests.
      *
      * @return the all requests
      * @throws ServiceException the service exception
      */
-    public List<Request> getAllRequests() throws ServiceException {
+    private List<Request> getAllRequests() throws ServiceException {
         try {
             return requestDao.findAll();
         } catch (DaoException e) {
@@ -171,5 +187,16 @@ public class RequestService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+    }
+
+    /**
+     * Returns number of pages requests.
+     *
+     * @return the int
+     * @throws ServiceException the service exception
+     */
+    public final int pageAmount() throws ServiceException {
+        List<Request> requestList = getAllRequests();
+        return requestList.size() / NEWS_ON_PAGE + 1;
     }
 }

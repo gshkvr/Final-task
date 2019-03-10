@@ -20,6 +20,7 @@ import java.util.Optional;
 public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K, T> {
     private final BuilderFactory builderFactory = BuilderFactory.getInstance();
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final int ROWS_ON_PAGE = 6;
 
     @Override
     public List<T> findAll() throws DaoException {
@@ -27,21 +28,42 @@ public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K,
         return executeListQuery(query);
     }
 
+    @Override
+    public List<T> findAll(int page) throws DaoException {
+        String query = getFindAllPageQuery();
+        return executeListQuery(query, (page - 1) * ROWS_ON_PAGE);
+    }
+
     private List<T> executeListQuery(String query, Object... parameters) throws DaoException {
         try (ProxyConnection connection = connectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
-            Builder builder = builderFactory.getBuilder(getTableName());
             setParameters(statement, parameters);
             ResultSet resultSet = statement.executeQuery();
-            List<T> result = new ArrayList<>();
-            while (resultSet.next()) {
-                T item = (T) builder.build(resultSet);
-                result.add(item);
-            }
-            return result;
+            return buildList(resultSet);
         } catch (SQLException | BuilderException | ProxyConnectionException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
+    }
+
+    private List<T> executeListQuery(String query, int parameter) throws DaoException {
+        try (ProxyConnection connection = connectionPool.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            setParameter(statement, parameter);
+            ResultSet resultSet = statement.executeQuery();
+            return buildList(resultSet);
+        } catch (SQLException | BuilderException | ProxyConnectionException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    private List<T> buildList(ResultSet resultSet) throws SQLException, BuilderException {
+        Builder builder = builderFactory.getBuilder(getTableName());
+        List<T> result = new ArrayList<>();
+        while (resultSet.next()) {
+            T item = (T) builder.build(resultSet);
+            result.add(item);
+        }
+        return result;
     }
 
     @Override
@@ -103,6 +125,14 @@ public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K,
         }
     }
 
+    private void setParameter(PreparedStatement statement, int parameter) throws DaoException {
+        try {
+            statement.setInt(1, parameter);
+        } catch (SQLException e) {
+            throw new DaoException("Can't set parameters");
+        }
+    }
+
     private void setParameters(PreparedStatement statement, Object[] parameters) throws DaoException {
         try {
             for (int i = 0; i < parameters.length; i++) {
@@ -137,6 +167,8 @@ public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K,
     protected abstract List<String> getParametersForCreate(T entity);
 
     protected abstract String getFindAllQuery();
+
+    protected abstract String getFindAllPageQuery();
 
     protected abstract String getFindEntityByIdQuery();
 

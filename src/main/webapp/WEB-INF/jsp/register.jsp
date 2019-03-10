@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="webjars/font-awesome/5.7.2/css/all.css">
         <script src="webjars/jquery/3.3.1/jquery.js"></script>
         <script src="webjars/bootstrap/4.2.1/js/bootstrap.js"></script>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css" />
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
     </head>
     <body>
         <%@include file="../jspf/header.jspf" %>

@@ -44,6 +44,19 @@ public class NewsDaoImpl extends AbstractDao<Integer, News> implements NewsDao {
             "       interpol.news.default_text AS default_text\n" +
             "       FROM interpol.news news\n" +
             "       ORDER BY news.date desc ";
+
+    private static final String SELECT_NEWS_ALL_PAGE = "SELECT interpol.news.id AS news_id,\n" +
+            "       interpol.news.date AS date,\n" +
+            "       interpol.news.ru_title AS ru_title,\n" +
+            "       interpol.news.en_title AS en_title,\n" +
+            "       interpol.news.default_title AS default_title,\n" +
+            "       interpol.news.ru_text AS ru_text,\n" +
+            "       interpol.news.en_text AS en_text,\n" +
+            "       interpol.news.default_text AS default_text\n" +
+            "       FROM interpol.news news\n" +
+            "       ORDER BY news.date desc\n" +
+            "       LIMIT 6 OFFSET ? ";
+
     private static final String SELECT_NEWS_BY_ID = "SELECT interpol.news.id AS news_id,\n" +
             "       interpol.news.date AS date,\n" +
             "       interpol.news.ru_title AS ru_title,\n" +
@@ -54,12 +67,15 @@ public class NewsDaoImpl extends AbstractDao<Integer, News> implements NewsDao {
             "       interpol.news.default_text AS default_text\n" +
             "       FROM interpol.news news\n" +
             "       WHERE news.id = ?";
+
     private static final String CREATE_NEWS = "insert into interpol.news (date, ru_title, ru_text, " +
             "       en_title, en_text, default_title, default_text) " +
             "       values (?,?,?,?,?,?,?)";
+
     private static final String UPDATE_NEWS = "update interpol.news set date=?, ru_title=?, ru_text=?, " +
             "       en_title=?, en_text=?, default_title=?, default_text=? " +
             "       where id=?";
+
     private static final String DELETE_NEWS = "delete from interpol.news where id=?";
 
     @Override
@@ -75,6 +91,11 @@ public class NewsDaoImpl extends AbstractDao<Integer, News> implements NewsDao {
     @Override
     protected String getFindAllQuery() {
         return SELECT_NEWS_ALL;
+    }
+
+    @Override
+    protected String getFindAllPageQuery() {
+        return SELECT_NEWS_ALL_PAGE;
     }
 
     @Override

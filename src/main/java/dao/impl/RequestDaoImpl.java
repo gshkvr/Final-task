@@ -46,6 +46,17 @@ public class RequestDaoImpl extends AbstractDao<Integer, Request> implements Req
             "       FROM interpol.request request\n" +
             "       ORDER BY request.id desc ";
 
+    private static final String SELECT_REQUEST_ALL_PAGE = "SELECT interpol.request.id AS request_id,\n" +
+            "       interpol.request.sex_id AS sex_id,\n" +
+            "       interpol.request.type_id AS type_id,\n" +
+            "       interpol.request.full_name AS full_name,\n" +
+            "       interpol.request.nationality AS nationality,\n" +
+            "       interpol.request.birth_date AS birth_date,\n" +
+            "       interpol.request.file_link AS file_link\n" +
+            "       FROM interpol.request request\n" +
+            "       ORDER BY request.id desc \n" +
+            "       LIMIT 6 OFFSET ? ";
+
     private static final String SELECT_REQUEST_BY_ID = "SELECT interpol.request.id AS request_id,\n" +
             "       interpol.request.sex_id AS sex_id,\n" +
             "       interpol.request.type_id AS type_id,\n" +
@@ -79,6 +90,11 @@ public class RequestDaoImpl extends AbstractDao<Integer, Request> implements Req
     @Override
     protected String getFindAllQuery() {
         return SELECT_REQUEST_ALL;
+    }
+
+    @Override
+    protected String getFindAllPageQuery() {
+        return SELECT_REQUEST_ALL_PAGE;
     }
 
     @Override

@@ -4,16 +4,16 @@ import builder.impl.RequestBuilderImpl;
 import controller.SessionRequestContent;
 import dao.PersonDao;
 import dao.exception.DaoException;
+import dao.impl.MissingPersonDaoImpl;
 import dao.impl.PersonDaoImpl;
+import dao.impl.WantedPersonDaoImpl;
 import entity.Person;
-import entity.PersonType;
 import entity.Request;
 import service.exception.NoSuchRequestException;
 import service.exception.ServiceException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Provides methods to work with {@link Person}
@@ -39,8 +39,11 @@ public class PersonService {
         private static final PersonService INSTANCE = new PersonService();
     }
 
+    private static final int PERSONS_ON_PAGE = 6;
     private final RequestService requestService = RequestService.getInstance();
     private final PersonDao personDao = PersonDaoImpl.getInstance();
+    private final PersonDao wantedPersonDao = WantedPersonDaoImpl.getInstance();
+    private final PersonDao missingPersonDao = MissingPersonDaoImpl.getInstance();
 
     /**
      * Create person.
@@ -62,18 +65,60 @@ public class PersonService {
         }
     }
 
+    private void addPerson(Person person) throws ServiceException {
+        try {
+            personDao.create(person);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    /**
+     * Returns number of pages missing persons.
+     *
+     * @return the int
+     * @throws ServiceException the service exception
+     */
+    public final int pageMissingAmount() throws ServiceException {
+        List<Person> missingPersons = getAllMissingPersons();
+        return missingPersons.size() / PERSONS_ON_PAGE + 1;
+    }
+
+    /**
+     * Returns number of pages wanted persons.
+     *
+     * @return the int
+     * @throws ServiceException the service exception
+     */
+    public final int pageWantedAmount() throws ServiceException {
+        List<Person>  wantedPersons = getAllWantedPersons();
+        return wantedPersons.size() / PERSONS_ON_PAGE + 1;
+    }
+
     /**
      * Gets all wanted persons.
      *
      * @return the all wanted persons
      * @throws ServiceException the service exception
      */
-    public List<Person> getAllWantedPersons() throws ServiceException {
+    private List<Person> getAllWantedPersons() throws ServiceException {
         try {
-            return personDao.findAll()
-                    .stream()
-                    .filter(person -> person.getType() == PersonType.WANTED)
-                    .collect(Collectors.toList());
+            return wantedPersonDao.findAll();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    /**
+     * Gets all wanted persons on page.
+     *
+     * @param page number of page
+     * @return the all wanted persons
+     * @throws ServiceException the service exception
+     */
+    public List<Person> getAllWantedPersons(int page) throws ServiceException {
+        try {
+            return wantedPersonDao.findAll(page);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -85,22 +130,27 @@ public class PersonService {
      * @return the all missing persons
      * @throws ServiceException the service exception
      */
-    public List<Person> getAllMissingPersons() throws ServiceException {
+    private List<Person> getAllMissingPersons() throws ServiceException {
         try {
-            return personDao.findAll()
-                    .stream()
-                    .filter(person -> person.getType() == PersonType.MISSING)
-                    .collect(Collectors.toList());
+            return missingPersonDao.findAll();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    private void addPerson(Person person) throws ServiceException {
+    /**
+     * Gets all missing persons on page.
+     *
+     * @param page number of page
+     * @return the all wanted persons
+     * @throws ServiceException the service exception
+     */
+    public List<Person> getAllMissingPersons(int page) throws ServiceException {
         try {
-            personDao.create(person);
+            return missingPersonDao.findAll(page);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
+
 }

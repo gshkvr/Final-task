@@ -36,6 +36,7 @@ public class NewsService {
         private static final NewsService INSTANCE = new NewsService();
     }
 
+    private static final int NEWS_ON_PAGE = 6;
     private static final String NEW_ROW = "\r\n";
     private static final String OPEN_TAG = "<p>";
     private static final String CLOSE_TAG = "</p>";
@@ -62,20 +63,35 @@ public class NewsService {
     }
 
     /**
-     * Gets all news.
+     * Gets all news on page.
      *
+     * @param page number of page
      * @return the all news
      * @throws ServiceException the service exception
      */
-    public List<News> getAllNews() throws ServiceException {
+    public List<News> getAllNews(int page) throws ServiceException {
         try {
-            List<News> newsList = newsDao.findAll();
+            List<News> newsList = newsDao.findAll(page);
             newsList.forEach(news -> {
                 news.setRuText(formatText(news.getRuText()));
                 news.setEnText(formatText(news.getEnText()));
                 news.setDefaultText(formatText(news.getDefaultText()));
             });
             return newsList;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    /**
+     * Gets all news.
+     *
+     * @return the all news
+     * @throws ServiceException the service exception
+     */
+    private List<News> getAllNews() throws ServiceException {
+        try {
+            return newsDao.findAll();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -172,5 +188,16 @@ public class NewsService {
             result.append(OPEN_TAG).append(t).append(CLOSE_TAG);
         }
         return result.toString();
+    }
+
+    /**
+     * Returns number of pages news.
+     *
+     * @return the int
+     * @throws ServiceException the service exception
+     */
+    public final int pageAmount() throws ServiceException {
+        List<News> newsList = getAllNews();
+        return newsList.size() / NEWS_ON_PAGE + 1;
     }
 }

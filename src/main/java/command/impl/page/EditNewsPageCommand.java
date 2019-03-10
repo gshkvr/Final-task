@@ -19,7 +19,7 @@ public class EditNewsPageCommand implements Command {
     private static final String EDIT_NEWS_PAGE = ConfigurationManager.getProperty("page.edit.news");
     private static final String EDIT_NEWS_PAGE_COMMAND = ConfigurationManager.getProperty("command.edit.news.page");
     private static final String ATTRIBUTE_NEWS_ID = ConfigurationManager.getProperty("attribute.news.id");
-    private static final String LOCALE_COMMAND = "localeCommand";
+    private static final String CURRENT_COMMAND = "currentCommand";
     private static final String ERROR_PARAMETER = "errorAddNews";
     private static final String NEWS_PARAM = "editNews";
     private final NewsService newsService = NewsService.getInstance();
@@ -30,13 +30,13 @@ public class EditNewsPageCommand implements Command {
         try {
             News news = newsService.getNews(content);
             content.setRequestAttribute(NEWS_PARAM, news);
-            content.setRequestAttribute(LOCALE_COMMAND, EDIT_NEWS_PAGE_COMMAND + ATTRIBUTE_NEWS_ID + news.getId());
+            content.setRequestAttribute(CURRENT_COMMAND, EDIT_NEWS_PAGE_COMMAND + ATTRIBUTE_NEWS_ID + news.getId());
             String error = content.getRequestParameter(ERROR_PARAMETER);
             if (error != null) {
-                content.setRequestAttribute(LOCALE_COMMAND, EDIT_NEWS_PAGE_COMMAND + ATTRIBUTE_NEWS_ID + news.getId() + ConfigurationManager.getProperty(error));
+                content.setRequestAttribute(CURRENT_COMMAND, EDIT_NEWS_PAGE_COMMAND + ATTRIBUTE_NEWS_ID + news.getId() + ConfigurationManager.getProperty(error));
                 content.setRequestAttribute(ERROR_PARAMETER, error);
             }
-            content.setRequestAttribute(LOCALE_COMMAND, EDIT_NEWS_PAGE_COMMAND + ATTRIBUTE_NEWS_ID + news.getId());
+            content.setRequestAttribute(CURRENT_COMMAND, EDIT_NEWS_PAGE_COMMAND + ATTRIBUTE_NEWS_ID + news.getId());
         } catch (NoSuchNewsException | ServiceException e) {
             throw new CommandException(e);
         }

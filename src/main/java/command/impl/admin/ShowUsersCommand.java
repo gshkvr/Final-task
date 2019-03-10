@@ -16,14 +16,14 @@ import service.exception.ServiceException;
 public class ShowUsersCommand implements Command {
     private static final String USERS_PAGE = ConfigurationManager.getProperty("page.users");
     private static final String USERS_COMMAND = ConfigurationManager.getProperty("command.users");
-    private static final String LOCALE_COMMAND = "localeCommand";
+    private static final String CURRENT_COMMAND = "currentCommand";
     private final UserService userService = UserService.getInstance();
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {
         try {
             content.setRequestAttribute("allUsers", userService.getAllUsers());
-            content.setRequestAttribute(LOCALE_COMMAND, USERS_COMMAND);
+            content.setRequestAttribute(CURRENT_COMMAND, USERS_COMMAND);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
