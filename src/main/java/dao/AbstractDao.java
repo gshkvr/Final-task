@@ -17,6 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Provides methods for work with database tables.
+ * Gets information from tables and pits it into
+ * objects to work with them in java environment.
+ * Information puts in objects that extends
+ * {@link AbstractEntity}.
+ *
+ * @param <K> type of additional parameter
+ * @param <T> type of object which will return
+ * @author George Kvirikashvili
+ */
 public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K, T> {
     private final BuilderFactory builderFactory = BuilderFactory.getInstance();
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -72,6 +83,14 @@ public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K,
         return executeEntityQuery(query, id);
     }
 
+    /**
+     * Execute entity query optional.
+     *
+     * @param query      the query
+     * @param parameters the parameters
+     * @return the optional
+     * @throws DaoException the dao exception
+     */
     protected Optional<T> executeEntityQuery(String query, Object... parameters) throws DaoException {
         List<T> queryResult = executeListQuery(query, parameters);
         return queryResult.size() == 1
@@ -164,19 +183,60 @@ public abstract class AbstractDao<K, T extends AbstractEntity> implements Dao<K,
         }
     }
 
+    /**
+     * Gets parameters for create.
+     *
+     * @param entity the entity
+     * @return the parameters for create
+     */
     protected abstract List<String> getParametersForCreate(T entity);
 
+    /**
+     * Gets find all query.
+     *
+     * @return the find all query
+     */
     protected abstract String getFindAllQuery();
 
+    /**
+     * Gets find all page query.
+     *
+     * @return the find all page query
+     */
     protected abstract String getFindAllPageQuery();
 
+    /**
+     * Gets find entity by id query.
+     *
+     * @return the find entity by id query
+     */
     protected abstract String getFindEntityByIdQuery();
 
+    /**
+     * Gets create query.
+     *
+     * @return the create query
+     */
     public abstract String getCreateQuery();
 
+    /**
+     * Gets update query.
+     *
+     * @return the update query
+     */
     public abstract String getUpdateQuery();
 
+    /**
+     * Gets delete query.
+     *
+     * @return the delete query
+     */
     public abstract String getDeleteQuery();
 
+    /**
+     * Gets table name.
+     *
+     * @return the table name
+     */
     protected abstract String getTableName();
 }

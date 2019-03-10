@@ -12,10 +12,20 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * Connection pool contains queue of connections.
+ *
+ * @author George Kvirikashvili
+ */
 public class ConnectionPool {
     private ConnectionPool() {
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static ConnectionPool getInstance() {
         return ConnectionPool.InstanceHolder.INSTANCE;
     }
@@ -34,6 +44,11 @@ public class ConnectionPool {
     private final LinkedBlockingQueue<ProxyConnection> availableConnections = new LinkedBlockingQueue<>();
     private final ArrayDeque<ProxyConnection> usedConnections = new ArrayDeque<>();
 
+    /**
+     * Initialize connections in connection pool.
+     *
+     * @throws ConnectionPoolException the connection pool exception
+     */
     public void initialize() throws ConnectionPoolException {
         try {
             Class.forName(DB_DRIVER);
@@ -47,6 +62,12 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Gets connection.
+     *
+     * @return the connection
+     * @throws ConnectionPoolException the connection pool exception
+     */
     public ProxyConnection getConnection() throws ConnectionPoolException {
         try {
             ProxyConnection connection = availableConnections.take();
@@ -57,6 +78,12 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Return connection.
+     *
+     * @param connection the connection
+     * @throws ConnectionPoolException the connection pool exception
+     */
     void returnConnection(ProxyConnection connection) throws ConnectionPoolException {
         try {
             usedConnections.remove(connection);
@@ -66,6 +93,11 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Close connections in connection pool.
+     *
+     * @throws ConnectionPoolException the connection pool exception
+     */
     public final void close() throws ConnectionPoolException {
         try {
             closeConnections(usedConnections);
