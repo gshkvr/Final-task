@@ -22,7 +22,22 @@ public class AddNewsCommand implements Command {
     private static final String ERROR_EN_TITLE = ConfigurationManager.getProperty("error.add.news.en.title");
     private static final String ERROR_EN_TEXT = ConfigurationManager.getProperty("error.add.news.en.text");
     private static final String ERROR_DATE = ConfigurationManager.getProperty("error.add.news.date");
-    private final NewsService newsService = NewsService.getInstance();
+    private NewsService newsService = NewsService.getInstance();
+
+    /**
+     * Default constructor with default NewsService.
+     */
+    public AddNewsCommand() {
+    }
+
+    /**
+     * Constructor with NewsService for test.
+     *
+     * @param newsService test NewsService
+     */
+    AddNewsCommand(NewsService newsService) {
+        this.newsService = newsService;
+    }
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {

@@ -19,7 +19,22 @@ import service.exception.ServiceException;
  */
 public class AcceptRequestCommand implements Command {
     private static final String REQUESTS_PAGE = ConfigurationManager.getProperty("command.show.request.page");
-    private final PersonService personService = PersonService.getInstance();
+    private PersonService personService = PersonService.getInstance();
+
+    /**
+     * Default constructor with default PersonService.
+     */
+    public AcceptRequestCommand() {
+    }
+
+    /**
+     * Constructor with PersonService for test.
+     *
+     * @param personService test PersonService
+     */
+    AcceptRequestCommand(PersonService personService) {
+        this.personService = personService;
+    }
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {

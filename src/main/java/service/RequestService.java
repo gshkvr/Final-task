@@ -58,7 +58,7 @@ public class RequestService {
      * @throws EmptyBirthDateException   the empty birth date exception
      * @throws EmptyNationalityException the empty nationality exception
      */
-    public void createRequest(SessionRequestContent content) throws EmptyNameException, ServiceException, EmptyFileException, EmptySexException, EmptyTypeException, EmptyBirthDateException, EmptyNationalityException {
+    public boolean createRequest(SessionRequestContent content) throws EmptyNameException, ServiceException, EmptyFileException, EmptySexException, EmptyTypeException, EmptyBirthDateException, EmptyNationalityException {
         String fullName = content.getRequestParameter(RequestBuilderImpl.FULL_NAME);
         if (fullName == null || "".equals(fullName)) {
             throw new EmptyNameException();
@@ -105,6 +105,7 @@ public class RequestService {
 
         Request request = new Request(0, sex, type, fullName, nationality, birthDate, filePath);
         addRequest(request);
+        return true;
     }
 
     /**
@@ -165,11 +166,12 @@ public class RequestService {
      * @param content the content
      * @throws ServiceException the service exception
      */
-    public void declineRequest(SessionRequestContent content) throws ServiceException {
+    public boolean declineRequest(SessionRequestContent content) throws ServiceException {
         try {
             String sRequestId = content.getRequestParameter(RequestBuilderImpl.REQUEST_ID);
             int requestId = Integer.parseInt(sRequestId);
             requestDao.delete(requestId, true);
+            return true;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

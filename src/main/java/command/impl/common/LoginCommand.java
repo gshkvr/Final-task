@@ -19,7 +19,22 @@ public class LoginCommand implements Command {
     private static final String LOGIN_PAGE_COMMAND = ConfigurationManager.getProperty("command.login.page");
     private static final String LOGIN_ERROR = ConfigurationManager.getProperty("error.login");
 
-    private final UserService userService = UserService.getInstance();
+    private UserService userService = UserService.getInstance();
+
+    /**
+     * Default constructor with default UserService.
+     */
+    public LoginCommand() {
+    }
+
+    /**
+     * Constructor with UserService for test.
+     *
+     * @param userService test UserService
+     */
+    LoginCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {

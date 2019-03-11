@@ -21,13 +21,13 @@ public class PersonBuilderImpl implements Builder<Person> {
      * Constants to get values from sql request.
      */
     public static final String TABLE_NAME = "person";
-    private static final String PERSON_ID = "person_id";
-    private static final String FULL_NAME = "full_name";
-    private static final String SEX_ID = "sex_id";
-    private static final String TYPE_ID = "type_id";
-    private static final String BIRTH_DATE = "birth_date";
-    private static final String NATIONALITY = "nationality";
-    private static final String FILE_LINK = "file_link";
+    static final String PERSON_ID = "person_id";
+    static final String FULL_NAME = "full_name";
+    static final String SEX_ID = "sex_id";
+    static final String TYPE_ID = "type_id";
+    static final String BIRTH_DATE = "birth_date";
+    static final String NATIONALITY = "nationality";
+    static final String FILE_LINK = "file_link";
 
     private PersonBuilderImpl() {
     }

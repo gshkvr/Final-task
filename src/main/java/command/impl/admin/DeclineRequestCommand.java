@@ -15,8 +15,23 @@ import service.exception.ServiceException;
  * @author George Kvirikashvili
  */
 public class DeclineRequestCommand implements Command {
-    private final RequestService requestService = RequestService.getInstance();
     private static final String REQUESTS_PAGE = ConfigurationManager.getProperty("command.show.request.page");
+    private RequestService requestService = RequestService.getInstance();
+
+    /**
+     * Default constructor with default RequestService.
+     */
+    public DeclineRequestCommand() {
+    }
+
+    /**
+     * Constructor with RequestService for test.
+     *
+     * @param requestService test RequestService
+     */
+    DeclineRequestCommand(RequestService requestService) {
+        this.requestService = requestService;
+    }
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {

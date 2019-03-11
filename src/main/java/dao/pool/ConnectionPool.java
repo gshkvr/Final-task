@@ -103,7 +103,7 @@ public class ConnectionPool {
             closeConnections(usedConnections);
             closeConnections(availableConnections);
         } catch (ProxyConnectionException e) {
-            LOGGER.info("Couldn't close connections in connection pool");
+            LOGGER.fatal("Couldn't close connections in connection pool");
             throw new ConnectionPoolException(e);
         }
     }

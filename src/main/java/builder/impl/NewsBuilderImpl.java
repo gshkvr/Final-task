@@ -26,8 +26,8 @@ public class NewsBuilderImpl implements Builder<News> {
     public static final String EN_TITLE = "en_title";
     public static final String EN_TEXT = "en_text";
     public static final String DEFAULT_LANG = "default_lang";
-    private static final String DEFAULT_TITLE = "default_title";
-    private static final String DEFAULT_TEXT = "default_text";
+    static final String DEFAULT_TITLE = "default_title";
+    static final String DEFAULT_TEXT = "default_text";
 
     private NewsBuilderImpl() {
     }

@@ -52,7 +52,7 @@ public class PersonService {
      * @throws ServiceException       the service exception
      * @throws NoSuchRequestException the no such request exception
      */
-    public void createPerson(SessionRequestContent content) throws ServiceException, NoSuchRequestException {
+    public boolean createPerson(SessionRequestContent content) throws ServiceException, NoSuchRequestException {
         String sId = content.getRequestParameter(RequestBuilderImpl.REQUEST_ID);
         int id = Integer.parseInt(sId);
         Optional<Request> optionalRequest = requestService.findRequestById(id);
@@ -60,6 +60,7 @@ public class PersonService {
             Person person = optionalRequest.get();
             requestService.deleteRequest(id);
             addPerson(person);
+            return true;
         } else {
             throw new NoSuchRequestException();
         }

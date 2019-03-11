@@ -24,7 +24,22 @@ public class AddRequestCommand implements Command {
     private static final String TYPE_ERROR = ConfigurationManager.getProperty("error.request.type");
     private static final String NATIONALITY_ERROR = ConfigurationManager.getProperty("error.request.nationality");
     private static final String BIRTH_DATE_ERROR = ConfigurationManager.getProperty("error.request.birth.date");
-    private final RequestService requestService = RequestService.getInstance();
+    private RequestService requestService = RequestService.getInstance();
+
+    /**
+     * Default constructor with default RequestService.
+     */
+    public AddRequestCommand() {
+    }
+
+    /**
+     * Constructor with RequestService for test.
+     *
+     * @param requestService test UserService
+     */
+    AddRequestCommand(RequestService requestService) {
+        this.requestService = requestService;
+    }
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {

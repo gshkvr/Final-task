@@ -53,10 +53,11 @@ public class NewsService {
      * @throws EmptyEnTextException  the empty en text exception
      * @throws EmptyDateException    the empty date exception
      */
-    public void addNews(SessionRequestContent content) throws ServiceException, EmptyRuTitleException, EmptyRuTextException, EmptyEnTitleException, EmptyEnTextException, EmptyDateException {
+    public boolean addNews(SessionRequestContent content) throws ServiceException, EmptyRuTitleException, EmptyRuTextException, EmptyEnTitleException, EmptyEnTextException, EmptyDateException {
         News news = getNewsFromRequestContent(content);
         try {
             newsDao.create(news);
+            return true;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -131,10 +132,11 @@ public class NewsService {
      * @throws EmptyRuTitleException the empty ru title exception
      * @throws ServiceException      the service exception
      */
-    public void updateNews(SessionRequestContent content) throws EmptyDateException, EmptyRuTextException, EmptyEnTitleException, EmptyEnTextException, EmptyRuTitleException, ServiceException {
+    public boolean updateNews(SessionRequestContent content) throws EmptyDateException, EmptyRuTextException, EmptyEnTitleException, EmptyEnTextException, EmptyRuTitleException, ServiceException {
         News news = getNewsFromRequestContent(content);
         try {
             newsDao.update(news);
+            return true;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

@@ -16,7 +16,22 @@ import service.exception.ServiceException;
  */
 public class DeleteUserCommand implements Command {
     private static final String USERS_COMMAND = ConfigurationManager.getProperty("command.users");
-    private final UserService userService = UserService.getInstance();
+    private UserService userService = UserService.getInstance();
+
+    /**
+     * Default constructor with default UserService.
+     */
+    public DeleteUserCommand() {
+    }
+
+    /**
+     * Constructor with UserService for test.
+     *
+     * @param userService test UserService
+     */
+    DeleteUserCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {

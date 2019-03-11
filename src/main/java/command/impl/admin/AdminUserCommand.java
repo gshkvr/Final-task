@@ -15,7 +15,22 @@ import service.exception.ServiceException;
  */
 public class AdminUserCommand implements Command {
     private static final String USERS_COMMAND = ConfigurationManager.getProperty("command.users");
-    private final UserService userService = UserService.getInstance();
+    private UserService userService = UserService.getInstance();
+
+    /**
+     * Default constructor with default UserService.
+     */
+    public AdminUserCommand() {
+    }
+
+    /**
+     * Constructor with UserService for test.
+     *
+     * @param userService test UserService
+     */
+    AdminUserCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {

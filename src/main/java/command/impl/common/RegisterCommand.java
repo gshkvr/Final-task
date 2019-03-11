@@ -23,7 +23,22 @@ public class RegisterCommand implements Command {
     private static final String LOGIN_EXISTS_ERROR = ConfigurationManager.getProperty("error.register.login");
     private static final String EMAIL_EXISTS_ERROR = ConfigurationManager.getProperty("error.register.email");
     private static final String INCORRECT_PASSWORD_ERROR = ConfigurationManager.getProperty("error.register.password");
-    private final UserService userService = UserService.getInstance();
+    private UserService userService = UserService.getInstance();
+
+    /**
+     * Default constructor with default UserService.
+     */
+    public RegisterCommand() {
+    }
+
+    /**
+     * Constructor with UserService for test.
+     *
+     * @param userService test UserService
+     */
+    RegisterCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public Page execute(SessionRequestContent content) throws CommandException {

@@ -47,7 +47,7 @@ public class UserService {
      * @throws ServiceException    the service exception
      * @throws NoSuchUserException the no such user exception
      */
-    public void loginUser(SessionRequestContent content) throws ServiceException, NoSuchUserException {
+    public boolean loginUser(SessionRequestContent content) throws ServiceException, NoSuchUserException {
         String login = content.getRequestParameter(UserBuilderImpl.LOGIN);
         String pass = content.getRequestParameter(UserBuilderImpl.PASSWORD);
         Optional<User> optionalUser = findUserByLogin(login);
@@ -56,6 +56,7 @@ public class UserService {
             if (cryptUtil.checkPassword(pass, user.getPassword())) {
                 content.setSessionAttribute(UserBuilderImpl.TABLE_NAME, user.getLogin());
                 content.setSessionAttribute(UserBuilderImpl.USER_ROLE, user.getRole().getValue());
+                return true;
             } else {
                 throw new NoSuchUserException();
             }
@@ -73,7 +74,7 @@ public class UserService {
      * @throws EmailExistsException       the email exists exception
      * @throws NotEqualPasswordsException the not equal passwords exception
      */
-    public void registerUser(SessionRequestContent content) throws ServiceException, LoginExistsException, EmailExistsException, NotEqualPasswordsException {
+    public boolean registerUser(SessionRequestContent content) throws ServiceException, LoginExistsException, EmailExistsException, NotEqualPasswordsException {
         String login = content.getRequestParameter(UserBuilderImpl.LOGIN);
         if (checkLoginExists(login)) {
             throw new LoginExistsException();
@@ -97,6 +98,7 @@ public class UserService {
         User user = new User(0, UserRole.CLIENT, login, password, email, firstName, lastName);
 
         addUser(user);
+        return true;
     }
 
     /**
@@ -153,11 +155,12 @@ public class UserService {
      * @param content the content
      * @throws ServiceException the service exception
      */
-    public void deleteUser(SessionRequestContent content) throws ServiceException {
+    public boolean deleteUser(SessionRequestContent content) throws ServiceException {
         try {
             String sUserId = content.getRequestParameter(UserBuilderImpl.USER_ID);
             int userId = Integer.parseInt(sUserId);
             userDao.delete(userId, true);
+            return true;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -169,7 +172,7 @@ public class UserService {
      * @param content the content
      * @throws ServiceException the service exception
      */
-    public void makeUserAdmin(SessionRequestContent content) throws ServiceException {
+    public boolean makeUserAdmin(SessionRequestContent content) throws ServiceException {
         try {
             String sUserId = content.getRequestParameter(UserBuilderImpl.USER_ID);
             int userId = Integer.parseInt(sUserId);
@@ -179,6 +182,7 @@ public class UserService {
                 UserRole admin = UserRole.ADMIN;
                 user.setRole(admin);
                 userDao.update(user);
+                return true;
             } else {
                 throw new ServiceException("Can't make user with id = " + userId + " admin");
             }
